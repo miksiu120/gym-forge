@@ -1,0 +1,35 @@
+@use "../../../../styles/utilities/index";
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: index.$black;
+  color: index.$white;
+  font-size: index.$medium;
+  width: 100%;
+  position: fixed;
+  text-transform: capitalize;
+  .logo {
+    &__title {
+      font-family: "Bebas neue", sans-serif;
+    }
+    padding-right: index.$large;
+    background-color: index.$white;
+    color: index.$black;
+    padding: index.$small;
+    letter-spacing: 2px;
+    cursor: pointer;
+  }
+
+  .menu {
+    a {
+      font-size: index.$small;
+      padding: index.$small;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+    }
+  }
+}
