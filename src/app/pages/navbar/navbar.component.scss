@@ -1,0 +1,84 @@
+@use "../../../styles/utilities/index";
+
+:host {
+  position: fixed;
+  width: 100%;
+  background-color: index.$black;
+  color: index.$white;
+  text-transform: capitalize;
+  z-index: 250;
+  padding: index.$xsmall/2 index.$xsmall;
+  box-shadow: index.$bottom-shadow;
+  
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .logo {
+      font-size: index.$small;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .burger-icon {
+      font-size: index.$large;
+      padding: index.$xsmall;
+      cursor: pointer;
+    }
+
+    .menu {
+      display: none;
+      flex-direction: row;
+
+      &__element {
+        font-size: index.$xsmall;
+        padding: index.$xsmall;
+        color: index.$white;
+        text-decoration: none;
+        font-weight: 200;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        cursor: pointer;
+
+        @include index.nav-hover-transition(index.$white);
+
+        &--active {
+          background-color: index.$white;
+          color: index.$black;
+          @include index.nav-hover-transition(index.$black);
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  :host {
+    padding: 0 index.$xsmall;
+    .container {
+      .menu {
+        display: flex;
+      }
+      .burger-icon {
+        display: none;
+      }
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  :host {
+    .container {
+      .logo {
+        font-size: index.$medium;
+      }
+      .menu {
+        &__element {
+          font-size: index.$small;
+        }
+      }
+    }
+  }
+}

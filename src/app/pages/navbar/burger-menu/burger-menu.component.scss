@@ -1,0 +1,41 @@
+@use "../../../../styles/utilities/index";
+
+.burger-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: index.$black;
+  color: index.$white;
+  z-index: -1;
+
+  &__element {
+    font-size: index.$large;
+    padding: index.$medium;
+    margin-top: index.$small;
+    text-transform: uppercase;
+    text-align: center;
+    cursor: pointer;
+    @include index.nav-hover-transition(index.$white);
+  }
+}
+
+.active {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  animation: slideIn 0.3s ease-out forwards;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}

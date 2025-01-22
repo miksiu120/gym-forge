@@ -1,0 +1,9 @@
+@if(isBurgerActive)
+{   
+<div [ngClass]="{ 'active': isBurgerActive }" class="burger-menu">
+    <a (click)="toggle()" class="burger-menu__element" routerLink="/calculators"
+        routerLinkActive="active">Calculators</a>
+    <a (click)="toggle()" class="burger-menu__element" routerLink="/login" routerLinkActive="active">Sign in</a>
+    <a (click)="toggle()" class="burger-menu__element" routerLink="/register" routerLinkActive="active">Sign up</a>
+</div>
+}

@@ -1,0 +1,33 @@
+@mixin nav-hover-transition($color) {
+  position: relative;
+  overflow: hidden;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 2px;
+    background-color: $color;
+    transition: left 0.4s ease-in-out;
+  }
+
+  &::before {
+    left: 100%;
+  }
+
+  &::after {
+    left: -50%;
+  }
+
+  &:hover {
+    &::before {
+      left: 50%;
+    }
+
+    &::after {
+      left: 0;
+    }
+  }
+}

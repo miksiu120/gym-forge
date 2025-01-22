@@ -1,0 +1,18 @@
+<div class="container">
+
+    <a class="logo" routerLink="" routerLinkActive="active">
+        <i class="fa-solid fa-dumbbell"></i> <span class="logo__title"> WORKPLANNER</span>
+    </a>
+
+    <div class="menu">
+        <a class="menu__element" routerLink="/calculators" routerLinkActive="active">Calculators</a>
+        <a class="menu__element" routerLink="/login" routerLinkActive="active">Sign in</a>
+        <a class="menu__element menu__element--active" routerLink="/register" routerLinkActive="active">Sign up</a>
+    </div>
+
+    <div (click)="toggleBurger()" class="burger-icon">
+        <i class="fa-solid fa-bars"></i>
+    </div>
+</div>
+<burger-menu (toggleBurger)="toggleBurger()" [isBurgerActive]="isBurgerActive">
+</burger-menu>

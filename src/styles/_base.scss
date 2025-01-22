@@ -1,8 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+@use "./utilities/index";
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Oswald", sans-serif;
+}
+
+body {
   font-weight: 200;
+  font-family: "Oswald", sans-serif;
+  min-height: 100vh;
 }
