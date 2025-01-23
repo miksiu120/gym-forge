@@ -1,0 +1,65 @@
+@use "../../../styles/utilities/index";
+
+:host {
+  position: relative;
+  display: block;
+  background-image: url("../../../assets/welcome/training-828726_1280.webp");
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+  width: 100%;
+  color: index.$white;
+  padding-top: 100px;
+  z-index: -1;
+  .title {
+    font-size: index.$large;
+  }
+  .description {
+    font-size: index.$medium;
+    padding: index.$medium;
+    padding-bottom: index.$xlarge;
+    margin: index.$small;
+    background-color: index.$black;
+    color: index.$white;
+    border: 2px solid index.$white;
+    position: relative;
+    z-index: -1;
+  }
+  .start-button {
+    // position: relative;
+    // padding: index.$xsmall index.$xlarge;
+    // font-size: index.$medium;
+    // color: index.$white;
+    // background-color: index.$black;
+    // border: 2px solid index.$white;
+    // font-weight: 400;
+    // text-decoration: none;
+     cursor: pointer;
+     z-index: 213;
+    // left: 40%;
+    // top: calc(0px - index.$small);
+   // @include index.object-background(index.$white, 100%, 100%);
+  }
+  .shadow {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgb(0, 0, 0);
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.87) 0%,
+      rgba(51, 51, 51, 0.1) 100%
+    );
+    z-index: -1;
+  }
+}
+
+@media (min-height: 1024px) {
+  :host {
+    background-image: url("../../../assets/welcome/training-828726_1920.webp");
+  }
+}

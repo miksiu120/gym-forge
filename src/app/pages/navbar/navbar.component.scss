@@ -9,7 +9,7 @@
   z-index: 250;
   padding: index.$xsmall/2 index.$xsmall;
   box-shadow: index.$bottom-shadow;
-  
+
   .container {
     display: flex;
     align-items: center;
@@ -17,6 +17,7 @@
     .logo {
       font-size: index.$small;
       font-weight: 500;
+      color: index.$white;
       letter-spacing: 2px;
       text-decoration: none;
       cursor: pointer;
