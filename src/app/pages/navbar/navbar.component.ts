@@ -4,9 +4,9 @@ import { RouterLinkActive, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'component-navbar',
-  imports: [BurgerMenuComponent, RouterModule, RouterLinkActive],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
+  imports: [BurgerMenuComponent, RouterLinkActive, RouterModule],
 })
 export class NavbarComponent {
   isBurgerActive = false;
