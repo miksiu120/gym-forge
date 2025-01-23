@@ -1,0 +1,94 @@
+@use "../../../../styles/utilities/index";
+
+:host {
+  display: block;
+  background-image: url("../../../../assets/welcome/training-828726_1280.webp");
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+  width: 100%;
+  color: index.$white;
+  padding-top: 100px;
+  .title {
+    position: relative;
+    font-size: index.$large;
+  }
+  .description {
+    position: relative;
+    font-size: index.$medium;
+    padding: index.$medium;
+    padding-bottom: index.$xlarge;
+    margin: index.$small;
+    background-color: index.$black;
+    color: index.$white;
+    border: 2px solid index.$white;
+  }
+  .start-button {
+    display: inline-block;
+    position: relative;
+    left: 35%;
+    top: calc(0px - index.$large);
+    padding: index.$xsmall index.$xlarge;
+    font-size: index.$medium;
+    color: index.$white;
+    background-color: index.$black;
+    border: 2px solid index.$white;
+    font-weight: 400;
+    text-decoration: none;
+    cursor: pointer;
+    //I have no idea why it doesn't work
+    @include index.object-background(index.$white, 100%, 100%);
+  }
+  .shadow {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgb(0, 0, 0);
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.87) 0%,
+      rgba(51, 51, 51, 0.1) 100%
+    );
+  }
+}
+
+@media (min-width: 768px) {
+  :host {
+    .title {
+      width: clamp(200px, 50%, 1000px);
+      margin-left: 15%;
+    }
+    .description {
+      width: clamp(150px, 40%, 800px);
+      margin-left: 15%;
+    }
+    .start-button {
+      left: 45%;
+      top: calc(0px - index.$xlarge);
+      transform: translate(0, 0);
+      //padding: index.$xsmall 80px;
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  :host {
+    background-image: url("../../../../assets/welcome/training-828726_1920.webp");
+
+    .title {
+      font-size: index.$xlarge;
+    }
+    .description {
+      padding-bottom: 100px;
+    }
+
+    .start-button {
+      font-size: index.$large;
+      padding: index.$xsmall 100px;
+    }
+  }
+}
