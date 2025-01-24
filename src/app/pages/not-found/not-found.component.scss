@@ -1,0 +1,34 @@
+@use "../../../styles/utilities/index";
+
+:host {
+  display: block;
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  .notFound {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .title {
+      font-size: index.$large;
+    }
+    .text {
+      font-size: index.$medium;
+    }
+  }
+}
+
+@media (min-height: 1024px) {
+  :host {
+    .container {
+      .notFound {
+        .title {
+          font-size: index.$xlarge;
+        }
+      }
+    }
+  }
+}

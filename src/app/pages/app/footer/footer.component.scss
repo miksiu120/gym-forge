@@ -1,0 +1,31 @@
+@use "../../../../styles/utilities/index";
+
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: index.$medium index.$large;
+  background-color: index.$black;
+  color: index.$white;
+  border-top: 1px solid index.$white;
+  .logo {
+    font-size: index.$large;
+    text-align: center;
+  }
+  .icons {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    font-size: index.$large;
+    i {
+      padding: index.$small;
+      margin: index.$small index.$medium;
+      cursor: pointer;
+      transition: 0.3s transform ease-in-out;
+      &:hover {
+        transform: rotate(45deg);
+      }
+    }
+  }
+}
