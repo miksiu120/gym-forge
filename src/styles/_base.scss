@@ -11,3 +11,51 @@ body {
   font-family: "Oswald", sans-serif;
   min-height: 100vh;
 }
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  margin: index.$medium;
+  &__square {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    margin-right: index.$small;
+    box-shadow: index.$shadow;
+  }
+  &__text {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: index.$shadow;
+  }
+
+  &-dark {
+    color: index.$black;
+    div {
+      background-color: index.$black;
+    }
+  }
+  &-white {
+    color: index.$white;
+    div {
+      background-color: index.$white;
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-title {
+    margin: index.$large;
+    &__square {
+      margin-right: index.$small;
+    }
+    &__text {
+      font-size: index.$large;
+    }
+  }
+}

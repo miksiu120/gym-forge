@@ -6,24 +6,6 @@
   display: block;
   padding: index.$medium 0 index.$xlarge 0;
 
-  .section-title {
-    display: flex;
-    align-items: center;
-    margin: index.$medium;
-    color: index.$white;
-    &__square {
-      position: relative;
-      width: 40px;
-      height: 40px;
-      background-color: index.$white;
-      margin-right: index.$small;
-    }
-    &__text {
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-  }
-
   .instructions {
     display: grid;
     place-items: center;
@@ -39,6 +21,10 @@
       color: index.$black;
       margin: index.$small;
       box-shadow: index.$shadow;
+      &:nth-child(n) {
+        animation: fromLeft 0.3s;
+      }
+
       &__number {
         position: relative;
         bottom: -14%;
@@ -67,15 +53,6 @@
 
 @media (min-width: 1024px) {
   :host {
-    .section-title {
-      margin: index.$large;
-      &__square {
-        margin-right: index.$small;
-      }
-      &__text {
-        font-size: index.$large;
-      }
-    }
 
     .instructions {
       grid-template-columns: 1fr 1fr;

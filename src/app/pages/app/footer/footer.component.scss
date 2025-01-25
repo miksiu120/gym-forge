@@ -7,11 +7,17 @@
   justify-content: center;
   padding: index.$medium index.$large;
   background-color: index.$black;
-  color: index.$white;
+  color: #ffffffad;
   border-top: 1px solid index.$white;
   .logo {
+    display: block;
     font-size: index.$large;
     text-align: center;
+    cursor: pointer;
+    transition: 0.4s color ease-in;
+    &:hover {
+      color: index.$white;
+    }
   }
   .icons {
     display: flex;
@@ -22,9 +28,10 @@
       padding: index.$small;
       margin: index.$small index.$medium;
       cursor: pointer;
-      transition: 0.3s transform ease-in-out;
+      transition: 0.3s transform ease-in-out, 0.4s color ease-in;
       &:hover {
         transform: rotate(45deg);
+        color: index.$white;
       }
     }
   }
