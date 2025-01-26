@@ -1,1 +1,33 @@
-login
+<div class="container">
+    <div class="side-bar">
+        <div class="shadow"></div>
+        <h2 class="title">
+            WELCOME BACK
+        </h2>
+        <p class="description">Have a nice trening! You're the best!</p>
+    </div>
+    <div class="login">
+        <div class="login__text">
+            <h3 class="login__title">
+                Sign in
+            </h3>
+            <p class="login__description">
+                Create an account to get started today.
+            </p>
+        </div>
+        <form action="">
+            <div class="form-group">
+                <label for="password">Email</label>
+                <input type="email" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button class="btn btn-login" type="submit">Login</button>
+            <p class="question">Don't have an account?</p>
+            <a routerLinkActive="active" routerLink="/register" class="btn btn-login">login</a>
+        </form>
+
+    </div>
+</div>

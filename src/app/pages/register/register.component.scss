@@ -1,7 +1,9 @@
 @use "../../../styles/utilities/index";
+
 :host {
   display: block;
   background-color: index.$black;
+
   .container {
     background-color: index.$white;
     min-height: 90vh;
@@ -10,19 +12,26 @@
     .side-bar {
       display: none;
     }
+
     .register {
       display: flex;
+      flex-direction: column;
+      justify-content: center;
       align-items: center;
       justify-content: center;
-      padding: index.$small;
+      padding: index.$medium;
+      padding-top: index.$xlarge * 2;
+
+      &__text {
+        align-self: flex-end;
+      }
+
       &__title {
         font-size: index.$large;
       }
-      &__text {
-      }
+
       form {
         display: flex;
-        padding: index.$medium;
         flex-direction: column;
         justify-content: center;
         color: index.$black;
@@ -35,11 +44,13 @@
           display: flex;
           flex-direction: column;
         }
+
         input {
-          font-size: index.$small;
-          padding: 4px;
+          font-size: index.$xsmall;
+          padding: calc(index.$xsmall / 2);
           border: 2px solid index.$black;
           transition: border-bottom 0.4s ease-in;
+
           &:focus {
             border: none;
             border-bottom: 3px solid rgb(0, 0, 0);
@@ -47,7 +58,7 @@
         }
 
         .btn {
-          padding: calc(index.$xsmall/1.5);
+          padding: calc(index.$xsmall / 1.5);
           color: index.$white;
           background-color: index.$black;
           border: none;
@@ -56,27 +67,36 @@
           font-size: index.$xsmall;
           font-weight: 500;
           cursor: pointer;
+          border: 1px solid index.$white;
+          transition: 0.3s color ease-in-out, 0.3s background-color ease-in-out;
+
+          &:hover {
+            background-color: index.$white;
+            color: index.$black;
+            border: 1px solid index.$black;
+          }
         }
+
         .question {
           position: relative;
           text-align: center;
-          &::before {
-            content: "";
-            width: 50px;
-            height: 1px;
-            background-color: index.$black;
-            position: absolute;
-            left: 0%;
-            top: 50%;
-          }
+
+          &::before,
           &::after {
             content: "";
             width: 50px;
             height: 1px;
             background-color: index.$black;
             position: absolute;
-            right: 0%;
             top: 50%;
+          }
+
+          &::before {
+            left: 0%;
+          }
+
+          &::after {
+            right: 0%;
           }
         }
 
@@ -94,6 +114,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       grid-row: 1fr;
+
       .side-bar {
         position: relative;
         display: flex;
@@ -112,6 +133,7 @@
           text-shadow: index.$shadow;
           padding: index.$medium index.$xlarge;
         }
+
         .shadow {
           position: absolute;
           top: 0;
@@ -126,15 +148,18 @@
           );
           z-index: -1;
         }
+      }
 
-        .register {
-          grid-template-rows: 1fr 5fr;
-          grid-template-columns: 1fr;
-          .title {
-            text-align: center;
-            font-size: index.$large;
-            text-shadow: index.$shadow;
-          }
+      .register {
+        padding: index.$xlarge;
+
+        &__title {
+          font-size: index.$large;
+          text-shadow: index.$shadow;
+        }
+
+        &__description {
+          font-size: index.$small;
         }
       }
     }
