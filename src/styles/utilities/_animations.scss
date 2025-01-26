@@ -1,63 +1,5 @@
 @use "./spacing";
 
-@mixin nav-hover-transition($color) {
-  position: relative;
-  overflow: hidden;
-
-  &::before,
-  &::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    width: 50%;
-    height: 2px;
-    background-color: $color;
-    transition: left 0.4s ease-in-out;
-  }
-
-  &::before {
-    left: 100%;
-  }
-
-  &::after {
-    left: -50%;
-  }
-
-  &:hover {
-    &::before {
-      left: 50%;
-    }
-
-    &::after {
-      left: 0;
-    }
-  }
-}
-
-@mixin object-background($color, $width, $height) {
-  &::after {
-    content: " ";
-    display: block;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: $width;
-    height: $height;
-    transform-origin: 50% 50%;
-    transform: scale(1.2, 1.5);
-    border-top: 2px solid $color;
-    border-bottom: 2px solid $color;
-    transition: 0.3s transform ease-in-out;
-  }
-  &:hover {
-    &::after {
-      transform: scale(1);
-    }
-  }
-}
-
-
-
 @keyframes shaking {
   0% {
     transform-origin: 50% 50%;
@@ -92,5 +34,26 @@
   }
   100% {
     transform: rotate(0deg);
+  }
+}
+
+@keyframes hoverToRight {
+  0% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(0px);
+  }
+  40% {
+    transform: translateX(3px);
+  }
+  60% {
+    transform: translateX(5px);
+  }
+  80% {
+    transform: translateX(2px);
+  }
+  100% {
+    transform: translateX(0);
   }
 }

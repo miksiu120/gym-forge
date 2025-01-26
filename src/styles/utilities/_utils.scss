@@ -1,0 +1,55 @@
+@mixin nav-hover-transition($color) {
+  position: relative;
+  overflow: hidden;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 2px;
+    background-color: $color;
+    transition: left 0.4s ease-in-out;
+  }
+
+  &::before {
+    left: 100%;
+  }
+
+  &::after {
+    left: -50%;
+  }
+
+  &:hover {
+    &::before {
+      left: 50%;
+    }
+
+    &::after {
+      left: 0;
+    }
+  }
+}
+
+@mixin object-background($color, $width, $height) {
+  &::after {
+    content: " ";
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: $width;
+    height: $height;
+    transform-origin: 50% 50%;
+    transform: scale(1.2, 1.5);
+    border-top: 2px solid $color;
+    border-bottom: 2px solid $color;
+    transition: 0.3s transform ease-in-out;
+  }
+  &:hover {
+    &::after {
+      transform: scale(1);
+    }
+  }
+}

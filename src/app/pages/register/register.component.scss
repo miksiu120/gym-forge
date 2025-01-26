@@ -1,0 +1,154 @@
+@use "../../../styles/utilities/index";
+:host {
+  display: block;
+  background-color: index.$black;
+  .container {
+    background-color: index.$white;
+    min-height: 90vh;
+    display: grid;
+
+    .side-bar {
+      display: none;
+    }
+    .register {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: index.$small;
+      &__title {
+        font-size: index.$large;
+      }
+      &__text {
+      }
+      form {
+        display: flex;
+        padding: index.$medium;
+        flex-direction: column;
+        justify-content: center;
+        color: index.$black;
+
+        > * {
+          margin-bottom: index.$xsmall;
+        }
+
+        .form-group {
+          display: flex;
+          flex-direction: column;
+        }
+        input {
+          font-size: index.$small;
+          padding: 4px;
+          border: 2px solid index.$black;
+          transition: border-bottom 0.4s ease-in;
+          &:focus {
+            border: none;
+            border-bottom: 3px solid rgb(0, 0, 0);
+          }
+        }
+
+        .btn {
+          padding: calc(index.$xsmall/1.5);
+          color: index.$white;
+          background-color: index.$black;
+          border: none;
+          text-transform: uppercase;
+          text-align: center;
+          font-size: index.$xsmall;
+          font-weight: 500;
+          cursor: pointer;
+        }
+        .question {
+          position: relative;
+          text-align: center;
+          &::before {
+            content: "";
+            width: 50px;
+            height: 1px;
+            background-color: index.$black;
+            position: absolute;
+            left: 0%;
+            top: 50%;
+          }
+          &::after {
+            content: "";
+            width: 50px;
+            height: 1px;
+            background-color: index.$black;
+            position: absolute;
+            right: 0%;
+            top: 50%;
+          }
+        }
+
+        label {
+          color: index.$black;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  :host {
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-row: 1fr;
+      .side-bar {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-image: url("/gym-2793007_1280.jpg");
+        background-size: cover;
+        background-position: 65% 10%;
+        background-repeat: no-repeat;
+        color: index.$white;
+        z-index: 1;
+
+        .title {
+          text-align: center;
+          font-size: index.$large;
+          text-shadow: index.$shadow;
+          padding: index.$medium index.$xlarge;
+        }
+        .shadow {
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background: rgb(0, 0, 0);
+          background: linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 0.87) 0%,
+            rgba(51, 51, 51, 0.1) 100%
+          );
+          z-index: -1;
+        }
+
+        .register {
+          grid-template-rows: 1fr 5fr;
+          grid-template-columns: 1fr;
+          .title {
+            text-align: center;
+            font-size: index.$large;
+            text-shadow: index.$shadow;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1400px) {
+  :host {
+    .container {
+      .side-bar {
+        .title {
+          font-size: index.$xlarge;
+        }
+      }
+    }
+  }
+}
