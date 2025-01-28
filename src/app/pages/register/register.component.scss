@@ -17,13 +17,12 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center;
       justify-content: center;
       padding: index.$medium;
       padding-top: index.$xlarge * 2;
 
       &__text {
-        align-self: flex-end;
+      border-bottom: index.$medium;
       }
 
       &__title {
