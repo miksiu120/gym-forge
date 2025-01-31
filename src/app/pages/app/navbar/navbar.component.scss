@@ -65,14 +65,16 @@
           left: 0;
           background-color: index.$black;
           box-shadow: index.$shadow;
-          padding: index.$small 0;
           z-index: 10;
           a {
             display: block;
             text-decoration: none;
             color: index.$white;
             padding: index.$xsmall;
-            border-bottom: 2px solid index.$white;
+            border-top: 2px solid index.$white;
+            &:first-child {
+              border-top: none;
+            }
           }
         }
         &:hover {
