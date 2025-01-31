@@ -1,1 +1,47 @@
-<p>one-rep-max works!</p>
+<div class="container">
+
+    <div class="form-box box ">
+        <h2 class="form-box__title">One Rep Max Calculator</h2>
+        <p class="form-box__description">Calculate your one rep max (1RM) for any exercise. Your 1RM is the maximum
+            weight you can lift for a single repetition of a given exercise.</p>
+        <form (ngSubmit)="createTable()" class="form-box__form">
+            <div class="form-box__inputs">
+                <label for="weight">Weight</label>
+                <input [(ngModel)]="weight" type="number" id="weight" name="weight" required>
+                <select name="units" id="units">
+                    <option value="kg">kg</option>
+                    <option value="lb">lb</option>
+                </select>
+            </div>
+            <div class="form-box__inputs">
+                <label for="reps">Reps</label>
+                <input [(ngModel)]="reps" type="number" id="reps" name="reps" required>
+            </div>
+            <button type="submit" class="btn btn--primary">Calculate</button>
+        </form>
+
+        <!-- Przykładowa tabela wyników -->
+
+    </div>
+    <div class="result-box box">
+        <h2 class="result-box__title">1RM Repetition Percentages</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Percent 1RM</th>
+                    <th>Weight lifted</th>
+                    <th>1RM Reps</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let row of table">
+                    <td>{{ row.percentValue }}%</td>
+                    <td>{{ row.weight }}</td>
+                    <td>{{ row.reps }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
