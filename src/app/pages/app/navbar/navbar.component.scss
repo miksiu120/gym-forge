@@ -2,6 +2,7 @@
 
 :host {
   position: fixed;
+  display: block;
   width: 100%;
   background-color: index.$black;
   color: index.$white;
@@ -9,7 +10,8 @@
   z-index: 250;
   padding: index.$xsmall/2 index.$xsmall;
   box-shadow: index.$bottom-shadow;
-
+  z-index: 100;
+  
   .container {
     display: flex;
     align-items: center;
@@ -32,7 +34,7 @@
     .menu {
       display: none;
       flex-direction: row;
-
+      z-index: 10;
       &__element {
         font-size: index.$xsmall;
         padding: index.$xsmall;
@@ -58,6 +60,7 @@
       &__dropdown {
         position: relative;
         overflow: visible;
+        z-index: -10;
         &--content {
           display: none;
           position: absolute;
@@ -65,12 +68,13 @@
           left: 0;
           background-color: index.$black;
           box-shadow: index.$shadow;
-          z-index: 10;
+          z-index: -10;
           a {
             display: block;
             text-decoration: none;
             color: index.$white;
             padding: index.$xsmall;
+            text-align: center;
             border-top: 2px solid index.$white;
             &:first-child {
               border-top: none;
@@ -80,6 +84,9 @@
         &:hover {
           .menu__dropdown--content {
             display: block;
+            top: -100%;
+            animation: slide-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+              both;
           }
         }
       }
@@ -87,13 +94,7 @@
   }
 }
 
-.menu__dropdown-content a:hover {
-  background-color: #f0f0f0;
-}
 
-.menu__dropdown:hover .menu__dropdown-content {
-  display: block;
-}
 
 @media (min-width: 768px) {
   :host {

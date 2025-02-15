@@ -1,11 +1,6 @@
 @use "../../../../styles/utilities/index";
 :host {
-  display: block;
-  background-color: index.$light-grey;
-  .container {
-    max-width: 1000px;
-    padding: index.$xlarge * 2 index.$xsmall;
-  }
+  @include index.box-display(index.$light-grey);
   .form-box {
     &__title {
       font-size: index.$medium;
@@ -67,13 +62,6 @@
   }
 }
 
-.box {
-  background-color: index.$white;
-  padding: index.$small;
-  margin: index.$xsmall;
-  box-shadow: index.$shadow;
-}
-
 .btn {
   color: index.$white;
   background-color: index.$black;
@@ -85,14 +73,10 @@
 
 @media (min-width: 1024px) {
   :host {
-    .container {
-      padding: index.$xlarge * 2 index.$small;
-    }
-
     .form-box {
       button {
         align-self: flex-start;
-        padding: index.$xsmall/2 index.$xlarge*2;
+        padding: index.$xsmall/2 index.$xlarge * 2;
       }
     }
     .result-box {

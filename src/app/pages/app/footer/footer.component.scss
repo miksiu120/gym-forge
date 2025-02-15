@@ -5,10 +5,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
   padding: index.$medium index.$large;
   background-color: index.$black;
   color: #ffffffad;
-  border-top: 1px solid index.$white;
+  z-index: 10000;
+  //border-top: 1px solid index.$white;
   .logo {
     display: block;
     font-size: index.$large;

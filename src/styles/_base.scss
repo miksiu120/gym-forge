@@ -15,8 +15,18 @@ button {
   font-family: "Oswald", sans-serif;
 }
 
+.small-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
 .container {
   max-width: 1400px;
+  margin: 0 auto;
+}
+
+.large-container {
+  max-width: 1600px;
   margin: 0 auto;
 }
 
@@ -49,6 +59,13 @@ button {
       background-color: index.$white;
     }
   }
+}
+
+.box {
+  background-color: index.$white;
+  padding: index.$small;
+  margin: index.$xsmall;
+  box-shadow: index.$shadow;
 }
 
 @media (min-width: 1024px) {

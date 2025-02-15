@@ -1,0 +1,62 @@
+@use "../../../../styles/utilities/index";
+
+:host {
+  display: block;
+  position: fixed;
+  background-color: index.$black;
+  color: index.$white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  .side-nav {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    &__element {
+      display: flex;
+      position: relative;
+      padding: index.$small index.$medium;
+      font-weight: 200;
+      text-decoration: none;
+      transition: 0.3s background-color ease-in-out;
+      cursor: pointer;
+      i {
+        position: relative;
+        padding: index.$xsmall/2;
+        align-self: center;
+        z-index: 100;
+      }
+      &:hover {
+        background-color: index.$ligther-black;
+      }
+    }
+  }
+
+  transition: 0.3s width ease-in-out;
+  .side-text {
+    left: -200%;
+    position: relative;
+    opacity: 0;
+    z-index: -1;
+    overflow: hidden;
+  }
+  &:hover {
+    .side-text {
+      left: 0%;
+      display: block;
+      opacity: 1;
+      animation: slide-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  :host {
+    .side-nav {
+      &__element {
+        font-size: index.$medium;
+      }
+    }
+  }
+}

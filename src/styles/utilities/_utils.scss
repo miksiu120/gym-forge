@@ -1,3 +1,5 @@
+@use "./spacing" as *;
+
 @mixin nav-hover-transition($color) {
   position: relative;
   //overflow: hidden;
@@ -54,6 +56,20 @@
   &:hover {
     &::after {
       transform: scale(1);
+    }
+  }
+}
+
+@mixin box-display($background-color) {
+  display: block;
+  background-color: $background-color;
+  & > * {
+    padding: $xlarge * 2 $xsmall;
+  }
+
+  @media (min-width: 1024px) {
+    & > * {
+      padding: $xlarge * 2 $small;
     }
   }
 }

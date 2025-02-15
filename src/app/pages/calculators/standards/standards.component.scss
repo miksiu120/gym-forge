@@ -1,0 +1,4 @@
+@use "../../../../styles/utilities/index";
+:host {
+  @include index.box-display(index.$light-grey);
+}

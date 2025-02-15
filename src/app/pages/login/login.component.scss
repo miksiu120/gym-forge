@@ -66,7 +66,7 @@
           cursor: pointer;
           border: 1px solid index.$white;
           transition: 0.3s color ease-in-out, 0.3s background-color ease-in-out;
-
+          text-decoration: none;
           &:hover {
             background-color: index.$white;
             color: index.$black;
