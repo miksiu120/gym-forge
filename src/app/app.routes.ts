@@ -10,16 +10,29 @@ import { OneRepMaxComponent } from './pages/calculators/one-rep-max/one-rep-max.
 import { StandardsComponent } from './pages/calculators/standards/standards.component';
 
 import { TrainingPanelComponent } from './pages/training-panel/training-panel.component';
+import { StatisticsComponent } from './pages/training-panel/statistics/statistics.component';
+import { DashboardComponent } from './pages/training-panel/dashboard/dashboard.component';
+import { TrainingsComponent } from './pages/training-panel/trainings/trainings.component';
 
 export const routes: Routes = [
   { path: '', component: WelcomeComponent },
+
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+
   { path: 'calculators', component: CalculatorsComponent },
   { path: 'calculators/wilks', component: WilksComponent },
   { path: 'calculators/one-rep-max', component: OneRepMaxComponent },
   { path: 'calculators/standards', component: StandardsComponent },
 
-  { path: 'training-panel', component: TrainingPanelComponent },
-  { path: '**', component: NotFoundComponent },
+  {
+    path: 'training-panel',
+    component: TrainingPanelComponent,
+    children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'statistics', component: StatisticsComponent },
+      { path: 'trainings', component: TrainingsComponent },
+    ],
+  },
 ];
