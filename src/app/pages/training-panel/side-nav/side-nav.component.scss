@@ -1,32 +1,30 @@
 @use "../../../../styles/utilities/index";
 
 :host {
-  display: block;
   position: fixed;
+  display: flex;
+  bottom: 0%;
   background-color: index.$black;
   color: index.$white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 100vh;
+  width: 100vw;
+  box-sizing: index.$top-shadow;
+  z-index: 123;
+
   .side-nav {
-    display: flex;
-    flex-direction: column;
-    list-style: none;
     &__element {
+      flex: 1;
       display: flex;
+      justify-content: center;
       position: relative;
       padding: index.$small index.$medium;
+      font-size: index.$medium;
       font-weight: 200;
       text-decoration: none;
       transition: 0.3s background-color ease-in-out;
       cursor: pointer;
       i {
-        position: relative;
         padding: index.$xsmall/2;
         color: index.$white;
-        align-self: center;
-        z-index: 100;
       }
       &:hover {
         background-color: index.$ligther-black;
@@ -52,11 +50,15 @@
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 960px) {
   :host {
+    width: auto;
+    flex-direction: column;
+    bottom: 50%;
+    transform: translateY(50%);
     .side-nav {
       &__element {
-        font-size: index.$medium;
+        flex-direction: column;
       }
     }
   }

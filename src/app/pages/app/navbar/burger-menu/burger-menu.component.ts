@@ -4,7 +4,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'burger-menu',
-  imports: [NgClass, RouterLinkActive, RouterLink],
+  imports: [ RouterLinkActive, RouterLink],
   templateUrl: './burger-menu.component.html',
   styleUrl: './burger-menu.component.scss',
 })

@@ -6,7 +6,7 @@
   box-sizing: border-box;
 }
 
-html{
+html {
   scroll-behavior: smooth;
 }
 
@@ -17,6 +17,10 @@ body {
 }
 button {
   font-family: "Oswald", sans-serif;
+}
+
+router-outlet {
+  display: none;
 }
 
 .small-container {
