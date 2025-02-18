@@ -1,8 +1,17 @@
 @if(isBurgerActive)
-{   
-<div [ngClass]="{ 'active': isBurgerActive }" class="burger-menu">
-    <a (click)="toggle()" class="burger-menu__element" routerLink="/calculators"
-        routerLinkActive="active">Calculators</a>
+{
+<div class="burger-menu">
+    <div class="burger-menu__element menu__dropdown">
+        <span (click)="toggleCalculations()" class="burger-menu__link unclickable">Calculators <i class="fa-solid fa-chevron-down"></i></span>
+        @if(areCalculationsVisible)
+        {
+        <div class="burger-menu__dropdown--content">
+            <a (click)="toggle()" routerLink="/calculators/wilks" routerLinkActive="active">Wilks </a>
+            <a (click)="toggle()" routerLink="/calculators/standards" routerLinkActive="active">standards</a>
+            <a (click)="toggle()" routerLink="/calculators/one-rep-max" routerLinkActive="active">One-Rep Max</a>
+        </div>
+        }
+    </div>
     <a (click)="toggle()" class="burger-menu__element" routerLink="/login" routerLinkActive="active">Sign in</a>
     <a (click)="toggle()" class="burger-menu__element" routerLink="/register" routerLinkActive="active">Sign up</a>
 </div>

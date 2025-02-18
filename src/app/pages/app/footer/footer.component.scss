@@ -25,14 +25,17 @@
     align-items: center;
     justify-content: space-around;
     font-size: index.$large;
-    i {
-      padding: index.$small;
-      margin: index.$small index.$medium;
-      cursor: pointer;
-      transition: 0.3s transform ease-in-out, 0.4s color ease-in;
-      &:hover {
-        transform: rotate(45deg);
-        color: index.$white;
+    a {
+      color: #ffffffad;
+      i {
+        padding: index.$small;
+        margin: index.$small index.$medium;
+        cursor: pointer;
+        transition: 0.3s transform ease-in-out, 0.4s color ease-in;
+        &:hover {
+          transform: rotate(45deg);
+          color: index.$white;
+        }
       }
     }
   }

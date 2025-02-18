@@ -15,8 +15,9 @@
   .calculators-container {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr 1.5fr;
     margin: index.$small;
+
     .calculators {
       padding: index.$small;
       width: clamp(300px, 100%, 600px);
@@ -31,6 +32,7 @@
         grid-template-columns: 1fr 4fr 0.5fr;
         grid-template-rows: 1fr 2.5fr;
         //border: 2px solid index.$black;
+        margin-bottom: index.$medium;
         &__number {
           grid-row: 1/2;
           grid-column: 1/2;
@@ -79,7 +81,7 @@
             background-color: index.$black;
             color: index.$white;
             font-size: index.$medium;
-            padding: index.$large index.$xsmall;
+            padding: index.$xlarge index.$xsmall;
             text-decoration: none;
           }
           &:hover {

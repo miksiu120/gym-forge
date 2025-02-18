@@ -19,8 +19,23 @@
     margin-top: index.$small;
     text-transform: uppercase;
     text-align: center;
+    text-decoration: none;
+    color: index.$white;
     cursor: pointer;
     @include index.nav-hover-transition(index.$white);
+  }
+
+  &__dropdown {
+    &--content {
+      display: flex;
+      flex-direction: column;
+      a{
+        color: index.$white;
+        text-decoration: none;
+        font-size: index.$medium;
+        padding: index.$xsmall;
+      }
+    }
   }
 }
 
