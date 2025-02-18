@@ -2,12 +2,7 @@
 :host {
   @include index.box-display(index.$light-grey);
   .form-box {
-    &__title {
-      font-size: index.$medium;
-    }
-    &__description {
-      font-size: index.$small;
-    }
+    
 
     &__form {
       display: flex;
@@ -36,9 +31,7 @@
       }
     }
 
-    button {
-      padding: index.$xsmall/2 0;
-    }
+  
   }
 
   .result-box {
@@ -60,15 +53,6 @@
       }
     }
   }
-}
-
-.btn {
-  color: index.$white;
-  background-color: index.$black;
-  border: none;
-  text-transform: uppercase;
-  font-size: index.$xsmall;
-  cursor: pointer;
 }
 
 @media (min-width: 1024px) {

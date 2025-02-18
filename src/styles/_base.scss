@@ -69,13 +69,6 @@ router-outlet {
   }
 }
 
-.box {
-  background-color: index.$white;
-  padding: index.$small;
-  margin: index.$xsmall;
-  box-shadow: index.$shadow;
-}
-
 @media (min-width: 1024px) {
   .section-title {
     margin: index.$large;
@@ -86,4 +79,62 @@ router-outlet {
       font-size: index.$large;
     }
   }
+}
+
+.box {
+  background-color: index.$white;
+  padding: index.$small;
+  margin: index.$xsmall;
+  box-shadow: index.$shadow;
+
+  &__title {
+    font-size: index.$medium;
+  }
+  &__description {
+    font-size: index.$small;
+  }
+}
+
+.form-box {
+  &__form {
+    display: flex;
+    flex-direction: column;
+    padding-top: index.$xsmall;
+    & > * {
+      margin-bottom: index.$xsmall;
+    }
+  }
+
+  &__inputs {
+    display: flex;
+    label {
+      font-weight: 500;
+      padding-right: index.$xsmall;
+      font-size: index.$small;
+    }
+    input {
+      flex: 1;
+    }
+    .select-weight {
+      border-radius: 0;
+      border: none;
+      padding-left: 10px;
+    }
+    .select-gender {
+      border-radius: 0;
+      border: 1px solid index.$black;
+      background-color: index.$white;
+      padding-left: 10px;
+    }
+  }
+}
+
+.btn {
+  color: index.$white;
+  background-color: index.$black;
+  border: none;
+  text-transform: uppercase;
+  font-size: index.$xsmall;
+  padding: index.$xsmall/2 0;
+  cursor: pointer;
 }

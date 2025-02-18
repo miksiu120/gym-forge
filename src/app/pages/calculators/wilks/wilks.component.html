@@ -1,1 +1,54 @@
-<p>wilks works!</p>
+<div class="small-container">
+
+    <div class="form-box box">
+        <h2 class="box__title">
+            Wilks Calculator
+        </h2>
+        <p class="box__description">
+            The Wilks Calculator is used to compare the strength of powerlifters against each other, regardless of the
+            different weight classes. The Wilks formula is a coefficient that can be used to compare the relative
+            strength of a lifter against another, regardless of the different weight classes.
+        </p>
+        <form (ngSubmit)="calculateWilks()" class="form-box__form">
+            <div class="form-box__inputs">
+                <label for="weight">Weight</label>
+                <input [(ngModel)]="weight" type="number" id="weight" name="weight" required>
+                <select class="select-weight" name="units" id="units">
+                    <option value="kg">kg</option>
+                    <option value="lb">lb</option>
+                </select>
+            </div>
+            <div class="form-box__inputs">
+                <label for="bodyweight">Bodyweight</label>
+                <input [(ngModel)]="bodyweight" type="number" id="bodyweight" name="bodyweight" required>
+                <select class="select-weight" name="units" id="units">
+                    <option value="kg">kg</option>
+                    <option value="lb">lb</option>
+                </select>
+            </div>
+            <div class="form-box__inputs">
+                <label for="gender">Gender</label>
+                <select class="select-gender" [(ngModel)]="gender" id="gender" name="gender" required>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn--primary">Calculate</button>
+        </form>
+    </div>
+
+    <div class="box">
+        <h2 class="box__title">
+            Wilks Score
+        </h2>
+        <p class="box__description">
+            Your Wilks score is:
+        </p>
+        <div class="box__result">
+            <p class="box__result__score">
+                {{ wilksScore }}
+            </p>
+        </div>
+    </div>
+
+</div>

@@ -1,4 +1,13 @@
 @use "../../../../styles/utilities/index";
 :host {
   @include index.box-display(index.$light-grey);
+
+  .box {
+    &__result {
+      &__score {
+        font-size: index.$medium;
+        font-weight: 400;
+      }
+    }
+  }
 }
