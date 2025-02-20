@@ -1,0 +1,6 @@
+@WorkPlanner_HostAddress = http://localhost:5163
+
+GET {{WorkPlanner_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
