@@ -16,15 +16,16 @@ Additionally, it provides calculators for assessing your strength and performanc
 - [X] One-Rep Max Calculator
 - [X] Wilks Calculator
 - [ ] Weightlifting Standards
-
 - [X] Dashboard - Side nav
 - [ ] Dashboard - Welcome
 - [ ] Dashboard - Statistics
 - [ ] Dashboard - Training
 
 ## Backend Plans
-In the near future, I plan to add a backend written in C# .NET,  
-which will enable account creation and training plan management.
+- [] Accounts - registration 
+- [] Accounts - login 
+- [] Traning plans - add new traning plans 
+- [] Completing trainings 
 
 ## Long-term Plans 
 In the future, I want to use some **AI tools** to analyze the training of the users. 
