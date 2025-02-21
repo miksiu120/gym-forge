@@ -104,7 +104,7 @@ namespace WorkPlanner.Migrations
 
                     b.HasIndex("TrainingPlanId");
 
-                    b.ToTable("TrainingUnits");
+                    b.ToTable("TrainingUnitList");
                 });
 
             modelBuilder.Entity("WorkPlanner.Entities.User", b =>
@@ -155,7 +155,7 @@ namespace WorkPlanner.Migrations
             modelBuilder.Entity("WorkPlanner.Entities.Exercise", b =>
                 {
                     b.HasOne("WorkPlanner.Entities.TrainingUnit", "TrainingUnit")
-                        .WithMany("Exercises")
+                        .WithMany("ExerciseList")
                         .HasForeignKey("TrainingUnitId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -166,7 +166,7 @@ namespace WorkPlanner.Migrations
             modelBuilder.Entity("WorkPlanner.Entities.TrainingUnit", b =>
                 {
                     b.HasOne("WorkPlanner.Entities.TrainingPlan", "TrainingPlan")
-                        .WithMany("TrainingUnits")
+                        .WithMany("TrainingUnitList")
                         .HasForeignKey("TrainingPlanId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -176,12 +176,12 @@ namespace WorkPlanner.Migrations
 
             modelBuilder.Entity("WorkPlanner.Entities.TrainingPlan", b =>
                 {
-                    b.Navigation("TrainingUnits");
+                    b.Navigation("TrainingUnitList");
                 });
 
             modelBuilder.Entity("WorkPlanner.Entities.TrainingUnit", b =>
                 {
-                    b.Navigation("Exercises");
+                    b.Navigation("ExerciseList");
                 });
 #pragma warning restore 612, 618
         }

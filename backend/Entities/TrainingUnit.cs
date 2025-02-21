@@ -7,7 +7,8 @@
         public DateTime StartTime { get; set; }
 
         public virtual TrainingPlan TrainingPlan { get; set; }
-        public virtual ICollection<Exercise> Exercises { get; set; }
+        public int TrainingPlanId { get; set; }
+        public virtual List<Exercise> Exercises { get; set; }
 
     }
 }

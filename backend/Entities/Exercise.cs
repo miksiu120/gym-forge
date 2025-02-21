@@ -13,6 +13,7 @@ namespace WorkPlanner.Entities
         
         public int[]? Tempo { get; set; }
 
-        public virtual TrainingUnit TrainingUnit { get; set; }
+        public virtual TrainingUnit? TrainingUnit { get; set; }
+        public int TrainingUnitId { get; set; }
     }
 }

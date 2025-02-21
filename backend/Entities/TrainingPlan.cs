@@ -9,6 +9,9 @@ namespace WorkPlanner.Entities
         public DateTime From { get; set; }
         public DateTime To { get; set; }
 
-        public virtual ICollection<TrainingUnit> TrainingUnits { get; set; }
+        public virtual List<TrainingUnit> TrainingUnits { get; set; }
+
+        public User Author;
+        public int AuthorId; 
     }
 }

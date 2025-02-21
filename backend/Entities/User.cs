@@ -1,17 +1,20 @@
-﻿namespace WorkPlanner.Entities
+﻿using WorkPlanner.Models;
+
+namespace WorkPlanner.Entities
 {
     public class User
     {
         public int Id { get; set; }
-        public string Nickanme { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public string Email { get; set; }
-        public string HashedPassword { get; set; }
-        public string Weight { get; set; }
-        public string Height { get; set; }
+        public required string Nickname { get; set; }
+        public string? Name { get; set; }
+        public string? Surname { get; set; }
+        public required string Email { get; set; }
+        public required string HashedPassword { get; set; }
+        public MeasurementValue? Weight { get; set; }
+        public MeasurementValue? Height { get; set; }
 
-        public string Role { get; set; }
+        public required string Role { get; set; } = "User";
 
+        public List<TrainingPlan>? CreatedTrainingPlans { get; set; }
     }
 }

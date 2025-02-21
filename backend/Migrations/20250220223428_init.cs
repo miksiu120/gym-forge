@@ -48,7 +48,7 @@ namespace WorkPlanner.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TrainingUnits",
+                name: "TrainingUnitList",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -88,7 +88,7 @@ namespace WorkPlanner.Migrations
                     table.ForeignKey(
                         name: "FK_TimeExercises_TrainingUnits_TrainingUnitId",
                         column: x => x.TrainingUnitId,
-                        principalTable: "TrainingUnits",
+                        principalTable: "TrainingUnitList",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -100,7 +100,7 @@ namespace WorkPlanner.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_TrainingUnits_TrainingPlanId",
-                table: "TrainingUnits",
+                table: "TrainingUnitList",
                 column: "TrainingPlanId");
         }
 
@@ -114,7 +114,7 @@ namespace WorkPlanner.Migrations
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "TrainingUnits");
+                name: "TrainingUnitList");
 
             migrationBuilder.DropTable(
                 name: "TrainingPlans");
