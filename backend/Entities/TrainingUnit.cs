@@ -8,7 +8,8 @@
 
         public virtual TrainingPlan TrainingPlan { get; set; }
         public int TrainingPlanId { get; set; }
-        public virtual List<Exercise> Exercises { get; set; }
+
+        public virtual List<Exercise> ExerciseList { get; set; }
 
     }
 }

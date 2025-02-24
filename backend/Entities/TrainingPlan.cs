@@ -8,10 +8,8 @@ namespace WorkPlanner.Entities
         public string Name { get; set; }
         public DateTime From { get; set; }
         public DateTime To { get; set; }
-
-        public virtual List<TrainingUnit> TrainingUnits { get; set; }
-
-        public User Author;
-        public int AuthorId; 
+        public virtual List<TrainingUnit> TrainingUnitList { get; set; }
+        public User Author { get; set; }
+        public int AuthorId { get; set; }
     }
 }

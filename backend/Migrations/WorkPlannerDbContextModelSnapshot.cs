@@ -67,6 +67,9 @@ namespace WorkPlanner.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("From")
                         .HasColumnType("timestamp with time zone");
 
@@ -78,6 +81,8 @@ namespace WorkPlanner.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
 
                     b.ToTable("TrainingPlans");
                 });
@@ -104,7 +109,7 @@ namespace WorkPlanner.Migrations
 
                     b.HasIndex("TrainingPlanId");
 
-                    b.ToTable("TrainingUnitList");
+                    b.ToTable("TrainingUnits");
                 });
 
             modelBuilder.Entity("WorkPlanner.Entities.User", b =>
@@ -123,15 +128,16 @@ namespace WorkPlanner.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Height")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<double?>("Height")
+                        .HasColumnType("double precision");
+
+                    b.Property<int>("MeasurementSystem")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Nickanme")
+                    b.Property<string>("Nickname")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -140,12 +146,11 @@ namespace WorkPlanner.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Surname")
-                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Weight")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<double?>("Weight")
+                        .HasPrecision(5, 2)
+                        .HasColumnType("double precision");
 
                     b.HasKey("Id");
 
@@ -161,6 +166,17 @@ namespace WorkPlanner.Migrations
                         .IsRequired();
 
                     b.Navigation("TrainingUnit");
+                });
+
+            modelBuilder.Entity("WorkPlanner.Entities.TrainingPlan", b =>
+                {
+                    b.HasOne("WorkPlanner.Entities.User", "Author")
+                        .WithMany("CreatedTrainingPlans")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
                 });
 
             modelBuilder.Entity("WorkPlanner.Entities.TrainingUnit", b =>
@@ -182,6 +198,11 @@ namespace WorkPlanner.Migrations
             modelBuilder.Entity("WorkPlanner.Entities.TrainingUnit", b =>
                 {
                     b.Navigation("ExerciseList");
+                });
+
+            modelBuilder.Entity("WorkPlanner.Entities.User", b =>
+                {
+                    b.Navigation("CreatedTrainingPlans");
                 });
 #pragma warning restore 612, 618
         }

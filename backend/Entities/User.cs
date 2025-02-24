@@ -1,19 +1,27 @@
-﻿using WorkPlanner.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using WorkPlanner.Enums;
+using WorkPlanner.Models;
 
 namespace WorkPlanner.Entities
 {
     public class User
     {
         public int Id { get; set; }
-        public required string Nickname { get; set; }
+        [Required]
+        public string Nickname { get; set; }
         public string? Name { get; set; }
         public string? Surname { get; set; }
-        public required string Email { get; set; }
-        public required string HashedPassword { get; set; }
-        public MeasurementValue? Weight { get; set; }
-        public MeasurementValue? Height { get; set; }
+        [Required]
+        public string Email { get; set; }
+        [Required]
+        public string HashedPassword { get; set; }
+        public double? Weight { get; set; }
+        public double? Height { get; set; }
 
-        public required string Role { get; set; } = "User";
+        public MeasurementSystem MeasurementSystem{ get; set; }
+
+         [Required]
+        public string Role { get; set; } = "User";
 
         public List<TrainingPlan>? CreatedTrainingPlans { get; set; }
     }

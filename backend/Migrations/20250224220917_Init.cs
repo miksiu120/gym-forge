@@ -7,39 +7,25 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace WorkPlanner.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "TrainingPlans",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    From = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    To = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TrainingPlans", x => x.Id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Nickanme = table.Column<string>(type: "text", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Surname = table.Column<string>(type: "text", nullable: false),
+                    Nickname = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    Surname = table.Column<string>(type: "text", nullable: true),
                     Email = table.Column<string>(type: "text", nullable: false),
                     HashedPassword = table.Column<string>(type: "text", nullable: false),
-                    Weight = table.Column<string>(type: "text", nullable: false),
-                    Height = table.Column<string>(type: "text", nullable: false),
+                    Weight = table.Column<double>(type: "double precision", precision: 5, scale: 2, nullable: true),
+                    Height = table.Column<double>(type: "double precision", nullable: true),
+                    MeasurementSystem = table.Column<int>(type: "integer", nullable: false),
                     Role = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
@@ -48,7 +34,29 @@ namespace WorkPlanner.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TrainingUnitList",
+                name: "TrainingPlans",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    From = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    To = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    AuthorId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TrainingPlans", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TrainingPlans_Users_AuthorId",
+                        column: x => x.AuthorId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TrainingUnits",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -88,7 +96,7 @@ namespace WorkPlanner.Migrations
                     table.ForeignKey(
                         name: "FK_TimeExercises_TrainingUnits_TrainingUnitId",
                         column: x => x.TrainingUnitId,
-                        principalTable: "TrainingUnitList",
+                        principalTable: "TrainingUnits",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -99,8 +107,13 @@ namespace WorkPlanner.Migrations
                 column: "TrainingUnitId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_TrainingPlans_AuthorId",
+                table: "TrainingPlans",
+                column: "AuthorId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TrainingUnits_TrainingPlanId",
-                table: "TrainingUnitList",
+                table: "TrainingUnits",
                 column: "TrainingPlanId");
         }
 
@@ -111,13 +124,13 @@ namespace WorkPlanner.Migrations
                 name: "TimeExercises");
 
             migrationBuilder.DropTable(
-                name: "Users");
-
-            migrationBuilder.DropTable(
-                name: "TrainingUnitList");
+                name: "TrainingUnits");
 
             migrationBuilder.DropTable(
                 name: "TrainingPlans");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }

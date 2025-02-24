@@ -1,9 +1,14 @@
-﻿namespace WorkPlanner.Enums
+﻿using System.Text.Json.Serialization;
+
+namespace WorkPlanner.Enums
 {
     public enum MeasurementSystem
     {
-        Metric,    // kg, cm
-        Imperial   // lbs, ft
+        [JsonPropertyName("metric")]
+        Metric = 0,
+        [JsonPropertyName("imperial")]
+        Imperial = 1
     }
+
 
 }
