@@ -20,12 +20,12 @@ namespace WorkPlanner.Controllers
 
 
         [HttpPut("login")]
-        public IActionResult Login([FromBody] LoginUserDto loginUserDto)
+        public async Task<IActionResult> Login([FromBody] LoginUserDto loginUserDto)
         {
 
-            string resultToken = _accountService.Login(loginUserDto);
+            LoginResultDto loginResultDto= await _accountService.Login(loginUserDto);
 
-            return Ok(resultToken);
+            return Ok(loginResultDto);
         }
 
         [HttpPut("register")]

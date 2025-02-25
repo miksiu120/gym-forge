@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using WorkPlanner.Enums;
 
 namespace WorkPlanner.Entities
 {
@@ -10,7 +11,9 @@ namespace WorkPlanner.Entities
         public int Sets { get; set; }
         public int? Repetitions { get; set; }
         public int? Duration { get; set; }
-        
+
+        public ExerciseType type { get; set; }
+
         public int[]? Tempo { get; set; }
 
         public virtual TrainingUnit? TrainingUnit { get; set; }
