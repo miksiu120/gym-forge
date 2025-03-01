@@ -61,11 +61,18 @@
         position: relative;
         overflow: visible;
         z-index: -10;
+        &:hover {
+          .menu__dropdown--content {
+            display: block;
+          }
+        }
+
         &--content {
           display: none;
           position: absolute;
           top: 100%;
           left: 0;
+          width: 100%;
           background-color: index.$black;
           box-shadow: index.$shadow;
           z-index: -10;
@@ -81,11 +88,22 @@
             }
           }
         }
-        &:hover {
-          .menu__dropdown--content {
-            display: block;
+      }
+      &__profile {
+        display: flex;
+        align-items: center;
+        span {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          img {
+            width: 50px;
+            height: 50px;
+            margin-right: index.$xsmall/1.5;
           }
         }
+        padding-top: 0;
+        padding-bottom: 0;
       }
     }
   }

@@ -10,6 +10,7 @@ namespace WorkPlanner.AutoMapper
         public AccountMapper()
         {
             CreateMap<CreateUserDto, User>();
+            CreateMap<User, AccountDetailsDto>();
 
         }
     }

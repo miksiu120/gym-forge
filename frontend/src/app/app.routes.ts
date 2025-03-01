@@ -13,6 +13,8 @@ import { TrainingPanelComponent } from './pages/training-panel/training-panel.co
 import { StatisticsComponent } from './pages/training-panel/statistics/statistics.component';
 import { DashboardComponent } from './pages/training-panel/dashboard/dashboard.component';
 import { TrainingsComponent } from './pages/training-panel/trainings/trainings.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { AuthGuard } from './services/token-service/auth-guard.service';
 
 export const routes: Routes = [
   { path: '', component: WelcomeComponent },
@@ -26,13 +28,16 @@ export const routes: Routes = [
   { path: 'calculators/standards', component: StandardsComponent },
 
   {
-    path: 'training-panel',
+    path: 'dashboard',
     component: TrainingPanelComponent,
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: DashboardComponent },
+      { path: 'training-panel', component: DashboardComponent },
       { path: 'statistics', component: StatisticsComponent },
       { path: 'trainings', component: TrainingsComponent },
     ],
+    
   },
+
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
 ];

@@ -13,8 +13,23 @@
                 <a routerLink="/calculators/one-rep-max" routerLinkActive="active">One-Rep Max</a>
             </div>
         </div>
+
+        @if (isLoggedIn) {
+
+        <div class="menu__element menu__dropdown menu__profile">
+            <span class="menu__link unclickable"> <img src="/default-profile.jpg" alt="profile photo">
+                {{userName}}</span>
+            <div class="menu__dropdown--content">
+                <a routerLink="/calculators/wilks" routerLinkActive="active">Details </a>
+                <a routerLink="/" routerLinkActive="active" (click)="logutUser()">Logout</a>
+            </div>
+        </div>
+
+        }
+        @else {
         <a class="menu__element" routerLink="/login" routerLinkActive="active">Sign in</a>
         <a class="menu__element menu__element--active" routerLink="/register" routerLinkActive="active">Sign up</a>
+        }
     </div>
 
     <div (click)="toggleBurger()" class="burger-icon">

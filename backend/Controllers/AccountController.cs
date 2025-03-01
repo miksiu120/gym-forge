@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WorkPlanner.Models;
 using WorkPlanner.Services;
@@ -18,13 +19,10 @@ namespace WorkPlanner.Controllers
             _accountService = service;
         }
 
-
         [HttpPut("login")]
         public async Task<IActionResult> Login([FromBody] LoginUserDto loginUserDto)
         {
-
             LoginResultDto loginResultDto= await _accountService.Login(loginUserDto);
-
             return Ok(loginResultDto);
         }
 
@@ -35,7 +33,11 @@ namespace WorkPlanner.Controllers
             return Ok();
         }
 
-
-
+        [HttpGet("details")]
+        public IActionResult Get()
+        {
+            var accountDetails = _accountService.GetAccountDetails();
+            return Ok(accountDetails);
+        }
     }
 }

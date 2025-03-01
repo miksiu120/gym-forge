@@ -5,6 +5,7 @@ using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using PartyGame.Services;
 using WorkPlanner.Entities;
 using WorkPlanner.Enums;
 using WorkPlanner.Models;
@@ -17,6 +18,8 @@ namespace WorkPlanner.Services
        Task Register(CreateUserDto createUserDto);
        Task<LoginResultDto> Login(LoginUserDto loginUserDto);
 
+       Task<AccountDetailsDto> GetAccountDetails();
+
     }
 
     public class AccountService : IAccountService
@@ -25,28 +28,31 @@ namespace WorkPlanner.Services
         private readonly IMapper _mapper;
         private readonly IAccountRepository _accountRepository;
         private readonly IPasswordHasher<User> _passwordHasher;
-        private readonly IConfiguration _configuration;
+        private readonly ITokenService _tokenService;
+        private readonly IHttpContextAccessorService _httpContextAccessorService;
 
         public AccountService(IAccountRepository accountRepository,IMapper mapper,
-            IPasswordHasher<User> passwordHasher, IConfiguration configuration)
+            IPasswordHasher<User> passwordHasher, IConfiguration configuration, ITokenService tokenService,
+            IHttpContextAccessorService httpContextAccessorService)
         {
             _accountRepository = accountRepository;
             _mapper = mapper;
             _passwordHasher = passwordHasher;
-            _configuration = configuration;
+            _tokenService = tokenService;
+            _httpContextAccessorService = httpContextAccessorService;
         }
 
-        public Task Register(CreateUserDto createUserDto)
+        public async Task Register(CreateUserDto createUserDto)
         {
-            if (_accountRepository.GetAccountByEmailAsync(createUserDto.Email).Result is not null)
+            if ((await _accountRepository.GetAccountByEmailAsync(createUserDto.Email)) is not null)
             {
                 throw new ArgumentException("An account with this email already exists.");
             }
-            else if (_accountRepository.GetAccountByNicknameAsync(createUserDto.Email).Result is not null)
+            else if ( (await _accountRepository.GetAccountByNicknameAsync(createUserDto.Email)) is not null)
             {
                 throw new ArgumentException("An account with this email already exists.");
             }
-            else if (_accountRepository.GetAccountByNicknameAsync(createUserDto.Nickname).Result is not null)
+            else if ( (await _accountRepository.GetAccountByNicknameAsync(createUserDto.Nickname)) is not null)
             {
                 throw new ArgumentException("An account with this email already exists.");
             }
@@ -71,8 +77,8 @@ namespace WorkPlanner.Services
             var passwordHash = _passwordHasher.HashPassword(newUser,createUserDto.Password);
             newUser.HashedPassword = passwordHash;
 
-            _accountRepository.CreateAsync(newUser);
-            return Task.CompletedTask;
+            await _accountRepository.CreateAsync(newUser);
+            
         }
 
         public async Task<LoginResultDto> Login(LoginUserDto loginUserDto)
@@ -94,70 +100,32 @@ namespace WorkPlanner.Services
 
             LoginResultDto loginResultDto = new LoginResultDto()
             {
-                RefreshToken = await GenerateRefreshToken(user),
-                Token = await GenerateToken(user)
+                RefreshToken =  _tokenService.GenerateRefreshToken(user),
+                Token =  _tokenService.GenerateToken(user),
+                Nickname = user.Nickname
             };
 
             return loginResultDto;
         }
 
-        public async Task<string> GenerateToken(User user)
+        public async Task<AccountDetailsDto> GetAccountDetails()
         {
+            var userId = _httpContextAccessorService.GetUserIdFromToken();
 
-            var secretKey = _configuration["Authentication:JwtKey"];
-            var issuer = _configuration["Authentication:JwtIssuer"];
-            var tokenExpireHours = int.Parse(_configuration["Authentication:JwtExpireAccount"]);
-
-            var claims = new List<Claim>()
+            if (userId is null)
             {
-                new Claim(ClaimTypes.NameIdentifier,user.Id.ToString()),
-                new Claim(ClaimTypes.Email,$"{user.Email}"),
-                new Claim(ClaimTypes.Role,$"{user.Role}"),
-                new Claim(ClaimTypes.Name, $"{user.Nickname}")
-            };
+                throw new Exception("ID does not exist in token");
+            }
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
+            User user = await _accountRepository.GetAsync((int)userId);
 
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            AccountDetailsDto accountDetailsDto = _mapper.Map<AccountDetailsDto>(user);
 
-            var expires = DateTime.Now.AddHours(tokenExpireHours);
-
-            var token = new JwtSecurityToken(
-                issuer: issuer,
-                claims: claims,
-                expires: expires,
-                signingCredentials: creds
-            );
-
-            
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            return accountDetailsDto;
         }
 
-        public async Task<string> GenerateRefreshToken(User user)
-        {
-            var secretKey = _configuration["Authentication:JwtKey"];
-            var issuer = _configuration["Authentication:JwtIssuer"];
-            var refreshTokenExpireDays = int.Parse(_configuration["Authentication:JwtRefreshTokenAccount"]);
 
-            var claims = new List<Claim>
-            {
-                new Claim("userId", user.Id.ToString()),
-            };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
-
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var token = new JwtSecurityToken(
-                issuer: issuer,
-                audience: issuer,
-                expires: DateTime.Now.AddDays(refreshTokenExpireDays),
-                signingCredentials: creds,
-                claims:claims
-            );
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
 
     }
 
