@@ -151,7 +151,10 @@
 
       .register {
         padding: index.$xlarge;
-
+        margin: index.$large 0;
+        &__text {
+          margin-bottom: index.$medium;
+        }
         &__title {
           font-size: index.$large;
           text-shadow: index.$shadow;

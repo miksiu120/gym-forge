@@ -1,0 +1,99 @@
+@use "../../../styles/utilities/index";
+
+:host {
+  display: block;
+
+  background-color: index.$ligther-black;
+  .large-container {
+    @include index.box-display(index.$light-grey);
+  }
+
+  .box {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 1fr 1fr;
+    column-gap: index.$small;
+
+    & > * {
+      grid-column: 1/3;
+    }
+
+    .profile-pic {
+      grid-row: 1/2;
+    }
+    .nickname {
+      grid-row: 2/3;
+    }
+    .email {
+      grid-row: 3/4;
+    }
+    .name {
+      grid-column: 1/2;
+      grid-row: 4/5;
+    }
+    .surname {
+      grid-column: 2/3;
+      grid-row: 4/5;
+    }
+    .weight {
+      grid-column: 1/2;
+      grid-row: 5/6;
+    }
+    .height {
+      grid-column: 2/3;
+      grid-row: 5/6;
+    }
+
+    .birthday {
+      grid-column: 1/3;
+      grid-row: 6/7;
+    }
+    .about-you {
+      grid-column: 1/3;
+      grid-row: 7/8;
+    }
+
+    &__profile-pic {
+      align-self: center;
+      max-width: 200px;
+      justify-self: center;
+      border: 2px solid index.$black;
+      box-shadow: index.$shadow;
+      margin-bottom: index.$small;
+    }
+    &__double {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      gap: index.$xsmall;
+      & > * {
+        flex: 1;
+      }
+    }
+    &__label {
+      display: flex;
+      flex-direction: column;
+    }
+    &__description {
+      font-size: index.$xsmall;
+      font-weight: 400;
+      padding: 0 index.$xsmall/3;
+      text-transform: capitalize;
+    }
+    &__value {
+      background-color: #d9d9d9aa;
+      font-size: index.$medium;
+      padding: index.$xsmall/3;
+      box-shadow: index.$shadow-light;
+      margin-bottom: index.$xsmall;
+    }
+  }
+}
+
+@media (min-width: 1020px) {
+  :host {
+    .box {
+      padding: index.$large;
+    }
+  }
+}

@@ -16,7 +16,13 @@ export class TokenService {
 
   isAuthenticated(): boolean {
     const token = localStorage.getItem('session_token');
-    return !!token && !this.helper.isTokenExpired(token);
+
+    console.log('token:', !!token && !this.helper.isTokenExpired(token));
+    if (token == null || this.helper.isTokenExpired(token)) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   getTokenData(): any {
@@ -33,7 +39,7 @@ export class TokenService {
   }
 
   clearTokensFromLocalStorage() {
-    localStorage.removeItem('sesson_token');
+    localStorage.removeItem('session_token');
     localStorage.removeItem('refresh_token');
     localStorage.removeItem('name');
     this.authStatusSubject.next(false);
