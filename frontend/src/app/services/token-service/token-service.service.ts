@@ -33,7 +33,7 @@ export class TokenService {
   saveTokensToLocalStorage(loginResponse: LoginResponse) {
     localStorage.setItem('session_token', loginResponse.token);
     localStorage.setItem('refresh_token', loginResponse.refreshToken);
-    localStorage.setItem('name', loginResponse.nickname);
+    localStorage.setItem('nickname', loginResponse.nickname);
     console.log('Ustawiono tokeny poprawnie');
     this.authStatusSubject.next(true);
   }
@@ -41,7 +41,7 @@ export class TokenService {
   clearTokensFromLocalStorage() {
     localStorage.removeItem('session_token');
     localStorage.removeItem('refresh_token');
-    localStorage.removeItem('name');
+    localStorage.removeItem('nickname');
     this.authStatusSubject.next(false);
   }
 }

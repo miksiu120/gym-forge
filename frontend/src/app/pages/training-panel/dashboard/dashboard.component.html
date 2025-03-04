@@ -1,3 +1,23 @@
 <div class="small-container">
-    <p>dashboard works!</p>
+
+    <div class="section-title section-title">
+        <!-- <div class="section-title__square"></div> -->
+        <h2 class="section-title__text"> {{this.welcomeString}}</h2>
+    </div>
+    <div class="box">
+        <h2 class="box__title">Your nearest trainings </h2>
+
+        @if (nearestTrainings != 0) {
+
+        }
+        @else {
+        <div class="box__no-training">
+            <p>You don't have any trainings to complete.
+
+                <a href="#"> Create new plan?</a>
+            </p>
+        </div>
+        }
+
+    </div>
 </div>

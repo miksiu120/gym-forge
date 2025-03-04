@@ -2,4 +2,23 @@
 
 :host {
   @include index.box-display(index.$light-grey);
+
+  .box {
+    &__no-training {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 300px;
+      font-size: index.$small;
+      font-weight: 400;
+      text-align: center;
+      p {
+        color: index.$black-transparent;
+      }
+      a {
+        font-weight: 500;
+        color: index.$black ;
+      }
+    }
+  }
 }
