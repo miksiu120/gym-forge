@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Authentication.Twitter;
 using Microsoft.IdentityModel.Tokens;
 using PartyGame.Services;
 using WorkPlanner.Configs;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,13 +40,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddDbContext<WorkPlannerDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DBConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DBConnection")),
+    ServiceLifetime.Scoped);
+
 
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<ITokenService, TokenService>();
+
 
 builder.Services.AddScoped<IHttpContextAccessorService,HttpContextAccessorService>();
 
@@ -89,6 +93,7 @@ app.UseCors("AllowFrontend");
 
 
 app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapControllers();
 

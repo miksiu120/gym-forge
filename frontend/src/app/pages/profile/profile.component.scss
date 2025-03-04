@@ -76,16 +76,17 @@
     }
     &__description {
       font-size: index.$xsmall;
-      font-weight: 400;
+      font-weight: 500;
       padding: 0 index.$xsmall/3;
       text-transform: capitalize;
     }
     &__value {
       background-color: #d9d9d9aa;
-      font-size: index.$medium;
+      font-size: index.$small;
       padding: index.$xsmall/3;
       box-shadow: index.$shadow-light;
       margin-bottom: index.$xsmall;
+      font-weight: 300;
     }
   }
 }

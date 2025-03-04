@@ -34,6 +34,7 @@ namespace WorkPlanner.Controllers
         }
 
         [HttpGet("details")]
+  
         public IActionResult Get()
         {
             var accountDetails = _accountService.GetAccountDetails();

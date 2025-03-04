@@ -9,46 +9,50 @@
             <img src="default-profile.jpg" alt="profile photo" class="box__profile-pic">
             <div class="box__label nickname">
                 <p class="box__description"> nickname </p>
-                <p class="box__value"> miksiu120</p>
+                <p class="box__value"> {{accountDetails.nickname}}</p>
             </div>
 
             <div class="box__label email">
                 <p class="box__description"> email </p>
-                <p class="box__value"> miksiu120&#64;gmail.com </p>
+                <p class="box__value"> {{accountDetails.email}} </p>
             </div>
 
             <div class="box__label name">
                 <p class="box__description"> Name </p>
-                <p class="box__value"> Jan </p>
+                <p class="box__value">
+                    {{ accountDetails.name || '-----' }}
+                </p>
             </div>
 
             <div class="box__label surname">
                 <p class="box__description"> Surname </p>
-                <p class="box__value"> Kowalski </p>
+                <p class="box__value">
+                    {{ accountDetails.surname || '-----' }}
+                </p>
             </div>
+
+
 
             <div class="box__label weight">
                 <p class="box__description"> Weight </p>
-                <p class="box__value"> 76kg </p>
+                <p class="box__value"> {{accountDetails.weight || '-----'}} </p>
             </div>
             <div class="box__label height">
                 <p class="box__description"> Height </p>
-                <p class="box__value"> 187cm </p>
+                <p class="box__value"> {{accountDetails.height || '-----'}} </p>
             </div>
 
             <div class="box__label birthday">
                 <p class="box__description"> birthday </p>
-                <p class="box__value"> 02.02.2004 </p>
+                <p class="box__value"> {{accountDetails.birthDay || '-----'}} </p>
             </div>
 
             <div class="box__label about-you">
                 <p class="box__description"> about you </p>
-                <p class="box__value"> Lorem ipsum, dolor sit amet consectetur adipisicing elit. Pariatur facere
-                    dolorem hic nihil minima esse officia iure in assumenda harum. </p>
+                <p class="box__value"> {{accountDetails.description || '-----'}} </p>
             </div>
 
             <a class="btn" href=""> <i class="fa-solid fa-pen-to-square"></i> Edit</a>
-
         </div>
     </div>
 </div>

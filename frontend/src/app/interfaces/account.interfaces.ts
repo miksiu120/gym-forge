@@ -19,3 +19,15 @@ export interface LoginResponse {
   nickname: string;
   message: string;
 }
+
+export interface AccountDetailsDto {
+  nickname: string;
+  name?: string;
+  surname?: string;
+  email: string;
+  weight?: number;
+  height?: number;
+  role: string;
+  birthDay?: Date;
+  description: string;
+}

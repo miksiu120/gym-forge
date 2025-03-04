@@ -4,9 +4,10 @@ import {
   CreateUserDto,
   LoginUserDto,
   LoginResponse,
+  AccountDetailsDto,
 } from '../../interfaces/account.interfaces';
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -36,5 +37,14 @@ export class AccountService {
     );
   }
 
- 
+  getAccountDetails(): Observable<AccountDetailsDto> {
+    const token = localStorage.getItem('session_token');
+    console.log('Token autoryzacji:', token);
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.get<AccountDetailsDto>(
+      this.getApiUrlWithEndpoint('accounts/details'),
+      { headers }
+    );
+  }
 }

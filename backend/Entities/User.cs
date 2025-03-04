@@ -17,9 +17,10 @@ namespace WorkPlanner.Entities
         public string HashedPassword { get; set; }
         public double? Weight { get; set; }
         public double? Height { get; set; }
-
+        public DateTime? CreatedAt { get; set; }
+        public DateTime? BirthDay { get; set; }
+        public string? Description { get; set; } 
         public MeasurementSystem MeasurementSystem{ get; set; }
-
          [Required]
         public string Role { get; set; } = "User";
 

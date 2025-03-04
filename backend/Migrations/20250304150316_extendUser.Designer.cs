@@ -12,8 +12,8 @@ using WorkPlanner.Entities;
 namespace WorkPlanner.Migrations
 {
     [DbContext(typeof(WorkPlannerDbContext))]
-    [Migration("20250224220917_Init")]
-    partial class Init
+    [Migration("20250304150316_extendUser")]
+    partial class extendUser
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,6 +53,9 @@ namespace WorkPlanner.Migrations
                         .HasColumnType("integer[]");
 
                     b.Property<int>("TrainingUnitId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("type")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -122,6 +125,15 @@ namespace WorkPlanner.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("BirthDay")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
 
                     b.Property<string>("Email")
                         .IsRequired()

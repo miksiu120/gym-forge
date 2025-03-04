@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace WorkPlanner.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class addCreatedAt : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -25,6 +25,7 @@ namespace WorkPlanner.Migrations
                     HashedPassword = table.Column<string>(type: "text", nullable: false),
                     Weight = table.Column<double>(type: "double precision", precision: 5, scale: 2, nullable: true),
                     Height = table.Column<double>(type: "double precision", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     MeasurementSystem = table.Column<int>(type: "integer", nullable: false),
                     Role = table.Column<string>(type: "text", nullable: false)
                 },
@@ -87,6 +88,7 @@ namespace WorkPlanner.Migrations
                     Sets = table.Column<int>(type: "integer", nullable: false),
                     Repetitions = table.Column<int>(type: "integer", nullable: true),
                     Duration = table.Column<int>(type: "integer", nullable: true),
+                    type = table.Column<int>(type: "integer", nullable: false),
                     Tempo = table.Column<int[]>(type: "integer[]", nullable: true),
                     TrainingUnitId = table.Column<int>(type: "integer", nullable: false)
                 },

@@ -14,11 +14,13 @@ import { StatisticsComponent } from './pages/training-panel/statistics/statistic
 import { DashboardComponent } from './pages/training-panel/dashboard/dashboard.component';
 import { TrainingsComponent } from './pages/training-panel/trainings/trainings.component';
 import { ProfileComponent } from './pages/profile/profile.component';
-import { AuthGuard } from './services/token-service/auth-guard.service';
+import {
+  AuthGuard,
+  GuestGuard,
+} from './services/token-service/auth-guard.service';
 
 export const routes: Routes = [
-  { path: '', component: WelcomeComponent },
-
+  { path: '', component: WelcomeComponent, canActivate: [GuestGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
 
@@ -36,7 +38,6 @@ export const routes: Routes = [
       { path: 'statistics', component: StatisticsComponent },
       { path: 'trainings', component: TrainingsComponent },
     ],
-    
   },
 
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },

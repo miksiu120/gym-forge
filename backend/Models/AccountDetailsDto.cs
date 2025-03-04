@@ -12,5 +12,7 @@ namespace WorkPlanner.Models
         public double? Weight { get; set; }
         public double? Height { get; set; }
         public string Role { get; set; } 
+        public DateTime CreatedAt { get; set; }
+        public DateTime? BirthDay { get; set; }
     }
 }

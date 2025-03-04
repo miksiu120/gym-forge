@@ -19,3 +19,21 @@ export class AuthGuard implements CanActivate {
     return false;
   }
 }
+
+@Injectable({
+  providedIn: 'root',
+})
+export class GuestGuard implements CanActivate {
+  constructor(private auth: TokenService, private router: Router) {}
+
+  canActivate(): boolean {
+    if (!this.auth.isAuthenticated()) {
+      return true;
+    }
+
+    this.router.navigate(['/dashboard/training-panel'], {
+      queryParams: { returnUrl: this.router.url },
+    });
+    return false;
+  }
+}

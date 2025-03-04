@@ -18,7 +18,7 @@ namespace WorkPlanner.Services
        Task Register(CreateUserDto createUserDto);
        Task<LoginResultDto> Login(LoginUserDto loginUserDto);
 
-       Task<AccountDetailsDto> GetAccountDetails();
+       AccountDetailsDto GetAccountDetails();
 
     }
 
@@ -44,15 +44,15 @@ namespace WorkPlanner.Services
 
         public async Task Register(CreateUserDto createUserDto)
         {
-            if ((await _accountRepository.GetAccountByEmailAsync(createUserDto.Email)) is not null)
+            if (( _accountRepository.GetAccountByEmailAsync(createUserDto.Email).Result) is not null)
             {
                 throw new ArgumentException("An account with this email already exists.");
             }
-            else if ( (await _accountRepository.GetAccountByNicknameAsync(createUserDto.Email)) is not null)
+            else if (( _accountRepository.GetAccountByNicknameAsync(createUserDto.Email).Result) is not null)
             {
                 throw new ArgumentException("An account with this email already exists.");
             }
-            else if ( (await _accountRepository.GetAccountByNicknameAsync(createUserDto.Nickname)) is not null)
+            else if (( _accountRepository.GetAccountByNicknameAsync(createUserDto.Nickname).Result) is not null)
             {
                 throw new ArgumentException("An account with this email already exists.");
             }
@@ -61,8 +61,6 @@ namespace WorkPlanner.Services
             {
                 throw new ArgumentException("Passwords are not the same.");
             }
-
-            
 
             User newUser = _mapper.Map<User>(createUserDto);
 
@@ -76,6 +74,7 @@ namespace WorkPlanner.Services
             }
             var passwordHash = _passwordHasher.HashPassword(newUser,createUserDto.Password);
             newUser.HashedPassword = passwordHash;
+            newUser.CreatedAt = DateTime.UtcNow;
 
             await _accountRepository.CreateAsync(newUser);
             
@@ -108,7 +107,7 @@ namespace WorkPlanner.Services
             return loginResultDto;
         }
 
-        public async Task<AccountDetailsDto> GetAccountDetails()
+        public  AccountDetailsDto GetAccountDetails()
         {
             var userId = _httpContextAccessorService.GetUserIdFromToken();
 
@@ -117,15 +116,13 @@ namespace WorkPlanner.Services
                 throw new Exception("ID does not exist in token");
             }
 
-            User user = await _accountRepository.GetAsync((int)userId);
+            User user =  _accountRepository.GetAsync((int)userId).Result;
+
 
             AccountDetailsDto accountDetailsDto = _mapper.Map<AccountDetailsDto>(user);
 
             return accountDetailsDto;
         }
-
-
-
 
     }
 
