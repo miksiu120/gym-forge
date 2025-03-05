@@ -4,30 +4,47 @@ A website designed to help you track your workouts and monitor your progress.
 Additionally, it provides calculators for assessing your strength and performance, including **Wilks, one-rep max, and weightlifting standards**.
 
 ## Features:
+
 - Save and track your workouts 🏋️‍♂️📈
 - Analyze progress with statistics 📊🔥
 - Utilize strength calculators🔢
 - Plan and manage training routines 📅📝
+  (The view may change during the development process of this website)
+
+### Welcome Panel
+
+<img src="./welcome-panel.png" alt="Welcome Panel" width="50%">
+
+### Login Panel
+
+<img src="./login-panel.png" alt="Login Panel" width="50%">
+
 ## Pages To-Do:
-- [X] Navbar
-- [X] Welcome
-- [X] Login
-- [X] Register
-- [X] One-Rep Max Calculator
-- [X] Wilks Calculator
+
+- [x] Navbar
+- [x] Welcome
+- [x] Login
+- [x] Register
+- [x] One-Rep Max Calculator
+- [x] Wilks Calculator
+- [x] Profile
+- [ ]
 - [ ] Weightlifting Standards
-- [X] Dashboard - Side nav
+- [x] Dashboard - Side nav
 - [ ] Dashboard - Welcome
 - [ ] Dashboard - Statistics
 - [ ] Dashboard - Training
 
-## Backend Plans
-- [] Accounts - registration 
-- [] Accounts - login 
-- [] Traning plans - add new traning plans 
-- [] Completing trainings 
+## Backend Todo
 
-## Long-term Plans 
-In the future, I want to use some **AI tools** to analyze the training of the users. 
+- [x] Accounts - registration
+- [x] Accounts - login
+- [ ] Profile edit
+- [ ] Traning plans - add new traning plans
+- [ ] Completing trainings
+
+## AI tools to add
+
+- Ask an LLM to review the training plan created by a user
 
 Stay tuned for updates! 🔥💪🏼
