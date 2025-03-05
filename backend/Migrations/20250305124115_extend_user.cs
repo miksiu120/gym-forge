@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WorkPlanner.Migrations
 {
     /// <inheritdoc />
-    public partial class extendUser : Migration
+    public partial class extend_user : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

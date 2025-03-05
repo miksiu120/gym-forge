@@ -64,14 +64,7 @@ namespace WorkPlanner.Services
 
             User newUser = _mapper.Map<User>(createUserDto);
 
-            if (Enum.TryParse(typeof(MeasurementSystem), createUserDto.MeasurementValue, true, out var result))
-            {
-                newUser.MeasurementSystem = (MeasurementSystem)result;
-            }
-            else
-            {
-                throw new ArgumentException("Invalid measurement system value.");
-            }
+           
             var passwordHash = _passwordHasher.HashPassword(newUser,createUserDto.Password);
             newUser.HashedPassword = passwordHash;
             newUser.CreatedAt = DateTime.UtcNow;

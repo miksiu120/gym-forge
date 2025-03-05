@@ -146,3 +146,15 @@ router-outlet {
   text-decoration: none;
   cursor: pointer;
 }
+
+.required {
+  &::after {
+    content: "*";
+    font-weight: 500;
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}

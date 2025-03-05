@@ -26,7 +26,7 @@ namespace WorkPlanner.Controllers
             return Ok(loginResultDto);
         }
 
-        [HttpPut("register")]
+        [HttpPost("register")]
         public IActionResult Register([FromBody] CreateUserDto createUserDto)
         {
             _accountService.Register(createUserDto);

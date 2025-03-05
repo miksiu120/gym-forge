@@ -23,6 +23,7 @@
 
       &__text {
         border-bottom: index.$medium;
+        
       }
 
       &__title {
@@ -39,10 +40,7 @@
           margin-bottom: index.$xsmall;
         }
 
-        .form-group {
-          display: flex;
-          flex-direction: column;
-        }
+        
 
         input {
           font-size: index.$xsmall;

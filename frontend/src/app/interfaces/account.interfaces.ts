@@ -1,10 +1,10 @@
 export interface CreateUserDto {
   nickname: string;
   email: string;
+  name: string;
+  surname: string;
   password: string;
   confirmPassword: string;
-  weight?: number;
-  height?: number;
   measurementValue?: string;
 }
 

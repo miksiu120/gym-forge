@@ -20,12 +20,12 @@ export class NavbarComponent {
 
   ngOnInit() {
     this.isLoggedIn = this.tokenService.isAuthenticated();
-    this.userName = localStorage.getItem('name') || 'user';
+    this.userName = localStorage.getItem('nickname') || 'user';
 
     this.authSubscription = this.tokenService.authStatus$.subscribe(
       (status) => {
         this.isLoggedIn = status;
-        this.userName = localStorage.getItem('name') || 'user';
+        this.userName = localStorage.getItem('nickname') || 'user';
       }
     );
   }

@@ -24,6 +24,7 @@ export class AccountService {
   }
 
   registerAccount(registerData: CreateUserDto): Observable<void> {
+    console.log('Wysylanie do rejestracji:', registerData);
     return this.http.post<void>(
       this.getApiUrlWithEndpoint('accounts/register'),
       registerData

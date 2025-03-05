@@ -9,14 +9,14 @@ namespace WorkPlanner.Models
         public string Nickname { get; set; }
         [Required]
         public string Email { get; set; }
+        
+        public string? Name { get; set; }
+        public string? Surname { get; set; }
+
         [Required]
         public string Password { get; set; }
+
         [Required]
         public string ConfirmPassword { get; set; }
-        [Required]
-        public double Weight { get; set; }
-        [Required]
-        public double Height { get; set; }
-        public string MeasurementValue { get; set; }
     }
 }

@@ -12,8 +12,8 @@ using WorkPlanner.Entities;
 namespace WorkPlanner.Migrations
 {
     [DbContext(typeof(WorkPlannerDbContext))]
-    [Migration("20250304150316_extendUser")]
-    partial class extendUser
+    [Migration("20250305124115_extend_user")]
+    partial class extend_user
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
