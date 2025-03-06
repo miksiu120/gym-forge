@@ -28,6 +28,9 @@ export interface AccountDetailsDto {
   weight?: number;
   height?: number;
   role: string;
+  createdAt: Date;
   birthDay?: Date;
-  description: string;
+  description?: string;
+  measurementSystem: string;
 }
+

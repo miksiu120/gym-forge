@@ -7,6 +7,11 @@
   .large-container {
     @include index.box-display(index.$light-grey);
 
+    form{
+      display: flex;
+      flex-direction: column;
+    }
+
     .edit-area {
       label {
         font-weight: 400;
@@ -18,6 +23,10 @@
         padding: calc(index.$xsmall/3);
         font-size: index.$xsmall;
         // box-shadow: index.$shadow-light;
+      }
+
+      .radio {
+        margin-right: calc(index.$xsmall/2);
       }
 
       textarea {
