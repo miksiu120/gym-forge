@@ -89,6 +89,7 @@ router-outlet {
   margin: index.$small 0;
   &__title {
     font-size: index.$medium;
+    margin-bottom: index.$small;
   }
   &__description {
     font-size: index.$small;
@@ -98,6 +99,7 @@ router-outlet {
 @media (min-width: 768px) {
   .box {
     margin: index.$small index.$small;
+    padding: index.$large;
   }
 }
 

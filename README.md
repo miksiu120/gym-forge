@@ -9,15 +9,19 @@ Additionally, it provides calculators for assessing your strength and performanc
 - Analyze progress with statistics 📊🔥
 - Utilize strength calculators🔢
 - Plan and manage training routines 📅📝
-  (The view may change during the development process of this website)
+
+## Current sample look of my website
 
 ### Welcome Panel
 
-<img src="./welcome-panel.png" alt="Welcome Panel" width="50%">
+(The view may change during the development process of this website)
+
 
 ### Login Panel
+<img src="./login-panel.png" alt="Login Panel" width="70%">
 
-<img src="./login-panel.png" alt="Login Panel" width="50%">
+### Welcome Panel
+<img src="./welcome-panel.png" alt="Welcome Panel" width="70%">
 
 ## Pages To-Do:
 

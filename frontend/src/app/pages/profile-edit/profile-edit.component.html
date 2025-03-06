@@ -1,1 +1,78 @@
-<p>profile-edit works!</p>
+<div class="large-container">
+    <div class="small-container">
+        <div class="box">
+            <h2 class="box__title">Edit your profile</h2>
+
+            <form>
+
+                <div class="picture-edit edit-area">
+                    <img src="./default-profile.jpg" alt="profile">
+                    <div class="form-group">
+                        <label for="profile-picture"> Upload photo</label>
+                        <input type="file" id="profile-picture" name="profile-picture"
+                            formControlName="profile-picture">
+                    </div>
+                </div>
+
+                <div class="edit-area form-group">
+                    <label for="nickname"> Nickname</label>
+                    <input type="text" id="nickname" name="nickame" formControlName="nickname">
+                </div>
+
+                <div class="edit-area form-group">
+                    <label for="email"> Email</label>
+                    <input type="text" id="email" name="email" formControlName="email">
+                </div>
+
+                <div class="edit-area form-group">
+                    <label for="text"> name</label>
+                    <input type="text" id="name" name="name" formControlName="name">
+                </div>
+
+                <div class="edit-area form-group">
+                    <label for="text"> surname</label>
+                    <input type="text" id="surname" name="surname" formControlName="surname">
+                </div>
+
+                <div class="edit-area form-group">
+                    <label for="birthday"> birthday</label>
+                    <input type="date" id="birthday" name="birthday" formControlName="birthday" value="2000-01-01">
+                </div>
+
+                <div class="edit-area form-group">
+                    <label for="weight"> weight</label>
+                    <input type="number" id="weight" name="weight" formControlName="weight">
+                </div>
+
+                <div class="edit-area form-group">
+                    <label for="height"> height</label>
+                    <input type="number" id="height" name="height" formControlName="height">
+                </div>
+
+                <div class="edit-area form-group">
+                    <label for="measure-type">Measure System</label>
+                    <div>
+                        <input type="radio" id="metric" name="measure-type" value="metric"
+                            formControlName="measure-type">
+                        <label for="metric">Metric</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="imperial" name="measure-type" value="imperial"
+                            formControlName="measure-type">
+                        <label for="imperial">Imperial</label>
+                    </div>
+                </div>
+
+                <div class="edit-area form-group">
+                    <label for="about-you"> about you</label>
+                    <textarea id="about-you" maxlength="150" name="about-you" formControlName="about-you">
+                </textarea>
+                </div>
+
+                <button class="btn"> save </button>
+
+                <a routerLinkActive="active" routerLink="/profile"class="btn">discard</a>
+            </form>
+        </div>
+    </div>
+</div>

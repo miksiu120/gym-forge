@@ -1,0 +1,48 @@
+@use "../../../styles/utilities/index";
+
+:host {
+  display: block;
+  background-color: index.$ligther-black;
+
+  .large-container {
+    @include index.box-display(index.$light-grey);
+
+    .edit-area {
+      label {
+        font-weight: 400;
+        margin-bottom: 3px;
+        text-transform: capitalize;
+        text-shadow: index.$shadow-light;
+      }
+      input {
+        padding: calc(index.$xsmall/3);
+        font-size: index.$xsmall;
+        // box-shadow: index.$shadow-light;
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+      margin-bottom: index.$xsmall;
+    }
+
+    .box {
+      font-weight: 300;
+      .picture-edit {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        img {
+          max-width: 75px;
+          border: 2px solid index.$black;
+          align-self: center;
+          margin-right: index.$xsmall;
+        }
+        .form-group {
+          align-self: center;
+        }
+      }
+    }
+  }
+}
