@@ -6,11 +6,13 @@ namespace WorkPlanner.Entities
     public class Exercise
     {
         public int Id { get; set; }
-        public string? Description{ get; set; }
+    
         public string Name{ get; set; }
         public int Sets { get; set; }
         public int? Repetitions { get; set; }
         public int? Duration { get; set; }
+
+        public string? Description { get; set; }
 
         public ExerciseType type { get; set; }
 

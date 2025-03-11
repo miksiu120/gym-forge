@@ -1,0 +1,43 @@
+@use "../../../styles/utilities/index";
+
+:host {
+  @include index.box-display(index.$light-grey);
+
+  .stages {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    justify-content: space-around;
+
+    &__stage {
+      text-transform: uppercase;
+      font-weight: 400;
+      text-align: center;
+      background-color: index.$white;
+      z-index: 23;
+      padding: calc(index.$xsmall/2);
+      &.active {
+        border: 1px solid index.$black;
+      }
+
+      &.completed {
+        border: 1px solid index.$black;
+        color: index.$white;
+        background-color: index.$black;
+      }
+      &.unactive {
+        color: index.$ligther-black;
+      }
+    }
+
+    &__block {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60%;
+      height: 2px;
+      background-color: index.$black;
+    }
+  }
+}

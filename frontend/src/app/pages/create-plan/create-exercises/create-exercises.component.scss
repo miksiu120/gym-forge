@@ -1,0 +1,13 @@
+@use "../../../../styles/utilities/index";
+
+:host {
+}
+
+@media (min-width: index.$large-width) {
+  :host {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto;
+    min-height: 50vh;
+  }
+}

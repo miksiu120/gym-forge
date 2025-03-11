@@ -7,35 +7,6 @@
   .large-container {
     @include index.box-display(index.$light-grey);
 
-    form{
-      display: flex;
-      flex-direction: column;
-    }
-
-    .edit-area {
-      label {
-        font-weight: 400;
-        margin-bottom: 3px;
-        text-transform: capitalize;
-        text-shadow: index.$shadow-light;
-      }
-      input {
-        padding: calc(index.$xsmall/3);
-        font-size: index.$xsmall;
-        // box-shadow: index.$shadow-light;
-      }
-
-      .radio {
-        margin-right: calc(index.$xsmall/2);
-      }
-
-      textarea {
-        resize: vertical;
-        min-height: 100px;
-      }
-      margin-bottom: index.$xsmall;
-    }
-
     .box {
       font-weight: 300;
       .picture-edit {

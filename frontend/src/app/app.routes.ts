@@ -19,6 +19,7 @@ import {
   GuestGuard,
 } from './services/token-service/auth-guard.service';
 import { ProfileEditComponent } from './pages/profile-edit/profile-edit.component';
+import { CreatePlanComponent } from './pages/create-plan/create-plan.component';
 
 export const routes: Routes = [
   { path: '', component: WelcomeComponent, canActivate: [GuestGuard] },
@@ -40,6 +41,8 @@ export const routes: Routes = [
       { path: 'trainings', component: TrainingsComponent },
     ],
   },
+
+  { path: 'create-plan', component: CreatePlanComponent },
 
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   {

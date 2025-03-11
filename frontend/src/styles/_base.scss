@@ -70,41 +70,8 @@ router-outlet {
   }
 }
 
-@media (min-width: 1024px) {
-  .section-title {
-    margin: index.$large;
-    &__square {
-      margin-right: index.$small;
-    }
-    &__text {
-      font-size: index.$large;
-    }
-  }
-}
-
-.box {
-  background-color: index.$white;
-  padding: index.$small;
-  box-shadow: index.$shadow;
-  margin: index.$small 0;
-  &__title {
-    font-size: index.$medium;
-    margin-bottom: index.$small;
-  }
-  &__description {
-    font-size: index.$small;
-  }
-}
-
-@media (min-width: 768px) {
-  .box {
-    margin: index.$small index.$small;
-    padding: index.$large;
-  }
-}
-
 .form-box {
-  &__form {
+  form {
     display: flex;
     flex-direction: column;
     padding-top: index.$xsmall;
@@ -137,7 +104,53 @@ router-outlet {
   }
 }
 
+@media (min-width: index.$xlarge) {
+  .section-title {
+    margin: index.$large;
+    &__square {
+      margin-right: index.$small;
+    }
+    &__text {
+      font-size: index.$large;
+    }
+  }
+}
+
+.box {
+  background-color: index.$white;
+  padding: index.$small;
+  box-shadow: index.$shadow;
+  margin: index.$small 0;
+  &__title {
+    font-size: index.$small;
+    margin-bottom: index.$small;
+    font-weight: 500;
+    letter-spacing: 1px;
+    &--dark {
+      background-color: index.$black;
+      padding: calc(index.$xsmall/2);
+      text-transform: uppercase;
+      color: index.$white;
+      text-align: center;
+    }
+  }
+  &__description {
+    font-size: index.$small;
+  }
+}
+
+@media (min-width: index.$medium-width) {
+  .box {
+    margin: index.$small index.$small;
+    padding: index.$large;
+    &__title {
+      font-size: index.$medium;
+    }
+  }
+}
+
 .btn {
+  display: block;
   color: index.$white;
   background-color: index.$black;
   border: none;
@@ -159,4 +172,26 @@ router-outlet {
 .form-group {
   display: flex;
   flex-direction: column;
+  margin-bottom: index.$xsmall;
+  label {
+    font-weight: 400;
+    margin-bottom: 3px;
+    text-transform: capitalize;
+    text-shadow: index.$shadow-light;
+  }
+  input {
+    padding: calc(index.$xsmall/3);
+    font-size: index.$xsmall;
+  }
+
+  .radio {
+    margin-right: calc(index.$xsmall/2);
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 50px;
+    font-size: index.$xsmall;
+    padding: calc(index.$xsmall/3);
+  }
 }
