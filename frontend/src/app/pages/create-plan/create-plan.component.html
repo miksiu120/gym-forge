@@ -1,21 +1,39 @@
 <div class="container">
     <div class="stages box">
         <div class="stages__block"></div>
-        <div class="stages__stage completed">
+        <div [ngClass]="this.statusStages[0]" class="stages__stage">
 
-            <span class="completed">
-                <i class="fa-solid fa-check"></i>
-            </span>
+            <span [innerHTML]="this.stageIcons[0]"></span>
             Create exercises
         </div>
-        <div class="stages__stage active">
-            <span class="actual">
-                <i class="fa-solid fa-location-pin"></i>
-            </span>
+        <div [ngClass]="this.statusStages[1]" class=" stages__stage">
+            <span [innerHTML]="this.stageIcons[1]"></span>
             Compose training unit
         </div>
-        <div class="stages__stage unactive">Set training dates</div>
+        <div [ngClass]="this.statusStages[2]" class=" stages__stage ">
+            <span [innerHTML]="this.stageIcons[2]"></span>
+            Set training dates
+        </div>
 
     </div>
+    @if(actualStage === 0)
+    {
     <component-create-exercises></component-create-exercises>
+    }
+    @else if (actualStage === 1) {
+    <component-create-training-unit></component-create-training-unit>
+    }
+    @else if (actualStage === 2) {
+    <component-set-dates></component-set-dates>
+    }
+    <!-- component will change after next stage -->
+
+    <div class="stages__buttons">
+        <button [disabled]="actualStage === 0" [ngClass]="{'unactive': actualStage === 0}" (click)="GoPreviousStage()"
+            class="btn previous">
+            previous
+        </button>
+        <button (click)="GoNextStage()" class="btn next">next
+        </button>
+    </div>
 </div>

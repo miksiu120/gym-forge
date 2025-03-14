@@ -1,6 +1,11 @@
 @use "../../../../styles/utilities/index";
 
 :host {
+  .radios {
+    display: flex;
+    flex-direction: row;
+    gap: index.$medium;
+  }
 }
 
 @media (min-width: index.$large-width) {

@@ -156,7 +156,7 @@ router-outlet {
   border: none;
   text-transform: uppercase;
   font-size: index.$xsmall;
-  padding: index.$xsmall/2 0;
+  padding: calc(index.$xsmall/2) index.$small;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
