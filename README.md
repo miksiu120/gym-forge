@@ -22,6 +22,16 @@ Additionally, it provides calculators for assessing your strength and performanc
 
 <img src="./welcome-panel.png" alt="Welcome Panel" width="70%">
 
+### Create exercise
+
+<img src="./create-exercise.png" alt="Exercise creator" width="70%">
+
+## AI tools to add
+
+- Integrate an AI-powered tool to review and provide feedback on user-created training plans.
+
+Stay tuned for updates! 🔥💪🏼
+
 ## Pages To-Do:
 
 - [x] Navbar
@@ -44,9 +54,3 @@ Additionally, it provides calculators for assessing your strength and performanc
 - [ ] Profile edit
 - [ ] Traning plans - add new traning plans
 - [ ] Completing trainings
-
-## AI tools to add
-
-- Ask an LLM to review the training plan created by a user
-
-Stay tuned for updates! 🔥💪🏼
