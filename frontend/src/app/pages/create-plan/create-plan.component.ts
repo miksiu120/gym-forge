@@ -3,13 +3,14 @@ import { CreateExercisesComponent } from './create-exercises/create-exercises.co
 import { CreateTrainingUnitComponent } from './create-training-unit/create-training-unit.component';
 import { SetDatesComponent } from './set-dates/set-dates.component';
 import { NgClass } from '@angular/common';
-
+import { Exercise } from '../../interfaces/traning.interfaces';
 enum Status {
   Unactive = 'unactive',
   Active = 'active',
   Completed = 'completed',
 }
-
+// maybe it's not looks too clean but I didn't have
+// any better idea
 @Component({
   selector: 'page-create-plan',
   imports: [
@@ -58,4 +59,6 @@ export class CreatePlanComponent {
   }
 
   OnNextButton() {}
+
+  CreatedExercises: Exercise[] = [];
 }

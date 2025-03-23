@@ -2,52 +2,62 @@
     <h2 class="box__title box__title--dark"> Create exercise </h2>
 
 
-    <form action="">
+    <form [formGroup]="exerciseData" (ngSubmit)="addExcercise()">
 
         <div class="form-group exercise-name">
-            <label for="exercise-name"> Exercise name</label>
-            <input type="text" id="exercise-name" name="exercise-name" formControlName="exercise-name">
+            <label class="required" for="exercise-name"> Exercise name</label>
+            <input type="text" id="exercise-name" name="exercise-name" formControlName="name"
+                placeholder="Exercise name">
         </div>
 
         <div class="form-group exercise-description">
             <label for="exercise-description"> Exercise description</label>
             <textarea id="exercise-description" maxlength="150" name="exercise-description"
-                formControlName="exercise-description">
+                formControlName="description" placeholder="Short description about exercise">
     </textarea>
         </div>
 
         <div class="form-group sets">
-            <label for="exercise-name"> Sets</label>
-            <input type="number" id="sets" name="sets" formControlName="sets">
+            <label class="required" for="exercise-name"> Sets</label>
+            <input type="number" id="sets" name="sets" formControlName="sets" min="1" placeholder="Number of sets ">
         </div>
 
         <div class="form-group">
-            <label for="exercise-type">Exercise type</label>
+            <label for="type">Exercise type</label>
             <div class="radios">
                 <div>
-                    <input class="radio" type="radio" id="repetetive" name="exercise-type" value="repetetive"
-                        formControlName="repetetive" checked>
-                    <label for="repetetive">Repetitive</label>
+                    <input class="radio" type="radio" id="repetetive" name="type" value="repetetive"
+                        formControlName="type">
+                    <label for=" repetetive">Repetitive</label>
                 </div>
                 <div>
-                    <input class="radio" type="radio" id="timed" name="exercise-type" value="timed"
-                        formControlName="timed">
+                    <input class="radio" type="radio" id="timed" name="type" value="timed" formControlName="type">
                     <label for="timed">Timed</label>
                 </div>
-
             </div>
         </div>
 
 
+        @if (exerciseData.get('type')?.value === 'repetetive') {
         <div class="form-group repetitions">
-            <label for="exercise-name"> repetitions</label>
-            <input type="number" id="repetitions" name="repetitions" formControlName="repetitions">
+            <label class="required" for="exercise-name"> repetitions</label>
+            <input type="number" id="repetitions" name="repetitions" formControlName="repetitions" min="1"
+                placeholder="Number of repetitions">
         </div>
 
-        <!-- <div class="form-group duration">
-        <label for="exercise-name"> duration</label>
-        <input type="number" id="duration" name="duration" formControlName="duration">
-    </div> -->
+        <div class="form-group tempo">
+            <label for="tempo"> tempo</label>
+            <input type="string" id="tempo" name="tempo" formControlName="tempo" placeholder="0-0-0-0">
+        </div>
+        }
+
+        @if (exerciseData.get('type')?.value === 'timed') {
+        <div class="form-group duration">
+            <label class="required" for="exercise-name"> duration</label>
+            <input type="number" id="duration" name="duration" formControlName="duration" min="1"
+                placeholder="The duration of your ">
+        </div>
+        }
         <button class="form-group btn"> Save </button>
     </form>
 
@@ -56,5 +66,29 @@
 <div class="box ">
     <h2 class="box__title box__title--dark"> Your exercises </h2>
 
+    <div class="box__exercises">
+
+        @for (exercise of createdExercises; track exercise.name) {
+        <div class="box__exercise">
+            <h3 class="box__exercise__title"> {{exercise.name}}</h3>
+            <p class="box__exercise__description"> {{exercise.description}}
+            </p>
+            <p class="box__exercise__sets">Sets: <span class="value"> {{exercise.sets}}</span></p>
+            <p class="box__exercise__repetetive">Type: <span class="value"> {{exercise.type}}</span></p>
+            @if(exercise.type == MeasurementSystem.Repetitive)
+            {
+            <p>Reps: <span class="value"> {{exercise.sets}}</span></p>
+            <p class="box__exercise__tempo">Tempo: <span class="value"> {{exercise.tempo}}</span></p>
+            }
+            @else {
+            <p class="time">Time: <span class="value">{{exercise.duration}}</span> seconds</p>
+            }
+        </div>
+        } @empty{
+        <p class="empty-info">
+            No exercises have been created yet. Start by adding a new exercise.
+        </p>
+        }
+    </div>
 
 </div>

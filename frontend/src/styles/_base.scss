@@ -15,8 +15,17 @@ body {
   font-family: "Oswald", sans-serif;
   min-height: 100vh;
 }
-button {
+button,
+input,
+textarea {
   font-family: "Oswald", sans-serif;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 50px;
+  font-size: index.$xsmall;
+  padding: calc(index.$xsmall/3);
 }
 
 router-outlet {
@@ -187,11 +196,8 @@ router-outlet {
   .radio {
     margin-right: calc(index.$xsmall/2);
   }
+}
 
-  textarea {
-    resize: vertical;
-    min-height: 50px;
-    font-size: index.$xsmall;
-    padding: calc(index.$xsmall/3);
-  }
+.value {
+  font-weight: 500;
 }

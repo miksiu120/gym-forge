@@ -6,6 +6,30 @@
     flex-direction: row;
     gap: index.$medium;
   }
+
+  .box {
+    &__exercises {
+      overflow-y: scroll;
+      height: clamp(300px, 50vh, 450px);
+    }
+    &__exercise {
+      border: 2px solid index.$black;
+      padding: index.$xsmall;
+      margin: index.$xsmall 0;
+    }
+  }
+
+  .empty-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 400;
+    text-align: center;
+    align-items: center;
+    font-size: index.$small;
+    color: index.$black-transparent;
+    height: 100%;
+  }
 }
 
 @media (min-width: index.$large-width) {

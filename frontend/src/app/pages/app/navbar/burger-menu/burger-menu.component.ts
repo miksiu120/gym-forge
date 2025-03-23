@@ -4,7 +4,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'burger-menu',
-  imports: [ RouterLinkActive, RouterLink],
+  imports: [RouterLinkActive, RouterLink],
   templateUrl: './burger-menu.component.html',
   styleUrl: './burger-menu.component.scss',
 })
@@ -13,6 +13,8 @@ export class BurgerMenuComponent {
 
   @Input() isBurgerActive = false;
   constructor() {}
+
+  @Input() isLoggedIn = false;
 
   areCalculationsVisible: boolean = false;
 

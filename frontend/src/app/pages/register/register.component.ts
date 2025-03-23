@@ -5,19 +5,20 @@ import {
   Form,
   FormBuilder,
   FormGroup,
+  NgModel,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 
 import { AccountService } from '../../services/account-service/account-service.service';
 import { Route } from '@angular/router';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'page-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
   imports: [RouterModule, RouterLinkActive, ReactiveFormsModule],
-  providers: [FormBuilder],
 })
 export class RegisterComponent {
   registerForm: FormGroup;

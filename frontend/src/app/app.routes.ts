@@ -35,7 +35,7 @@ export const routes: Routes = [
     path: 'dashboard',
     component: TrainingPanelComponent,
     children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: '', redirectTo: 'training-panel', pathMatch: 'full' },
       { path: 'training-panel', component: DashboardComponent },
       { path: 'statistics', component: StatisticsComponent },
       { path: 'trainings', component: TrainingsComponent },
@@ -50,4 +50,5 @@ export const routes: Routes = [
     component: ProfileEditComponent,
     canActivate: [AuthGuard],
   },
+  { path: '**', component: NotFoundComponent },
 ];
