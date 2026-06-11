@@ -40,5 +40,22 @@ namespace WorkPlanner.Controllers
             var accountDetails = _accountService.GetAccountDetails();
             return Ok(accountDetails);
         }
+
+        [HttpPut("details")]
+        public async Task<IActionResult> Update([FromBody] UpdateAccountDto request)
+        {
+            try
+            {
+                return Ok(await _accountService.UpdateAccountAsync(request));
+            }
+            catch (KeyNotFoundException exception)
+            {
+                return NotFound(new { message = exception.Message });
+            }
+            catch (ArgumentException exception)
+            {
+                return BadRequest(new { message = exception.Message });
+            }
+        }
     }
 }

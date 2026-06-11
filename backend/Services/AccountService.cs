@@ -17,6 +17,7 @@ namespace WorkPlanner.Services
     {
        Task Register(CreateUserDto createUserDto);
        Task<LoginResultDto> Login(LoginUserDto loginUserDto);
+       Task<AccountDetailsDto> UpdateAccountAsync(UpdateAccountDto request);
 
        AccountDetailsDto GetAccountDetails();
 
@@ -115,6 +116,33 @@ namespace WorkPlanner.Services
             AccountDetailsDto accountDetailsDto = _mapper.Map<AccountDetailsDto>(user);
 
             return accountDetailsDto;
+        }
+
+        public async Task<AccountDetailsDto> UpdateAccountAsync(UpdateAccountDto request)
+        {
+            var userId = _httpContextAccessorService.GetUserIdFromToken()
+                ?? throw new UnauthorizedAccessException("ID does not exist in token");
+            var user = await _accountRepository.GetAsync(userId)
+                ?? throw new KeyNotFoundException("Account was not found.");
+
+            var normalizedEmail = request.Email.Trim();
+            var existingEmailUser = await _accountRepository.GetAccountByEmailAsync(normalizedEmail);
+            if (existingEmailUser is not null && existingEmailUser.Id != user.Id)
+                throw new ArgumentException("An account with this email already exists.");
+
+            user.Email = normalizedEmail;
+            user.Name = string.IsNullOrWhiteSpace(request.Name) ? null : request.Name.Trim();
+            user.Surname = string.IsNullOrWhiteSpace(request.Surname) ? null : request.Surname.Trim();
+            user.Weight = request.Weight;
+            user.Height = request.Height;
+            user.BirthDay = request.BirthDay.HasValue
+                ? DateTime.SpecifyKind(request.BirthDay.Value, DateTimeKind.Utc)
+                : null;
+            user.Description = string.IsNullOrWhiteSpace(request.Description) ? null : request.Description.Trim();
+            user.MeasurementSystem = request.MeasurementSystem;
+
+            await _accountRepository.UpdateAsync(user);
+            return _mapper.Map<AccountDetailsDto>(user);
         }
 
     }
