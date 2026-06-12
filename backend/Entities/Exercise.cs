@@ -7,7 +7,7 @@ namespace WorkPlanner.Entities
     {
         public int Id { get; set; }
     
-        public string Name{ get; set; }
+        public string Name{ get; set; } = string.Empty;
         public int Sets { get; set; }
         public int? Repetitions { get; set; }
         public int? Duration { get; set; }
@@ -20,5 +20,6 @@ namespace WorkPlanner.Entities
 
         public virtual TrainingUnit? TrainingUnit { get; set; }
         public int TrainingUnitId { get; set; }
+        public virtual List<ExerciseSetResult> SetResults { get; set; } = [];
     }
 }

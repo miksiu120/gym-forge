@@ -13,6 +13,7 @@ namespace WorkPlanner.Entities
         public DbSet<TrainingPlan> TrainingPlans { get; set; }
         public DbSet<TrainingUnit> TrainingUnits { get; set; }
         public DbSet<Exercise> TimeExercises { get; set; }
+        public DbSet<ExerciseSetResult> ExerciseSetResults { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -65,6 +66,17 @@ namespace WorkPlanner.Entities
                 e.HasOne(u => u.TrainingUnit)
                     .WithMany(ee => ee.ExerciseList)
                     .HasForeignKey(k => k.TrainingUnitId);
+
+                e.HasMany(result => result.SetResults)
+                    .WithOne(result => result.Exercise)
+                    .HasForeignKey(result => result.ExerciseId);
+            });
+
+            modelBuilder.Entity<ExerciseSetResult>(result =>
+            {
+                result.Property(value => value.SetNumber).IsRequired();
+                result.Property(value => value.Weight).HasPrecision(7, 2);
+                result.Property(value => value.Rpe).HasPrecision(3, 1);
             });
 
         }

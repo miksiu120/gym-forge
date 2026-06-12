@@ -14,7 +14,9 @@ using Microsoft.AspNetCore.Authentication.Twitter;
 using Microsoft.IdentityModel.Tokens;
 using PartyGame.Services;
 using WorkPlanner.Configs;
-using Microsoft.Extensions.Configuration;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using WorkPlanner.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,8 +49,10 @@ builder.Services.AddDbContext<WorkPlannerDbContext>(options =>
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+builder.Services.AddScoped<DatabaseSeeder>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<ITrainingPlanService, TrainingPlanService>();
 
 
 builder.Services.AddScoped<IHttpContextAccessorService,HttpContextAccessorService>();
@@ -59,7 +63,8 @@ builder.Services.AddAutoMapper(typeof(AccountMapper).Assembly);
 builder.Services.AddAuthenticationConfig(builder.Configuration);
 
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase)));
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
@@ -67,7 +72,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:4200")
+        policy.WithOrigins(builder.Configuration["ConnectionStrings:WebsiteConnection"] ?? "http://localhost:4200")
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials();
@@ -78,6 +83,24 @@ builder.Services.AddCors(options =>
 
 
 var app = builder.Build();
+
+if (builder.Configuration.GetValue<bool>("ApplyMigrations") ||
+    builder.Configuration.GetValue<bool>("SeedData"))
+{
+    using var scope = app.Services.CreateScope();
+    var database = scope.ServiceProvider.GetRequiredService<WorkPlannerDbContext>();
+
+    if (builder.Configuration.GetValue<bool>("ApplyMigrations"))
+    {
+        database.Database.Migrate();
+    }
+
+    if (builder.Configuration.GetValue<bool>("SeedData"))
+    {
+        var seeder = scope.ServiceProvider.GetRequiredService<DatabaseSeeder>();
+        await seeder.SeedAsync();
+    }
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -92,8 +115,8 @@ app.UseRouting();
 app.UseCors("AllowFrontend"); 
 
 
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 

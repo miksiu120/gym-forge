@@ -62,6 +62,41 @@ namespace WorkPlanner.Migrations
                     b.ToTable("TimeExercises");
                 });
 
+            modelBuilder.Entity("WorkPlanner.Entities.ExerciseSetResult", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("Duration")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ExerciseId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("Repetitions")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal?>("Rpe")
+                        .HasPrecision(3, 1)
+                        .HasColumnType("numeric(3,1)");
+
+                    b.Property<int>("SetNumber")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal?>("Weight")
+                        .HasPrecision(7, 2)
+                        .HasColumnType("numeric(7,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExerciseId");
+
+                    b.ToTable("ExerciseSetResults");
+                });
+
             modelBuilder.Entity("WorkPlanner.Entities.TrainingPlan", b =>
                 {
                     b.Property<int>("Id")
@@ -98,8 +133,14 @@ namespace WorkPlanner.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime?>("CompletedAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Notes")
                         .HasColumnType("text");
 
                     b.Property<DateTime>("StartTime")
@@ -191,6 +232,17 @@ namespace WorkPlanner.Migrations
                     b.Navigation("Author");
                 });
 
+            modelBuilder.Entity("WorkPlanner.Entities.ExerciseSetResult", b =>
+                {
+                    b.HasOne("WorkPlanner.Entities.Exercise", "Exercise")
+                        .WithMany("SetResults")
+                        .HasForeignKey("ExerciseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Exercise");
+                });
+
             modelBuilder.Entity("WorkPlanner.Entities.TrainingUnit", b =>
                 {
                     b.HasOne("WorkPlanner.Entities.TrainingPlan", "TrainingPlan")
@@ -205,6 +257,11 @@ namespace WorkPlanner.Migrations
             modelBuilder.Entity("WorkPlanner.Entities.TrainingPlan", b =>
                 {
                     b.Navigation("TrainingUnitList");
+                });
+
+            modelBuilder.Entity("WorkPlanner.Entities.Exercise", b =>
+                {
+                    b.Navigation("SetResults");
                 });
 
             modelBuilder.Entity("WorkPlanner.Entities.TrainingUnit", b =>
