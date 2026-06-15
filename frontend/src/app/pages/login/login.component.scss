@@ -2,178 +2,125 @@
 
 :host {
   display: block;
+  min-height: 100svh;
+  padding-top: 68px;
   background-color: index.$black;
 
   .container {
-    background-color: index.$white;
-    min-height: 90vh;
     display: grid;
+    min-height: calc(100svh - 68px);
+    background-color: index.$white;
+  }
+
+  .side-bar {
+    display: none;
+  }
+
+  .login {
+    display: flex;
+    width: 100%;
+    max-width: 680px;
+    flex-direction: column;
+    justify-content: center;
+    justify-self: center;
+    padding: index.$xxlarge clamp(index.$small, 7vw, index.$xxlarge);
+
+    &__text {
+      margin-bottom: index.$large;
+    }
+
+    &__title {
+      margin-bottom: 6px;
+      font-size: clamp(index.$large, 5vw, index.$xlarge);
+    }
+
+    &__description {
+      color: index.$black-transparent;
+      font-size: index.$xsmall;
+    }
+
+    form {
+      display: grid;
+      gap: index.$xsmall;
+      color: index.$black;
+    }
+
+    .error { color: #8b1e1e; font-size: index.$xsmall; }
+    .error--form { padding: 10px 12px; border-left: 3px solid #8b1e1e; background: #8b1e1e12; }
+
+    input {
+      border: 2px solid index.$black;
+    }
+
+    .btn {
+      width: 100%;
+    }
+
+    .question {
+      display: flex;
+      align-items: center;
+      gap: index.$xsmall;
+      color: index.$black-transparent;
+      text-align: center;
+
+      &::before,
+      &::after {
+        content: "";
+        height: 1px;
+        flex: 1;
+        background-color: index.$gray;
+      }
+    }
+  }
+}
+
+@media (min-width: index.$xlarge-width) {
+  :host {
+    padding-top: 61px;
+
+    .container {
+      min-height: calc(100svh - 61px);
+      grid-template-columns: 1fr 1fr;
+    }
 
     .side-bar {
-      display: none;
-    }
-
-    .login {
       display: flex;
+      position: relative;
+      z-index: 1;
       flex-direction: column;
+      align-items: center;
       justify-content: center;
-      padding: index.$medium;
-      padding-top: index.$xlarge * 2;
+      padding: index.$xlarge;
+      background-image: url("/woman-7200534_1280.webp");
+      background-size: cover;
+      background-position: 20% 10%;
+      background-repeat: no-repeat;
+      color: index.$white;
 
-      &__title {
-        font-size: index.$large;
+      .title {
+        font-size: clamp(index.$large, 4vw, index.$xlarge);
+        text-align: center;
       }
 
-      form {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        color: index.$black;
+      .description {
+        margin-top: index.$small;
+        font-size: index.$small;
+        text-align: center;
+      }
 
-        > * {
-          margin-bottom: index.$xsmall;
-        }
-
-        .form-group {
-          display: flex;
-          flex-direction: column;
-        }
-
-        input {
-          font-size: index.$xsmall;
-          padding: calc(index.$xsmall / 2);
-          border: 2px solid index.$black;
-          transition: border-bottom 0.4s ease-in;
-
-          &:focus {
-            border: none;
-            border-bottom: 3px solid rgb(0, 0, 0);
-          }
-        }
-
-        .btn {
-          padding: calc(index.$xsmall / 1.5);
-          color: index.$white;
-          background-color: index.$black;
-          border: none;
-          text-transform: uppercase;
-          text-align: center;
-          font-size: index.$xsmall;
-          font-weight: 500;
-          cursor: pointer;
-          border: 1px solid index.$white;
-          transition: 0.3s color ease-in-out, 0.3s background-color ease-in-out;
-          text-decoration: none;
-          &:hover {
-            background-color: index.$white;
-            color: index.$black;
-            border: 1px solid index.$black;
-          }
-        }
-
-        .question {
-          position: relative;
-          text-align: center;
-
-          &::before,
-          &::after {
-            content: "";
-            width: 50px;
-            height: 1px;
-            background-color: index.$black;
-            position: absolute;
-            top: 50%;
-          }
-
-          &::before {
-            left: 0%;
-          }
-
-          &::after {
-            right: 0%;
-          }
-        }
-
-        label {
-          color: index.$black;
-        }
+      .shadow {
+        position: absolute;
+        z-index: -1;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.84), rgba(0, 0, 0, 0.25));
       }
     }
   }
 }
 
-@media (min-width: 1024px) {
-  :host {
-    .container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-row: 1fr;
-
-      .side-bar {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        text-shadow: index.$shadow;
-
-        align-items: center;
-        justify-content: center;
-        background-image: url("/woman-7200534_1280.webp");
-        background-size: cover;
-        background-position: 20% 10%;
-        background-repeat: no-repeat;
-        color: index.$white;
-        z-index: 1;
-
-        .title {
-          text-align: center;
-          font-size: index.$large;
-          text-shadow: index.$shadow;
-          padding: index.$medium index.$xlarge;
-        }
-        .description {
-          font-size: index.$medium;
-          text-shadow: index.$shadow;
-        }
-        .shadow {
-          position: absolute;
-          top: 0;
-          right: 0;
-          bottom: 0;
-          left: 0;
-          background: rgb(0, 0, 0);
-          background: linear-gradient(
-            180deg,
-            rgba(0, 0, 0, 0.87) 0%,
-            rgba(51, 51, 51, 0.1) 100%
-          );
-          z-index: -1;
-        }
-      }
-
-      .login {
-        padding: index.$xlarge;
-
-        &__title {
-          font-size: index.$large;
-          text-shadow: index.$shadow;
-        }
-
-        &__description {
-          font-size: index.$small;
-        }
-      }
-    }
-  }
-}
-
-@media (min-width: 1400px) {
-  :host {
-    .container {
-      .side-bar {
-        .title {
-          font-size: index.$xlarge;
-        }
-      }
-    }
+@media (max-width: index.$small-width) {
+  :host .login {
+    justify-content: flex-start;
+    padding-top: index.$xxlarge;
   }
 }

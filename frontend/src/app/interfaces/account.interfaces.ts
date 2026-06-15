@@ -20,7 +20,7 @@ export interface LoginResponse {
   message: string;
 }
 
-enum MeasurementSystem {
+export enum MeasurementSystem {
   imperial = 'imperial',
   metric = 'metric',
 }
@@ -36,5 +36,16 @@ export interface AccountDetailsDto {
   createdAt: Date;
   birthDay?: Date;
   description?: string;
+  measurementSystem: MeasurementSystem;
+}
+
+export interface UpdateAccountDto {
+  email: string;
+  name?: string | null;
+  surname?: string | null;
+  weight?: number | null;
+  height?: number | null;
+  birthDay?: string | null;
+  description?: string | null;
   measurementSystem: MeasurementSystem;
 }

@@ -1,28 +1,40 @@
 @use "../../../styles/utilities/index";
 
-:host {
-  display: block;
-  background-color: index.$ligther-black;
+:host { display: block; background-color: index.$ligther-black; }
 
-  .large-container {
-    @include index.box-display(index.$light-grey);
+.large-container { @include index.box-display(index.$light-grey); }
 
-    .box {
-      font-weight: 300;
-      .picture-edit {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        img {
-          max-width: 75px;
-          border: 2px solid index.$black;
-          align-self: center;
-          margin-right: index.$xsmall;
-        }
-        .form-group {
-          align-self: center;
-        }
-      }
-    }
-  }
+.form-box { max-width: 860px; margin: 0 auto; }
+
+.form-heading {
+  max-width: 650px;
+  margin-bottom: index.$large;
+
+  span { text-transform: uppercase; letter-spacing: 2px; color: index.$black-transparent; font-size: 12px; }
+  h1 { margin-top: 4px; text-transform: uppercase; font-size: clamp(32px, 5vw, 54px); }
+  p { margin-top: 10px; color: index.$black-transparent; }
+}
+
+form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: index.$small; }
+
+.form-group { display: grid; gap: 6px; }
+.form-group--wide { grid-column: 1 / -1; }
+label, legend { font-size: 13px; font-weight: 600; }
+input, textarea { width: 100%; border: 1px solid #00000025; background: #fff; padding: 12px 13px; font: inherit; }
+input:focus, textarea:focus { outline: 2px solid index.$black; outline-offset: 1px; }
+small { color: index.$black-transparent; font-size: 12px; }
+fieldset { border: 0; padding: 0; }
+.radio-option { display: inline-flex; align-items: center; gap: 8px; margin: 10px 18px 0 0; font-weight: 400; }
+.radio-option input { width: auto; }
+.form-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+.btn--secondary { background: transparent; color: index.$black; border: 1px solid #00000035; }
+.form-status { margin: index.$small 0; color: index.$black-transparent; }
+.form-status--error { color: #8b1e1e; }
+button:disabled { cursor: wait; opacity: .55; }
+
+@media (max-width: index.$small-width) {
+  form { grid-template-columns: 1fr; }
+  .form-group--wide { grid-column: auto; }
+  .form-actions { flex-direction: column; }
+  .form-actions .btn { width: 100%; }
 }

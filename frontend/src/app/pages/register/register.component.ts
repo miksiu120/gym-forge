@@ -1,30 +1,31 @@
 import { Component } from '@angular/core';
-import { RouterModule, RouterLinkActive } from '@angular/router';
+import { NgIf } from '@angular/common';
+import { Router, RouterModule, RouterLinkActive } from '@angular/router';
 import { CreateUserDto } from '../../interfaces/account.interfaces';
 import {
-  Form,
   FormBuilder,
   FormGroup,
-  NgModel,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 
 import { AccountService } from '../../services/account-service/account-service.service';
-import { Route } from '@angular/router';
-import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'page-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
-  imports: [RouterModule, RouterLinkActive, ReactiveFormsModule],
+  imports: [RouterModule, RouterLinkActive, ReactiveFormsModule, NgIf],
 })
 export class RegisterComponent {
   registerForm: FormGroup;
+  errorMessage = '';
+  successMessage = '';
+  submitting = false;
   constructor(
     private formBuilder: FormBuilder,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private router: Router,
   ) {
     this.registerForm = this.formBuilder.group({
       nickname: ['', [Validators.required]],
@@ -37,14 +38,23 @@ export class RegisterComponent {
   }
 
   register() {
+    if (this.registerForm.invalid) {
+      this.registerForm.markAllAsTouched();
+      return;
+    }
+    this.errorMessage = '';
+    this.successMessage = '';
+    this.submitting = true;
     const registerData: CreateUserDto = this.registerForm.value;
-    console.log('registration:', registerData);
     this.accountService.registerAccount(registerData).subscribe({
-      next: (response) => {
-        console.log('User created, ', response);
+      next: () => {
+        this.submitting = false;
+        this.successMessage = 'Account created. Redirecting to sign in...';
+        setTimeout(() => this.router.navigate(['/login']), 500);
       },
-      error: (err) => {
-        console.error(err);
+      error: (error) => {
+        this.submitting = false;
+        this.errorMessage = error.error?.message ?? 'We could not create your account. Please review the form.';
       },
     });
   }

@@ -17,7 +17,6 @@ export class TokenService {
   isAuthenticated(): boolean {
     const token = localStorage.getItem('session_token');
 
-    console.log('token:', !!token && !this.helper.isTokenExpired(token));
     if (token == null || this.helper.isTokenExpired(token)) {
       return false;
     } else {
@@ -34,7 +33,6 @@ export class TokenService {
     localStorage.setItem('session_token', loginResponse.token);
     localStorage.setItem('refresh_token', loginResponse.refreshToken);
     localStorage.setItem('nickname', loginResponse.nickname);
-    console.log('Ustawiono tokeny poprawnie');
     this.authStatusSubject.next(true);
   }
 

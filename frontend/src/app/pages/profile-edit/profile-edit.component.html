@@ -1,83 +1,36 @@
-<div class="large-container">
-    <div class="small-container">
-        <div class="box form-box">
-            <h2 class="box__title">Edit your profile</h2>
+<main class="large-container">
+  <div class="small-container">
+    <section class="box form-box">
+      <header class="form-heading">
+        <span>Account settings</span>
+        <h1>Edit your profile</h1>
+        <p>Keep your body measurements and training preferences up to date.</p>
+      </header>
 
-            <form>
-                <div class="picture-edit edit-area">
-                    <img src="./default-profile.jpg" alt="profile">
-                    <div class="form-group">
-                        <label for="profile-picture"> Upload photo</label>
-                        <input type="file" id="profile-picture" name="profile-picture"
-                            formControlName="profile-picture">
-                    </div>
-                </div>
-
-                <div class="edit-area form-group">
-                    <label for="nickname"> Nickname</label>
-                    <input type="text" id="nickname" name="nickname" formControlName="nickname"
-                        [value]="accountDetails.nickname">
-                </div>
-
-                <div class="edit-area form-group">
-                    <label for="email"> Email</label>
-                    <input type="text" id="email" name="email" formControlName="email" [value]="accountDetails.email">
-                </div>
-
-                <div class="edit-area form-group">
-                    <label for="name"> Name</label>
-                    <input type="text" id="name" name="name" formControlName="name" [value]="accountDetails.name">
-                </div>
-
-                <div class="edit-area form-group">
-                    <label for="surname"> Surname</label>
-                    <input type="text" id="surname" name="surname" formControlName="surname"
-                        [value]="accountDetails.surname">
-                </div>
-
-                <div class="edit-area form-group">
-                    <label for="birthday"> Birthday</label>
-                    <input type="date" id="birthday" name="birthday" formControlName="birthday"
-                        [value]="accountDetails.birthDay">
-                </div>
-
-                <div class="edit-area form-group">
-                    <label for="weight"> Weight</label>
-                    <input type="number" id="weight" name="weight" formControlName="weight"
-                        [value]="accountDetails.weight">
-                </div>
-
-                <div class="edit-area form-group">
-                    <label for="height"> Height</label>
-                    <input type="number" id="height" name="height" formControlName="height"
-                        [value]="accountDetails.height">
-                </div>
-
-                <div class="edit-area form-group">
-                    <label for="measure-type">Measure System</label>
-                    <div>
-                        <input class="radio" type="radio" id="metric" name="measure-type" value="metric"
-                            formControlName="measure-type" [checked]="accountDetails.measurementSystem === 'metric'">
-                        <label for="metric">Metric</label>
-                    </div>
-                    <div>
-                        <input class="radio" type="radio" id="imperial" name="measure-type" value="imperial"
-                            formControlName="measure-type" [checked]="accountDetails.measurementSystem === 'imperial'">
-                        <label for="imperial">Imperial</label>
-                    </div>
-                </div>
-
-                <div class="edit-area form-group">
-                    <label for="about-you"> About you</label>
-                    <textarea id="about-you" maxlength="150" name="about-you" formControlName="about-you">
-                    {{accountDetails.description}}
-                </textarea>
-                </div>
-
-                <button class="edit-area form-group btn"> Save </button>
-
-                <a routerLinkActive="active" routerLink="/profile" class="edit-area form-group btn">Discard</a>
-            </form>
-        </div>
-    </div>
-</div>
+      @if (loading) {
+        <p class="form-status" aria-live="polite">Loading profile details...</p>
+      } @else {
+        <form [formGroup]="profileForm" (ngSubmit)="save()" novalidate>
+          <div class="form-group form-group--wide">
+            <label for="email">Email</label>
+            <input id="email" type="email" formControlName="email" autocomplete="email">
+            @if (profileForm.controls['email'].touched && profileForm.controls['email'].invalid) { <small>Enter a valid email address.</small> }
+          </div>
+          <div class="form-group"><label for="name">Name</label><input id="name" type="text" formControlName="name" autocomplete="given-name"></div>
+          <div class="form-group"><label for="surname">Surname</label><input id="surname" type="text" formControlName="surname" autocomplete="family-name"></div>
+          <div class="form-group"><label for="birthday">Birthday</label><input id="birthday" type="date" formControlName="birthday"></div>
+          <div class="form-group"><label for="weight">Weight (kg)</label><input id="weight" type="number" min="1" max="500" step="0.1" formControlName="weight" inputmode="decimal"></div>
+          <div class="form-group"><label for="height">Height (cm)</label><input id="height" type="number" min="50" max="300" step="0.1" formControlName="height" inputmode="decimal"></div>
+          <fieldset class="form-group form-group--wide">
+            <legend>Measurement system</legend>
+            <label class="radio-option"><input type="radio" formControlName="measurementSystem" [value]="MeasurementSystem.metric"> Metric (kg, cm)</label>
+            <label class="radio-option"><input type="radio" formControlName="measurementSystem" [value]="MeasurementSystem.imperial"> Imperial (lb, in)</label>
+          </fieldset>
+          <div class="form-group form-group--wide"><label for="description">About you</label><textarea id="description" rows="4" maxlength="500" formControlName="description" placeholder="Add a short note about your training..." ></textarea><small>{{ profileForm.controls['description'].value?.length || 0 }}/500</small></div>
+          @if (errorMessage) { <p class="form-status form-status--error form-group--wide" role="alert">{{ errorMessage }}</p> }
+          <div class="form-actions form-group--wide"><button class="btn" type="submit" [disabled]="saving">{{ saving ? 'Saving...' : 'Save changes' }}</button><a class="btn btn--secondary" routerLink="/profile">Cancel</a></div>
+        </form>
+      }
+    </section>
+  </div>
+</main>

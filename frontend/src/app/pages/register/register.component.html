@@ -15,6 +15,8 @@
             </p>
         </div>
         <form [formGroup]="registerForm" (ngSubmit)="register()">
+            <div class="error error--form" *ngIf="errorMessage" role="alert">{{ errorMessage }}</div>
+            <div class="success" *ngIf="successMessage" role="status">{{ successMessage }}</div>
 
             <div class="form-group">
                 <label for="nickname" class="required"> Nickname</label>
@@ -44,7 +46,7 @@
                 <input type="password" id="confirmPassword" formControlName="confirmPassword" name=" confirmPassword"
                     required>
             </div>
-            <button class="btn btn-register" type="submit">Register</button>
+            <button class="btn btn-register" type="submit" [disabled]="submitting">{{ submitting ? 'Creating account...' : 'Register' }}</button>
             <p class="question">Already have an account?</p>
             <a routerLinkActive="active" routerLink="/login" class="btn btn-login">login</a>
         </form>

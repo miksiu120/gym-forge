@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 import {
   CreateUserDto,
   LoginUserDto,
   LoginResponse,
   AccountDetailsDto,
+  UpdateAccountDto,
 } from '../../interfaces/account.interfaces';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -24,7 +25,6 @@ export class AccountService {
   }
 
   registerAccount(registerData: CreateUserDto): Observable<void> {
-    console.log('Wysylanie do rejestracji:', registerData);
     return this.http.post<void>(
       this.getApiUrlWithEndpoint('accounts/register'),
       registerData
@@ -40,12 +40,21 @@ export class AccountService {
 
   getAccountDetails(): Observable<AccountDetailsDto> {
     const token = localStorage.getItem('session_token');
-    console.log('Token autoryzacji:', token);
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     return this.http.get<AccountDetailsDto>(
       this.getApiUrlWithEndpoint('accounts/details'),
       { headers }
+    );
+  }
+
+  updateAccount(details: UpdateAccountDto): Observable<AccountDetailsDto> {
+    const token = localStorage.getItem('session_token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token ?? ''}`);
+    return this.http.put<AccountDetailsDto>(
+      this.getApiUrlWithEndpoint('accounts/details'),
+      details,
+      { headers },
     );
   }
 }

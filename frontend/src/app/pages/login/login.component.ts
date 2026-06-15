@@ -20,6 +20,8 @@ import { TokenService } from '../../services/token-service/token-service.service
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  errorMessage = '';
+  submitting = false;
 
   constructor(
     private fb: FormBuilder,
@@ -35,19 +37,21 @@ export class LoginComponent {
 
   login() {
     if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
       return;
     }
 
+    this.errorMessage = '';
+    this.submitting = true;
     const loginData: LoginUserDto = this.loginForm.value;
-    console.log('Logging in with data:', loginData);
     this.accountService.loginAccount(loginData).subscribe({
       next: (response) => {
-        console.log('Login successful!', response);
         this.tokenService.saveTokensToLocalStorage(response);
         this.router.navigate(['/dashboard/training-panel']);
       },
-      error: (err) => {
-        console.error('Login failed!', err);
+      error: (error) => {
+        this.submitting = false;
+        this.errorMessage = error.error?.message ?? 'We could not sign you in. Check your nickname and password.';
       },
     });
   }

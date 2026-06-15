@@ -42,7 +42,7 @@
 
             <div class="box__label birthday">
                 <p class="box__description"> birthday </p>
-                <p class="box__value"> {{accountDetails.birthDay || '-----'}} </p>
+                <p class="box__value"> {{accountDetails.birthDay ? (accountDetails.birthDay | date:'d MMM y') : '-----'}} </p>
             </div>
 
             <div class="box__label about-you">
