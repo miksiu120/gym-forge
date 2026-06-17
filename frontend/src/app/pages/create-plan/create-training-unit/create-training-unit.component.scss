@@ -1,0 +1,21 @@
+@use "../../../../styles/utilities/index";
+
+:host { display: grid; gap: index.$small; }
+.step-hint { color: index.$black-transparent; margin-bottom: index.$small; }
+.field-error { display: block; color: #a51d1d; margin: 5px 0 10px; }
+.exercise-options { display: grid; gap: 8px; margin: index.$xsmall 0; }
+.exercise-option { display: flex; align-items: center; gap: 12px; padding: 12px; border: 1px solid index.$gray; cursor: pointer; transition: .2s; }
+.exercise-option input { position: absolute; opacity: 0; }
+.exercise-option span { display: flex; flex: 1; flex-direction: column; }
+.exercise-option small { color: index.$black-transparent; text-transform: capitalize; }
+.exercise-option i { opacity: 0; }
+.exercise-option.selected { border: 2px solid index.$black; background: index.$light-grey; }
+.exercise-option.selected i { opacity: 1; }
+.unit-card { display: flex; position: relative; align-items: center; gap: index.$xsmall; border-bottom: 1px solid index.$gray; padding: index.$xsmall 0; }
+.unit-card__number { display: grid; width: 38px; height: 38px; place-items: center; background: index.$black; color: index.$white; font-weight: 600; }
+.unit-card h3 { text-transform: uppercase; }
+.unit-card p { color: index.$black-transparent; }
+.unit-card button { position: absolute; right: 0; border: 0; background: transparent; cursor: pointer; font-size: 18px; }
+.empty-info { display: grid; min-height: 220px; place-items: center; color: index.$black-transparent; text-align: center; }
+
+@media (min-width: index.$large-width) { :host { grid-template-columns: 3fr 2fr; } }

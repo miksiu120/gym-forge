@@ -1,0 +1,54 @@
+@use "../../../../styles/utilities/index";
+
+.schedule-box { max-width: 980px; margin-left: auto; margin-right: auto; }
+.schedule-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: index.$large; padding-bottom: index.$medium; border-bottom: 2px solid index.$black; }
+.schedule-heading h2 { margin: 6px 0; font-size: clamp(index.$large, 5vw, index.$xlarge); text-transform: uppercase; }
+.schedule-heading p, .section-label p, .preview-heading p { color: index.$black-transparent; }
+.eyebrow { display: inline-block; padding: 4px 9px; background: index.$black; color: index.$white; text-transform: uppercase; letter-spacing: 1px; }
+.schedule-heading__summary { min-width: 130px; text-align: right; text-transform: uppercase; }
+.schedule-heading__summary strong { display: block; font-size: index.$xlarge; line-height: 1; }
+.schedule-heading__summary span { color: index.$black-transparent; font-size: 13px; }
+.form-section { margin-top: index.$large; }
+.section-label { display: flex; align-items: center; gap: 12px; margin-bottom: index.$small; }
+.section-label > span { display: grid; width: 42px; height: 42px; flex: 0 0 42px; place-items: center; background: index.$black; color: index.$white; font-weight: 600; }
+.section-label h3 { text-transform: uppercase; letter-spacing: .5px; }
+.date-range { display: grid; grid-template-columns: 1fr 1fr; gap: index.$small; }
+.cycle-options { display: grid; grid-template-columns: 1fr 1fr; gap: index.$xsmall; }
+.cycle-options button { display: flex; min-height: 82px; flex-direction: column; align-items: flex-start; justify-content: center; padding: index.$xsmall; border: 1px solid index.$gray; background: index.$white; color: index.$black; font-family: inherit; text-align: left; cursor: pointer; transition: .2s; }
+.cycle-options button strong { font-size: index.$small; text-transform: uppercase; }
+.cycle-options button small { color: index.$black-transparent; }
+.cycle-options button.active { border: 2px solid index.$black; background: index.$light-grey; box-shadow: inset 5px 0 0 index.$black; }
+.unit-schedule-list { display: grid; gap: 10px; }
+.unit-schedule { display: grid; grid-template-columns: minmax(220px, .9fr) minmax(0, 2.1fr); gap: index.$small; align-items: center; padding: index.$small; border-left: 5px solid index.$black; background: index.$light-grey; }
+.unit-schedule__identity { display: flex; align-items: center; gap: 12px; align-self: center; }
+.unit-letter { display: grid; width: 38px; height: 38px; flex: 0 0 38px; place-items: center; background: index.$black; color: index.$white; font-weight: 600; }
+.unit-schedule__identity h4 { text-transform: uppercase; }
+.unit-schedule__identity p { color: index.$black-transparent; }
+.unit-schedule__fields { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.unit-schedule__fields.two-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.unit-schedule__fields .form-group { margin: 0; }
+.schedule-preview { margin-top: index.$large; padding: index.$small; border: 1px solid index.$gray; }
+.preview-heading { display: flex; justify-content: space-between; gap: index.$small; margin-bottom: index.$xsmall; }
+.preview-heading h3 { text-transform: uppercase; }
+.preview-heading > span { align-self: center; padding: 4px 9px; background: index.$black; color: index.$white; text-transform: uppercase; }
+.preview-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.preview-list > div { display: flex; align-items: center; gap: 10px; padding: 10px; background: index.$light-grey; }
+.preview-list span { display: flex; min-width: 0; flex-direction: column; }
+.preview-list small { overflow: hidden; color: index.$black-transparent; text-overflow: ellipsis; white-space: nowrap; }
+.schedule-error { display: flex; align-items: center; gap: 10px; margin-top: index.$small; padding: 12px; border-left: 5px solid #7b1515; background: #f3dddd; color: #7b1515; font-weight: 500; }
+.save-plan { width: 100%; margin-top: index.$small; padding: 13px; }
+.save-plan:disabled { cursor: wait; opacity: .65; }
+
+@media (max-width: index.$medium-width) {
+  .unit-schedule { grid-template-columns: 1fr; }
+  .unit-schedule__fields, .unit-schedule__fields.two-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .preview-list { grid-template-columns: 1fr; }
+}
+
+@media (max-width: index.$small-width) {
+  .schedule-heading { align-items: flex-start; flex-direction: column; gap: index.$small; }
+  .schedule-heading__summary { min-width: 0; text-align: left; }
+  .date-range, .cycle-options, .unit-schedule__fields, .unit-schedule__fields.two-fields { grid-template-columns: 1fr; }
+  .form-section { margin-top: index.$medium; }
+  .unit-schedule { padding: 12px; }
+}

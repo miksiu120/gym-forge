@@ -1,94 +1,88 @@
 <div class="form-box box">
-    <h2 class="box__title box__title--dark"> Create exercise </h2>
+  <h2 class="box__title box__title--dark">Create exercise</h2>
+  <p class="step-hint">Build a reusable exercise list for this plan.</p>
 
-
-    <form [formGroup]="exerciseData" (ngSubmit)="addExcercise()">
-
-        <div class="form-group exercise-name">
-            <label class="required" for="exercise-name"> Exercise name</label>
-            <input type="text" id="exercise-name" name="exercise-name" formControlName="name"
-                placeholder="Exercise name">
-        </div>
-
-        <div class="form-group exercise-description">
-            <label for="exercise-description"> Exercise description</label>
-            <textarea id="exercise-description" maxlength="150" name="exercise-description"
-                formControlName="description" placeholder="Short description about exercise">
-    </textarea>
-        </div>
-
-        <div class="form-group sets">
-            <label class="required" for="exercise-name"> Sets</label>
-            <input type="number" id="sets" name="sets" formControlName="sets" min="1" placeholder="Number of sets ">
-        </div>
-
-        <div class="form-group">
-            <label for="type">Exercise type</label>
-            <div class="radios">
-                <div>
-                    <input class="radio" type="radio" id="repetetive" name="type" value="repetetive"
-                        formControlName="type">
-                    <label for=" repetetive">Repetitive</label>
-                </div>
-                <div>
-                    <input class="radio" type="radio" id="timed" name="type" value="timed" formControlName="type">
-                    <label for="timed">Timed</label>
-                </div>
-            </div>
-        </div>
-
-
-        @if (exerciseData.get('type')?.value === 'repetetive') {
-        <div class="form-group repetitions">
-            <label class="required" for="exercise-name"> repetitions</label>
-            <input type="number" id="repetitions" name="repetitions" formControlName="repetitions" min="1"
-                placeholder="Number of repetitions">
-        </div>
-
-        <div class="form-group tempo">
-            <label for="tempo"> tempo</label>
-            <input type="string" id="tempo" name="tempo" formControlName="tempo" placeholder="0-0-0-0">
-        </div>
-        }
-
-        @if (exerciseData.get('type')?.value === 'timed') {
-        <div class="form-group duration">
-            <label class="required" for="exercise-name"> duration</label>
-            <input type="number" id="duration" name="duration" formControlName="duration" min="1"
-                placeholder="The duration of your ">
-        </div>
-        }
-        <button class="form-group btn"> Save </button>
-    </form>
-
-</div>
-
-<div class="box ">
-    <h2 class="box__title box__title--dark"> Your exercises </h2>
-
-    <div class="box__exercises">
-
-        @for (exercise of createdExercises; track exercise.name) {
-        <div class="box__exercise">
-            <h3 class="box__exercise__title"> {{exercise.name}}</h3>
-            <p class="box__exercise__description"> {{exercise.description}}
-            </p>
-            <p class="box__exercise__sets">Sets: <span class="value"> {{exercise.sets}}</span></p>
-            <p class="box__exercise__repetetive">Type: <span class="value"> {{exercise.type}}</span></p>
-            @if(exercise.type == MeasurementSystem.Repetitive)
-            {
-            <p>Reps: <span class="value"> {{exercise.sets}}</span></p>
-            <p class="box__exercise__tempo">Tempo: <span class="value"> {{exercise.tempo}}</span></p>
-            }
-            @else {
-            <p class="time">Time: <span class="value">{{exercise.duration}}</span> seconds</p>
-            }
-        </div>
-        } @empty{
-        <p class="empty-info">
-            No exercises have been created yet. Start by adding a new exercise.
-        </p>
-        }
+  <form [formGroup]="exerciseData" (ngSubmit)="addExercise()">
+    <div class="form-group">
+      <label class="required" for="exercise-name">Exercise name</label>
+      <input id="exercise-name" type="text" formControlName="name" placeholder="e.g. Barbell squat">
+      @if (exerciseData.controls.name.touched && exerciseData.controls.name.invalid) {
+        <small class="field-error">Enter an exercise name.</small>
+      }
     </div>
 
+    <div class="form-group">
+      <label for="exercise-description">Exercise description</label>
+      <textarea id="exercise-description" maxlength="150" formControlName="description"
+        placeholder="Technique notes or setup"></textarea>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="required" for="sets">Sets</label>
+        <input id="sets" type="number" formControlName="sets" min="1" max="50">
+      </div>
+
+      <div class="form-group">
+        <label>Exercise type</label>
+        <div class="radios">
+          <label><input type="radio" value="repetitive" formControlName="type"> Repetitive</label>
+          <label><input type="radio" value="timed" formControlName="type"> Timed</label>
+        </div>
+      </div>
+    </div>
+
+    @if (exerciseData.controls.type.value === MeasurementSystem.Repetitive) {
+      <div class="form-row">
+        <div class="form-group">
+          <label class="required" for="repetitions">Repetitions</label>
+          <input id="repetitions" type="number" formControlName="repetitions" min="1">
+        </div>
+        <div class="form-group">
+          <label for="tempo">Tempo</label>
+          <input id="tempo" type="text" formControlName="tempo" placeholder="3-1-1-0">
+          @if (exerciseData.controls.tempo.touched && exerciseData.controls.tempo.invalid) {
+            <small class="field-error">Use a format such as 3-1-1-0.</small>
+          }
+        </div>
+      </div>
+    } @else {
+      <div class="form-group">
+        <label class="required" for="duration">Duration (seconds)</label>
+        <input id="duration" type="number" formControlName="duration" min="1">
+      </div>
+    }
+
+    <button class="btn" type="submit">Add exercise</button>
+  </form>
+</div>
+
+<div class="box exercise-library">
+  <div class="list-heading">
+    <h2 class="box__title box__title--dark">Your exercises</h2>
+    <span>{{ exercises.length }}</span>
+  </div>
+
+  <div class="box__exercises">
+    @for (exercise of exercises; track $index) {
+      <article class="exercise-card">
+        <button class="remove-button" type="button" (click)="removeExercise($index)" aria-label="Remove exercise">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <h3>{{ exercise.name }}</h3>
+        @if (exercise.description) { <p>{{ exercise.description }}</p> }
+        <div class="exercise-card__stats">
+          <span><strong>{{ exercise.sets }}</strong> sets</span>
+          @if (exercise.type === MeasurementSystem.Repetitive) {
+            <span><strong>{{ exercise.repetitions }}</strong> reps</span>
+            @if (exercise.tempo) { <span>tempo <strong>{{ exercise.tempo }}</strong></span> }
+          } @else {
+            <span><strong>{{ exercise.duration }}s</strong> duration</span>
+          }
+        </div>
+      </article>
+    } @empty {
+      <p class="empty-info">No exercises yet. Add the first one using the form.</p>
+    }
+  </div>
 </div>

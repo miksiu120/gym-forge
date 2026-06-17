@@ -23,7 +23,7 @@
       transition: 0.3s background-color ease-in-out;
       cursor: pointer;
       i {
-        padding: index.$xsmall/2;
+        padding: calc(index.$xsmall / 2);
         color: index.$white;
       }
       &:hover {

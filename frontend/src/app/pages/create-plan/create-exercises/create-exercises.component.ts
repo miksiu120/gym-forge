@@ -1,53 +1,62 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
   Exercise,
   MeasurementSystem,
 } from '../../../interfaces/traning.interfaces';
 
-import {
-  Form,
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { NgIf } from '@angular/common';
-import { copyFileSync } from 'fs';
-import { register } from 'module';
-
 @Component({
   selector: 'component-create-exercises',
-  imports: [NgIf, ReactiveFormsModule],
-  providers: [FormBuilder],
+  imports: [ReactiveFormsModule],
   templateUrl: './create-exercises.component.html',
   styleUrl: './create-exercises.component.scss',
 })
 export class CreateExercisesComponent {
-  createdExercises: Exercise[] = [];
-  exerciseData: FormGroup;
-  MeasurementSystem = MeasurementSystem;
-  constructor(private formBuilder: FormBuilder) {
+  @Input() exercises: Exercise[] = [];
+
+  readonly MeasurementSystem = MeasurementSystem;
+  readonly exerciseData;
+
+  constructor(private readonly formBuilder: FormBuilder) {
     this.exerciseData = this.formBuilder.group({
-      name: ['', Validators.required],
-      description: [''],
-      sets: ['', Validators.required],
-      type: ['repetetive', Validators.required],
-      duration: [, Validators.min(1)],
-      repetitions: [, Validators.min(1)],
-      tempo: [, Validators.pattern("\\d+-\\d+-\\d+-\\d+")]
+      name: ['', [Validators.required, Validators.maxLength(80)]],
+      description: ['', Validators.maxLength(150)],
+      sets: [3, [Validators.required, Validators.min(1), Validators.max(50)]],
+      type: [MeasurementSystem.Repetitive, Validators.required],
+      duration: [null as number | null, Validators.min(1)],
+      repetitions: [10 as number | null, Validators.min(1)],
+      tempo: ['', Validators.pattern(/^\d+-\d+-\d+-\d+$/)],
     });
   }
 
-  addExcercise() {
-    const newExercise: Exercise = this.exerciseData.value;
+  addExercise(): void {
+    const value = this.exerciseData.getRawValue();
+    const needsRepetitions = value.type === MeasurementSystem.Repetitive;
+    const measure = needsRepetitions ? value.repetitions : value.duration;
 
-    if (newExercise.type === MeasurementSystem.Repetitive) {
-      newExercise.duration = null;
-    } else if (newExercise.type === MeasurementSystem.Timed) {
-      newExercise.repetitions = null;
+    if (this.exerciseData.invalid || !measure || measure < 1) {
+      this.exerciseData.markAllAsTouched();
+      return;
     }
-    console.log('New Exercise:', newExercise.type);
-    this.createdExercises.push(newExercise);
-    this.exerciseData.reset();
+
+    this.exercises.push({
+      name: value.name!.trim(),
+      description: value.description?.trim() || undefined,
+      sets: Number(value.sets),
+      type: value.type!,
+      repetitions: needsRepetitions ? Number(value.repetitions) : null,
+      duration: needsRepetitions ? null : Number(value.duration),
+      tempo: needsRepetitions && value.tempo ? value.tempo : null,
+    });
+
+    this.exerciseData.reset({
+      sets: 3,
+      repetitions: 10,
+      type: MeasurementSystem.Repetitive,
+    });
+  }
+
+  removeExercise(index: number): void {
+    this.exercises.splice(index, 1);
   }
 }

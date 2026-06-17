@@ -1,42 +1,25 @@
 @use "../../../../styles/utilities/index";
 
-:host {
-  .radios {
-    display: flex;
-    flex-direction: row;
-    gap: index.$medium;
-  }
-
-  .box {
-    &__exercises {
-      overflow-y: scroll;
-      height: clamp(300px, 50vh, 450px);
-    }
-    &__exercise {
-      border: 2px solid index.$black;
-      padding: index.$xsmall;
-      margin: index.$xsmall 0;
-    }
-  }
-
-  .empty-info {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 400;
-    text-align: center;
-    align-items: center;
-    font-size: index.$small;
-    color: index.$black-transparent;
-    height: 100%;
-  }
-}
+:host { display: grid; gap: index.$small; }
+.step-hint { color: index.$black-transparent; margin-bottom: index.$small; }
+.form-row { display: grid; gap: index.$xsmall; grid-template-columns: 1fr 1fr; }
+.radios { display: flex; flex-wrap: wrap; gap: index.$small; padding: 7px 0; }
+.radios label { font-size: index.$xsmall; font-weight: 300; }
+.field-error { color: #a51d1d; margin-top: 4px; }
+.list-heading { position: relative; }
+.list-heading span { position: absolute; right: 10px; top: 6px; color: index.$white; font-weight: 600; }
+.box__exercises { max-height: 520px; overflow-y: auto; }
+.exercise-card { position: relative; border: 2px solid index.$black; padding: index.$xsmall; margin-bottom: index.$xsmall; }
+.exercise-card h3 { padding-right: 30px; text-transform: uppercase; }
+.exercise-card p { color: index.$black-transparent; margin: 6px 0; }
+.exercise-card__stats { display: flex; flex-wrap: wrap; gap: index.$xsmall; margin-top: 10px; font-size: 14px; }
+.remove-button { position: absolute; top: 8px; right: 8px; border: 0; background: transparent; cursor: pointer; font-size: 18px; }
+.empty-info { display: grid; min-height: 240px; place-items: center; text-align: center; color: index.$black-transparent; }
 
 @media (min-width: index.$large-width) {
-  :host {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    grid-template-rows: auto;
-    min-height: 50vh;
-  }
+  :host { grid-template-columns: 3fr 2fr; align-items: stretch; }
+}
+
+@media (max-width: index.$small-width) {
+  .form-row { grid-template-columns: 1fr; }
 }

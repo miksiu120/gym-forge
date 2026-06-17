@@ -1,61 +1,26 @@
 @use "../../../styles/utilities/index";
 
-:host {
-  @include index.box-display(index.$light-grey);
+.creator-shell { min-height: 100vh; background: index.$light-grey; }
+.creator-shell > .container { padding: calc(index.$xlarge * 2) index.$xsmall index.$xlarge; }
+.creator-header { margin: 0 index.$small index.$large; max-width: 760px; }
+.creator-header > span { display: inline-block; background: index.$black; color: index.$white; padding: 5px 12px; text-transform: uppercase; letter-spacing: 2px; }
+.creator-header h1 { margin-top: 12px; font-size: clamp(32px, 5vw, 60px); line-height: 1; text-transform: uppercase; }
+.creator-header p { margin-top: 12px; color: index.$black-transparent; font-size: index.$small; }
+.stages { display: flex; position: relative; justify-content: space-between; gap: 8px; }
+.stages__line { position: absolute; top: 51px; left: 12%; right: 12%; height: 2px; background: index.$gray; }
+.stages__stage { display: flex; position: relative; z-index: 1; flex: 1; align-items: center; flex-direction: column; gap: 7px; text-align: center; text-transform: uppercase; }
+.stages__number { display: grid; width: 42px; height: 42px; place-items: center; border: 2px solid index.$gray; background: index.$white; font-weight: 600; }
+.stages__label { background: index.$white; padding: 0 5px; }
+.stages__stage.active .stages__number { border-color: index.$black; box-shadow: index.$shadow; }
+.stages__stage.completed .stages__number { border-color: index.$black; background: index.$black; color: index.$white; }
+.stages__stage.unactive { color: index.$black-transparent; }
+.stages__buttons { display: flex; justify-content: space-between; gap: index.$small; margin: index.$small; }
+.stages__buttons .btn { min-width: 150px; box-shadow: index.$shadow; }
+.stages__buttons button:disabled { opacity: .35; cursor: default; }
+.creator-message { margin: index.$small; border-left: 5px solid #a51d1d; background: index.$white; padding: 12px; color: #7b1515; box-shadow: index.$shadow-light; }
 
-  .stages {
-    display: flex;
-    position: relative;
-    flex-direction: row;
-    justify-content: space-around;
-
-    &__stage {
-      text-transform: uppercase;
-      font-weight: 400;
-      text-align: center;
-      background-color: index.$white;
-      z-index: 23;
-      padding: calc(index.$xsmall/2);
-      &.active {
-        border: 1px solid index.$black;
-      }
-
-      &.completed {
-        border: 1px solid index.$black;
-        color: index.$white;
-        background-color: index.$black;
-      }
-      &.unactive {
-        color: index.$ligther-black;
-      }
-    }
-
-    &__block {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 60%;
-      height: 2px;
-      background-color: index.$black;
-    }
-
-    &__buttons {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: auto;
-      gap: index.$medium;
-      padding: 0 index.$medium;
-      .btn {
-        font-size: index.$small;
-        box-shadow: index.$shadow;
-      }
-
-      .unactive {
-        opacity: 0.6;
-        background-color: index.$ligther-black;
-        cursor: default;
-      }
-    }
-  }
+@media (max-width: index.$small-width) {
+  .stages__label { font-size: 11px; }
+  .stages__line { top: 39px; }
+  .stages__buttons .btn { min-width: 120px; }
 }

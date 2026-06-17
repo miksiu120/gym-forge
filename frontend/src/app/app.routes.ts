@@ -20,6 +20,7 @@ import {
 } from './services/token-service/auth-guard.service';
 import { ProfileEditComponent } from './pages/profile-edit/profile-edit.component';
 import { CreatePlanComponent } from './pages/create-plan/create-plan.component';
+import { CompleteTrainingComponent } from './pages/training-panel/complete-training/complete-training.component';
 
 export const routes: Routes = [
   { path: '', component: WelcomeComponent, canActivate: [GuestGuard] },
@@ -39,10 +40,16 @@ export const routes: Routes = [
       { path: 'training-panel', component: DashboardComponent },
       { path: 'statistics', component: StatisticsComponent },
       { path: 'trainings', component: TrainingsComponent },
+      { path: 'complete-training/:unitId', component: CompleteTrainingComponent },
     ],
+    canActivate: [AuthGuard],
   },
 
-  { path: 'create-plan', component: CreatePlanComponent },
+  {
+    path: 'create-plan',
+    component: CreatePlanComponent,
+    canActivate: [AuthGuard],
+  },
 
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   {

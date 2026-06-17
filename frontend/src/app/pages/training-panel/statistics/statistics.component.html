@@ -1,3 +1,58 @@
-<div class="small-container">
-    <p>statistics works!</p>
+<div class="small-container statistics-page">
+  <header class="page-heading">
+    <span>Progress overview</span>
+    <h1>Your statistics</h1>
+    <p>See how consistently you train and how much work you have recorded.</p>
+  </header>
+
+  @if (loading) {
+    <section class="box empty-state" aria-live="polite">
+      <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+      <div><h2>Loading statistics</h2><p>Preparing your training history...</p></div>
+    </section>
+  } @else if (errorMessage) {
+    <section class="box empty-state" role="alert">
+      <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+      <div><h2>Something went wrong</h2><p>{{ errorMessage }}</p></div>
+    </section>
+  } @else {
+    <section class="summary-grid" aria-label="Training summary">
+      <article class="box summary-card"><span>Completed sessions</span><strong>{{ summary.completedSessions }}</strong><small>saved workouts</small></article>
+      <article class="box summary-card"><span>Recorded sets</span><strong>{{ summary.completedSets }}</strong><small>across all sessions</small></article>
+      <article class="box summary-card"><span>Total volume</span><strong>{{ summary.totalVolume | number:'1.0-1' }} kg</strong><small>weight × repetitions</small></article>
+    </section>
+
+    <section class="box chart-card" aria-labelledby="weight-chart-title">
+      <div class="section-heading"><div><span>Load progression</span><h2 id="weight-chart-title">Exercise weight</h2></div><i class="fa-solid fa-chart-line" aria-hidden="true"></i></div>
+      <p class="chart-description">Highest recorded weight per completed session. Each line represents an exercise.</p>
+      @if (summary.weightProgress.length > 0) {
+        <div class="chart-wrap">
+          <canvas #weightChart role="img" aria-label="Exercise weight progression chart"></canvas>
+          @if (chartState === 'loading') {
+            <div class="chart-feedback" aria-live="polite"><i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i><p>Preparing weight chart...</p></div>
+          } @else if (chartState === 'error') {
+            <div class="chart-feedback" role="alert"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i><p>The weight chart could not be displayed. Please refresh the page and try again.</p></div>
+          }
+        </div>
+      } @else {
+        <div class="chart-feedback"><i class="fa-solid fa-chart-line" aria-hidden="true"></i><p>No recorded weight data yet. Add weights while completing a training session to build this chart.</p></div>
+      }
+    </section>
+
+    @if (summary.recentSessions.length > 0) {
+      <section class="box history-card">
+        <div class="section-heading"><div><span>Training history</span><h2>Recent sessions</h2></div><i class="fa-solid fa-chart-line" aria-hidden="true"></i></div>
+        <div class="session-list">
+          @for (session of summary.recentSessions; track session.completedAt + session.trainingName) {
+            <article class="session-row">
+              <div><strong>{{ session.trainingName }}</strong><small>{{ session.planName }}</small></div>
+              <div class="session-meta"><span>{{ session.completedAt | date:'d MMM y, HH:mm' }}</span><span>{{ session.exerciseCount }} exercises · {{ session.setCount }} sets</span></div>
+            </article>
+          }
+        </div>
+      </section>
+    } @else {
+      <section class="box empty-state"><i class="fa-solid fa-chart-line" aria-hidden="true"></i><div><h2>No training data yet</h2><p>Complete your first training session to start building a useful progress history.</p></div></section>
+    }
+  }
 </div>

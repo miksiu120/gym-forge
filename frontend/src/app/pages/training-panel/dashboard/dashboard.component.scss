@@ -1,24 +1,45 @@
 @use "../../../../styles/utilities/index";
 
-:host {
-  @include index.box-display(index.$light-grey);
+:host { @include index.box-display(index.$light-grey); }
+.dashboard-home { display: grid; gap: index.$small; }
+.dashboard-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: index.$medium; padding: index.$small 0; }
+.dashboard-heading h1 { margin: 6px 0; font-size: clamp(index.$large, 4vw, index.$xlarge); text-transform: uppercase; }
+.dashboard-heading p, .box-heading p { color: index.$black-transparent; }
+.eyebrow { padding: 4px 9px; background: index.$black; color: index.$white; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+.due-counter { min-width: 128px; padding: 12px 16px; border: 1px solid index.$gray; background: index.$white; text-align: right; text-transform: uppercase; }
+.due-counter strong { display: block; font-size: index.$xlarge; line-height: 1; }
+.due-counter span { color: index.$black-transparent; font-size: 12px; }
+.due-counter.has-overdue { border-left: 5px solid index.$black; }
+.due-box { border-top-width: 5px; }
+.box-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: index.$small; margin-bottom: index.$small; padding-bottom: index.$small; border-bottom: 1px solid index.$gray; }
+.box-heading h2 { text-transform: uppercase; }
+.text-link { flex: 0 0 auto; color: index.$black; font-weight: 600; }
+.training-list { display: grid; gap: 10px; }
+.training-card { display: grid; grid-template-columns: 74px minmax(0, 1fr) auto; align-items: center; gap: index.$small; padding: 12px; border: 1px solid index.$gray; border-left: 5px solid index.$black; background: index.$white; }
+.training-card.overdue { background: index.$light-grey; }
+.training-date { display: grid; min-height: 68px; place-items: center; align-content: center; border-right: 1px solid index.$gray; text-transform: uppercase; }
+.training-date span, .training-date small { color: index.$black-transparent; font-size: 11px; }
+.training-date strong { font-size: index.$large; line-height: 1; }
+.training-details { min-width: 0; }
+.training-details h3 { margin: 5px 0 3px; overflow: hidden; text-overflow: ellipsis; text-transform: uppercase; white-space: nowrap; }
+.training-details p, .training-meta { color: index.$black-transparent; font-size: 13px; }
+.training-meta { display: flex; align-items: center; gap: 8px; }
+.status-chip { padding: 3px 7px; background: index.$black; color: index.$white; font-size: 10px; text-transform: uppercase; letter-spacing: .5px; }
+.complete-button { min-width: 145px; text-align: center; }
+.dashboard-state { display: grid; min-height: 260px; place-items: center; align-content: center; gap: 8px; color: index.$black-transparent; text-align: center; }
+.dashboard-state h3 { color: index.$black; text-transform: uppercase; }
+.dashboard-state a { color: index.$black; font-weight: 600; }
+.state-icon { display: grid; width: 48px; height: 48px; place-items: center; background: index.$black; color: index.$white; }
+.error-state { color: #7b1515; }
 
-  .box {
-    &__no-training {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 300px;
-      font-size: index.$small;
-      font-weight: 400;
-      text-align: center;
-      p {
-        color: index.$black-transparent;
-      }
-      a {
-        font-weight: 500;
-        color: index.$black;
-      }
-    }
-  }
+@media (max-width: index.$medium-width) {
+  .training-card { grid-template-columns: 64px minmax(0, 1fr); }
+  .complete-button { grid-column: 1 / -1; width: 100%; }
+}
+
+@media (max-width: index.$small-width) {
+  .dashboard-heading, .box-heading { align-items: flex-start; flex-direction: column; }
+  .due-counter { width: 100%; text-align: left; }
+  .training-card { gap: 10px; padding: 10px; }
+  .text-link { align-self: flex-start; }
 }

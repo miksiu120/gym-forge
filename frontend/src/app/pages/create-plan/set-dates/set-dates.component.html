@@ -1,1 +1,105 @@
-<p>set-dates works!</p>
+<div class="box schedule-box">
+  <div class="schedule-heading">
+    <div>
+      <span class="eyebrow">Step 3 · Periodization</span>
+      <h2>Schedule your training cycle</h2>
+      <p>Assign every training unit to a day in a repeating one- or two-week cycle.</p>
+    </div>
+    <div class="schedule-heading__summary">
+      <strong>{{ getOccurrenceCount() }}</strong>
+      <span>planned sessions</span>
+    </div>
+  </div>
+
+  <form [formGroup]="scheduleForm" (ngSubmit)="submit()" novalidate>
+    <section class="form-section plan-details">
+      <div class="section-label"><span>01</span><div><h3>Plan details</h3><p>Name the block and choose its full duration.</p></div></div>
+      <div class="form-group">
+        <label class="required" for="plan-name">Plan name</label>
+        <input id="plan-name" type="text" formControlName="name" placeholder="e.g. Strength block">
+        @if (scheduleForm.controls.name.touched && scheduleForm.controls.name.invalid) {
+          <small class="field-error">Enter a plan name.</small>
+        }
+      </div>
+      <div class="date-range">
+        <div class="form-group">
+          <label class="required" for="from">Starts</label>
+          <input id="from" type="date" formControlName="from">
+        </div>
+        <div class="form-group">
+          <label class="required" for="to">Ends</label>
+          <input id="to" type="date" formControlName="to">
+        </div>
+      </div>
+    </section>
+
+    <section class="form-section cycle-section">
+      <div class="section-label"><span>02</span><div><h3>Cycle length</h3><p>Choose how often the same weekly pattern repeats.</p></div></div>
+      <div class="cycle-options" role="group" aria-label="Cycle length">
+        <button type="button" [class.active]="cycleWeeks === 1" (click)="setCycleWeeks(1)">
+          <strong>1 week</strong><small>Same schedule every week</small>
+        </button>
+        <button type="button" [class.active]="cycleWeeks === 2" (click)="setCycleWeeks(2)">
+          <strong>2 weeks</strong><small>Different week A and week B</small>
+        </button>
+      </div>
+    </section>
+
+    <section class="form-section unit-section" formArrayName="slots">
+      <div class="section-label"><span>03</span><div><h3>Training days</h3><p>Each A/B unit becomes one day in the selected cycle.</p></div></div>
+      <div class="unit-schedule-list">
+        @for (unit of units; track $index) {
+          <article class="unit-schedule" [formGroupName]="$index">
+            <div class="unit-schedule__identity">
+              <span class="unit-letter">{{ unitLabel($index) }}</span>
+              <div><h4>{{ unit.name }}</h4><p>{{ unit.exercises.length }} exercises</p></div>
+            </div>
+            <div class="unit-schedule__fields" [class.two-fields]="cycleWeeks === 1">
+              @if (cycleWeeks === 2) {
+                <div class="form-group">
+                  <label [for]="'week-' + $index">Cycle week</label>
+                  <select [id]="'week-' + $index" formControlName="cycleWeek">
+                    <option [ngValue]="1">Week A</option>
+                    <option [ngValue]="2">Week B</option>
+                  </select>
+                </div>
+              }
+              <div class="form-group">
+                <label [for]="'day-' + $index">Day</label>
+                <select [id]="'day-' + $index" formControlName="dayOfWeek">
+                  @for (day of weekdays; track day.value) {
+                    <option [ngValue]="day.value">{{ day.label }}</option>
+                  }
+                </select>
+              </div>
+              <div class="form-group">
+                <label [for]="'time-' + $index">Start time</label>
+                <input [id]="'time-' + $index" type="time" formControlName="time">
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+    </section>
+
+    @if (getPreview().length > 0) {
+      <section class="schedule-preview">
+        <div class="preview-heading"><div><h3>Schedule preview</h3><p>First sessions generated from this cycle.</p></div><span>{{ getOccurrenceCount() }} total</span></div>
+        <div class="preview-list">
+          @for (session of getPreview(); track session.startTime + session.name) {
+            <div><i class="fa-regular fa-calendar"></i><span><strong>{{ session.name }}</strong><small>{{ session.startTime | date:'EEE, dd MMM yyyy · HH:mm' }}</small></span></div>
+          }
+        </div>
+      </section>
+    }
+
+    @if (validationMessage) {
+      <p class="schedule-error" role="alert"><i class="fa-solid fa-triangle-exclamation"></i>{{ validationMessage }}</p>
+    }
+
+    <button class="btn save-plan" type="submit" [disabled]="saving">
+      @if (saving) { <i class="fa-solid fa-spinner fa-spin"></i> Saving plan... }
+      @else { <i class="fa-solid fa-check"></i> Save training plan }
+    </button>
+  </form>
+</div>

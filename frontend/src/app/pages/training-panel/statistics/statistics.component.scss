@@ -1,5 +1,137 @@
 @use "../../../../styles/utilities/index";
 
-:host {
-  @include index.box-display(index.$light-grey);
+:host { @include index.box-display(index.$light-grey); }
+
+.statistics-page {
+  padding-left: index.$small !important;
+  padding-right: index.$small !important;
+}
+
+.page-heading {
+  max-width: 720px;
+  margin-bottom: index.$large;
+
+  span { text-transform: uppercase; letter-spacing: 2px; }
+  h1 { font-size: clamp(34px, 6vw, 58px); text-transform: uppercase; }
+  p { margin-top: 10px; color: index.$black-transparent; font-size: index.$small; }
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: index.$small;
+  margin-bottom: index.$small;
+}
+
+.summary-card {
+  display: flex;
+  min-height: 150px;
+  flex-direction: column;
+  justify-content: space-between;
+
+  span, small { color: index.$black-transparent; }
+  span { text-transform: uppercase; letter-spacing: 1px; font-size: 12px; }
+  strong { font-size: clamp(28px, 4vw, 42px); line-height: 1; }
+  small { font-size: 12px; }
+}
+
+.history-card { margin-top: index.$small; }
+
+.chart-card { margin-top: index.$small; }
+.chart-description { color: index.$black-transparent; font-size: 13px; margin: -4px 0 index.$small; }
+.chart-wrap { position: relative; height: 320px; }
+.chart-wrap canvas { display: block; width: 100% !important; height: 100% !important; }
+.chart-feedback {
+  display: flex;
+  min-height: 240px;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: index.$black-transparent;
+  text-align: center;
+
+  i { color: index.$black; font-size: index.$large; }
+  p { max-width: 460px; }
+}
+
+.chart-wrap .chart-feedback {
+  position: absolute;
+  inset: 0;
+  min-height: 0;
+  background: index.$white;
+}
+
+.section-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: index.$small;
+  margin-bottom: index.$small;
+
+  span { text-transform: uppercase; letter-spacing: 2px; color: index.$black-transparent; font-size: 12px; }
+  h2 { margin-top: 4px; text-transform: uppercase; }
+  i { font-size: 28px; }
+}
+
+.session-list { display: grid; gap: 8px; }
+
+.session-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: index.$small;
+  padding: 14px 0;
+  border-top: 1px solid #00000018;
+
+  strong, small { display: block; }
+  small, .session-meta { color: index.$black-transparent; font-size: 13px; }
+  small { margin-top: 3px; }
+}
+
+.session-meta { display: grid; gap: 3px; text-align: right; }
+
+.empty-state {
+  display: flex;
+  min-height: 250px;
+  align-items: center;
+  justify-content: center;
+  gap: index.$large;
+  text-align: left;
+
+  > i { font-size: index.$xxlarge; }
+  h2 { text-transform: uppercase; }
+  p { margin-top: 6px; color: index.$black-transparent; }
+}
+
+@media (max-width: index.$small-width) {
+  .summary-grid { grid-template-columns: 1fr; }
+  .session-row { align-items: flex-start; flex-direction: column; }
+  .session-meta { text-align: left; }
+  .chart-wrap { height: 260px; }
+  .empty-state { flex-direction: column; gap: index.$small; text-align: center; }
+}
+
+@media (min-width: 1440px) {
+  .page-heading {
+    span { font-size: 15px; }
+    p { font-size: 18px; }
+  }
+
+  .summary-card {
+    span, small { font-size: 14px; }
+  }
+
+  .chart-description { font-size: 16px; }
+
+  .section-heading {
+    span { font-size: 14px; }
+    h2 { font-size: 26px; }
+  }
+
+  .session-row {
+    strong { font-size: 17px; }
+    small, .session-meta { font-size: 15px; }
+  }
+
+  .chart-feedback, .empty-state p { font-size: 16px; }
 }

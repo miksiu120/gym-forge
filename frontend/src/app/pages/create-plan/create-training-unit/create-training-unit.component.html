@@ -1,1 +1,45 @@
-<p>create-training-unit works!</p>
+<div class="box composer">
+  <h2 class="box__title box__title--dark">Compose a cycle day</h2>
+  <p class="step-hint">Create Training A, B or C and select the exercises for that day. You will assign weekdays in the next step.</p>
+
+  <form [formGroup]="unitForm" (ngSubmit)="addUnit()">
+    <div class="form-group">
+      <label class="required" for="unit-name">Unit name</label>
+      <input id="unit-name" type="text" formControlName="name" placeholder="e.g. Training A · Upper body">
+      @if (unitForm.controls.name.touched && unitForm.controls.name.invalid) {
+        <small class="field-error">Enter a unit name.</small>
+      }
+    </div>
+
+    <div class="exercise-options">
+      @for (exercise of exercises; track $index) {
+        <label class="exercise-option" [class.selected]="selected.has($index)">
+          <input type="checkbox" [checked]="selected.has($index)" (change)="toggleExercise($index)">
+          <span>
+            <strong>{{ exercise.name }}</strong>
+            <small>{{ exercise.sets }} sets · {{ exercise.type }}</small>
+          </span>
+          <i class="fa-solid fa-check"></i>
+        </label>
+      }
+    </div>
+    @if (selectionError) { <small class="field-error">Select at least one exercise.</small> }
+    <button class="btn" type="submit">Add cycle day</button>
+  </form>
+</div>
+
+<div class="box units-list">
+  <h2 class="box__title box__title--dark">Cycle days</h2>
+  @for (unit of units; track $index) {
+    <article class="unit-card">
+      <button type="button" (click)="removeUnit($index)" aria-label="Remove unit"><i class="fa-solid fa-xmark"></i></button>
+      <span class="unit-card__number">{{ unitLabel($index) }}</span>
+      <div>
+        <h3>{{ unit.name }}</h3>
+        <p>{{ unit.exercises.length }} exercises</p>
+      </div>
+    </article>
+  } @empty {
+    <p class="empty-info">Your composed sessions will appear here.</p>
+  }
+</div>

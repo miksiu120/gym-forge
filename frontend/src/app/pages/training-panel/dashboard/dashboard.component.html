@@ -1,23 +1,59 @@
-<div class="small-container">
-
-    <div class="section-title section-title">
-        <!-- <div class="section-title__square"></div> -->
-        <h2 class="section-title__text"> {{this.welcomeString}}</h2>
+<div class="small-container dashboard-home">
+  <header class="dashboard-heading">
+    <div>
+      <span class="eyebrow">Training overview</span>
+      <h1>{{ welcomeString }}</h1>
+      <p>Complete today's session or catch up on a training you missed.</p>
     </div>
-    <div class="box">
-        <h2 class="box__title">Your nearest trainings </h2>
-
-        @if (nearestTrainings != 0) {
-
-        }
-        @else {
-        <div class="box__no-training">
-            <p>You don't have any trainings to complete.
-
-                <a routerLinkActive="active" routerLink="/create-plan" href=""> Create new plan?</a>
-            </p>
-        </div>
-        }
-
+    <div class="due-counter" [class.has-overdue]="dueTrainings.length > 0">
+      <strong>{{ dueTrainings.length }}</strong>
+      <span>to complete</span>
     </div>
+  </header>
+
+  <section class="box due-box" aria-labelledby="due-heading">
+    <div class="box-heading">
+      <div>
+        <h2 id="due-heading">Training to complete</h2>
+        <p>Today's and overdue sessions stay here until you save their results.</p>
+      </div>
+      <a class="text-link" routerLink="/create-plan">Create plan <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+
+    @if (loading) {
+      <div class="dashboard-state"><i class="fa-solid fa-spinner fa-spin"></i><p>Loading your schedule...</p></div>
+    } @else if (loadError) {
+      <div class="dashboard-state error-state"><i class="fa-solid fa-triangle-exclamation"></i><p>{{ loadError }}</p></div>
+    } @else if (dueTrainings.length) {
+      <div class="training-list">
+        @for (item of dueTrainings; track item.trainingUnit.id) {
+          <article class="training-card" [class.overdue]="isOverdue(item.trainingUnit.startTime)">
+            <div class="training-date">
+              <span>{{ item.trainingUnit.startTime | date:'EEE' }}</span>
+              <strong>{{ item.trainingUnit.startTime | date:'dd' }}</strong>
+              <small>{{ item.trainingUnit.startTime | date:'MMM' }}</small>
+            </div>
+            <div class="training-details">
+              <div class="training-meta">
+                <span class="status-chip">{{ isOverdue(item.trainingUnit.startTime) ? 'Overdue' : 'Today' }}</span>
+                <span>{{ item.planName }}</span>
+              </div>
+              <h3>{{ item.trainingUnit.name }}</h3>
+              <p>{{ item.trainingUnit.exercises.length }} exercises · {{ item.trainingUnit.startTime | date:'HH:mm' }}</p>
+            </div>
+            <a class="btn complete-button" [routerLink]="['/dashboard/complete-training', item.trainingUnit.id]">
+              Fill results <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </article>
+        }
+      </div>
+    } @else {
+      <div class="dashboard-state empty-state">
+        <span class="state-icon"><i class="fa-solid fa-check"></i></span>
+        <h3>You're up to date</h3>
+        <p>There are no scheduled trainings waiting for results.</p>
+        <a routerLink="/create-plan">Create a new training plan</a>
+      </div>
+    }
+  </section>
 </div>

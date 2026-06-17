@@ -1,0 +1,48 @@
+@use "../../../../styles/utilities/index";
+
+:host { @include index.box-display(index.$light-grey); }
+.complete-page { display: grid; gap: index.$small; padding-bottom: index.$large; }
+.back-link { width: fit-content; color: index.$black-transparent; font-weight: 500; }
+.completion-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: index.$small; padding: index.$small 0; border-bottom: 2px solid index.$black; }
+.completion-heading h1 { margin: 6px 0; font-size: clamp(index.$large, 5vw, index.$xlarge); text-transform: uppercase; }
+.completion-heading p { color: index.$black-transparent; }
+.eyebrow { padding: 4px 9px; background: index.$black; color: index.$white; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+.session-status { display: flex; min-width: 132px; align-items: center; justify-content: center; gap: 8px; padding: 12px; border: 1px solid index.$gray; background: index.$white; text-transform: uppercase; }
+.exercise-list { display: grid; gap: 12px; margin-top: index.$small; }
+.exercise-card { border-top-width: 5px; }
+.exercise-heading { display: flex; align-items: center; gap: 12px; }
+.exercise-heading h2 { text-transform: uppercase; }
+.exercise-heading p, .exercise-description { color: index.$black-transparent; }
+.exercise-number { display: grid; width: 44px; height: 44px; flex: 0 0 44px; place-items: center; background: index.$black; color: index.$white; font-weight: 600; }
+.exercise-description { margin: 10px 0 0 56px; }
+.sets-table { margin-top: index.$small; border: 1px solid index.$gray; }
+.sets-header, .set-row { display: grid; grid-template-columns: 64px repeat(3, minmax(100px, 1fr)); align-items: center; gap: 10px; padding: 9px 12px; }
+.sets-header { background: index.$black; color: index.$white; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; }
+.set-row { border-bottom: 1px solid index.$gray; }
+.set-row:last-child { border-bottom: 0; }
+.set-row input { width: 100%; min-height: 40px; margin: 0; background: index.$white; }
+.mobile-label { display: none; }
+.notes-card { margin-top: 12px; }
+.notes-card label { display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: 600; text-transform: uppercase; }
+.notes-card label span { color: index.$black-transparent; font-size: 11px; font-weight: 400; }
+.notes-card textarea { width: 100%; resize: vertical; }
+.form-actions { display: flex; align-items: center; justify-content: flex-end; gap: index.$small; margin-top: index.$small; }
+.form-actions a { color: index.$black-transparent; font-weight: 600; }
+.form-actions .btn { min-width: 230px; }
+.form-actions .btn:disabled { cursor: wait; opacity: .65; }
+.save-error { display: flex; align-items: center; gap: 10px; margin-top: 12px; padding: 12px; border-left: 5px solid #7b1515; background: #f3dddd; color: #7b1515; }
+.page-state { display: grid; min-height: 300px; place-items: center; align-content: center; gap: 8px; }
+.error-state { color: #7b1515; }
+
+@media (max-width: index.$small-width) {
+  .completion-heading { align-items: flex-start; flex-direction: column; }
+  .session-status { width: 100%; }
+  .exercise-description { margin-left: 0; }
+  .sets-table { border: 0; }
+  .sets-header { display: none; }
+  .set-row { grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 10px; padding: 10px; border: 1px solid index.$gray; background: index.$light-grey; }
+  .set-row > strong { grid-column: 1 / -1; }
+  .mobile-label { display: block; margin-bottom: 4px; color: index.$black-transparent; font-size: 10px; font-weight: 500; text-transform: uppercase; }
+  .form-actions { align-items: stretch; flex-direction: column-reverse; text-align: center; }
+  .form-actions .btn { width: 100%; }
+}

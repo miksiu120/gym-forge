@@ -1,0 +1,74 @@
+<div class="small-container complete-page">
+  <a class="back-link" routerLink="/dashboard/training-panel"><i class="fa-solid fa-arrow-left"></i> Training overview</a>
+
+  @if (loading) {
+    <div class="box page-state"><i class="fa-solid fa-spinner fa-spin"></i><p>Loading training...</p></div>
+  } @else if (!unit) {
+    <div class="box page-state error-state"><i class="fa-solid fa-triangle-exclamation"></i><p>{{ errorMessage }}</p></div>
+  } @else {
+    <header class="completion-heading">
+      <div>
+        <span class="eyebrow">Record strength training</span>
+        <h1>{{ unit.name }}</h1>
+        <p>{{ unit.startTime | date:'EEEE, dd MMMM yyyy · HH:mm' }} · {{ unit.exercises.length }} exercises</p>
+      </div>
+      <div class="session-status"><i class="fa-solid fa-dumbbell"></i><span>{{ unit.completedAt ? 'Edit results' : 'To complete' }}</span></div>
+    </header>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <div formArrayName="exercises" class="exercise-list">
+        @for (exercise of unit.exercises; track exercise.id; let exerciseIndex = $index) {
+          <section class="box exercise-card" [formGroupName]="exerciseIndex">
+            <div class="exercise-heading">
+              <span class="exercise-number">{{ exerciseIndex + 1 | number:'2.0' }}</span>
+              <div>
+                <h2>{{ exercise.name }}</h2>
+                <p>
+                  {{ exercise.sets }} sets
+                  @if (exercise.type === measurementSystem.Repetitive) { · target {{ exercise.repetitions }} reps }
+                  @else { · target {{ exercise.duration }} sec }
+                  @if (exercise.tempo) { · tempo {{ exercise.tempo }} }
+                </p>
+              </div>
+            </div>
+            @if (exercise.description) { <p class="exercise-description">{{ exercise.description }}</p> }
+
+            <div class="sets-table" formArrayName="sets">
+              <div class="sets-header" aria-hidden="true">
+                <span>Set</span><span>Weight (kg)</span>
+                <span>{{ exercise.type === measurementSystem.Repetitive ? 'Reps' : 'Time (sec)' }}</span><span>RPE</span>
+              </div>
+              @for (set of setsFor(exerciseIndex).controls; track $index; let setIndex = $index) {
+                <div class="set-row" [formGroupName]="setIndex">
+                  <strong><span class="mobile-label">Set </span>{{ setIndex + 1 }}</strong>
+                  <label><span class="mobile-label">Weight (kg)</span><input type="number" min="0" max="2000" step="0.5" formControlName="weight" placeholder="—"></label>
+                  @if (exercise.type === measurementSystem.Repetitive) {
+                    <label><span class="mobile-label">Reps</span><input type="number" min="0" formControlName="repetitions"></label>
+                  } @else {
+                    <label><span class="mobile-label">Time (sec)</span><input type="number" min="0" formControlName="duration"></label>
+                  }
+                  <label><span class="mobile-label">RPE</span><input type="number" min="0" max="10" step="0.5" formControlName="rpe" placeholder="—"></label>
+                </div>
+              }
+            </div>
+          </section>
+        }
+      </div>
+
+      <section class="box notes-card">
+        <label for="training-notes">Session notes <span>optional</span></label>
+        <textarea id="training-notes" rows="4" maxlength="1000" formControlName="notes" placeholder="How did the training feel? Add any useful context..."></textarea>
+      </section>
+
+      @if (errorMessage) { <p class="save-error" role="alert"><i class="fa-solid fa-triangle-exclamation"></i>{{ errorMessage }}</p> }
+
+      <div class="form-actions">
+        <a routerLink="/dashboard/training-panel">Cancel</a>
+        <button class="btn" type="submit" [disabled]="saving">
+          @if (saving) { <i class="fa-solid fa-spinner fa-spin"></i> Saving... }
+          @else { <i class="fa-solid fa-check"></i> Save training results }
+        </button>
+      </div>
+    </form>
+  }
+</div>
