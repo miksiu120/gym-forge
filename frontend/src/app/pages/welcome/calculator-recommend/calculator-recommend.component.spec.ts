@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 
 import { CalculatorRecommendComponent } from './calculator-recommend.component';
 
@@ -8,7 +9,8 @@ describe('CalculatorRecommendComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CalculatorRecommendComponent]
+      imports: [CalculatorRecommendComponent],
+      providers: [provideRouter([])],
     })
     .compileComponents();
 

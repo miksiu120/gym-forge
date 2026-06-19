@@ -2,11 +2,29 @@
 :host {
   @include index.box-display(index.$light-grey);
 
+  .box__description {
+    max-width: 75ch;
+    color: index.$black-transparent;
+    line-height: 1.55;
+  }
+
+  .form-box__form {
+    display: grid;
+    gap: index.$xsmall;
+    padding-top: index.$small;
+  }
+
   .box {
     &__result {
       &__score {
-        font-size: index.$medium;
-        font-weight: 400;
+        display: inline-flex;
+        min-width: 120px;
+        margin-top: 10px;
+        padding: 10px index.$small;
+        border-left: 5px solid index.$black;
+        background: index.$light-grey;
+        font-size: index.$large;
+        font-weight: 500;
       }
     }
   }

@@ -7,8 +7,7 @@
   background-color: index.$black;
   color: index.$white;
   text-transform: capitalize;
-  z-index: 250;
-  padding: index.$xsmall/2 index.$xsmall;
+  padding: 8px index.$xsmall;
   box-shadow: index.$bottom-shadow;
   z-index: 100;
 
@@ -17,6 +16,9 @@
     align-items: center;
     justify-content: space-between;
     .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       font-size: index.$small;
       font-weight: 500;
       color: index.$white;
@@ -27,7 +29,10 @@
 
     .burger-icon {
       font-size: index.$large;
-      padding: index.$xsmall;
+      display: grid;
+      width: 52px;
+      height: 52px;
+      place-items: center;
       cursor: pointer;
     }
 
@@ -40,7 +45,7 @@
         padding: index.$xsmall;
         color: index.$white;
         text-decoration: none;
-        font-weight: 200;
+        font-weight: 300;
         text-transform: uppercase;
         letter-spacing: 1px;
         cursor: pointer;
@@ -60,7 +65,7 @@
       &__dropdown {
         position: relative;
         overflow: visible;
-        z-index: -10;
+        z-index: 10;
         &:hover {
           .menu__dropdown--content {
             display: block;
@@ -75,7 +80,7 @@
           width: 100%;
           background-color: index.$black;
           box-shadow: index.$shadow;
-          z-index: -10;
+          z-index: 20;
           a {
             display: block;
             text-decoration: none;
@@ -83,6 +88,12 @@
             padding: index.$xsmall;
             text-align: center;
             border-top: 2px solid index.$white;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            &:hover,
+            &:focus-visible {
+              background-color: index.$white;
+              color: index.$black;
+            }
             &:first-child {
               border-top: none;
             }
@@ -99,7 +110,7 @@
           img {
             width: 50px;
             height: 50px;
-            margin-right: index.$xsmall/1.5;
+            margin-right: 10px;
           }
         }
         padding-top: 0;
@@ -124,6 +135,12 @@
         display: none;
       }
     }
+  }
+}
+
+@media (max-width: 380px) {
+  :host .container .logo__title {
+    display: none;
   }
 }
 

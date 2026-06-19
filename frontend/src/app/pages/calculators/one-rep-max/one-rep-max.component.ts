@@ -1,11 +1,9 @@
-import { Component, NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CommonModule, NgIf } from '@angular/common';
 
 @Component({
   selector: 'page-one-rep-max',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule],
   templateUrl: './one-rep-max.component.html',
   styleUrl: './one-rep-max.component.scss',
 })
@@ -14,10 +12,15 @@ export class OneRepMaxComponent {
   reps: number = 0;
 
   table: any[] = [];
+  errorMessage = '';
 
   createTable = () => {
-    console.log(this.weight);
-    console.log(this.reps);
+    if (!this.weight || !this.reps || this.weight <= 0 || this.reps <= 0 || this.reps > 30) {
+      this.table = [];
+      this.errorMessage = 'Enter a weight above 0 and between 1 and 30 repetitions.';
+      return;
+    }
+    this.errorMessage = '';
     let table = [];
     for (let i = 0; i < 10; i++) {
       table.push({

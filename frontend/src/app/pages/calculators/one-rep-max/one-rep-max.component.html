@@ -7,7 +7,7 @@
         <form (ngSubmit)="createTable()" class="form-box__form">
             <div class="form-box__inputs">
                 <label for="weight">Weight</label>
-                <input [(ngModel)]="weight" type="number" id="weight" name="weight" required>
+                <input [(ngModel)]="weight" type="number" id="weight" name="weight" min="0.1" max="2000" step="0.1" required>
                 <select name="units" id="units">
                     <option value="kg">kg</option>
                     <option value="lb">lb</option>
@@ -15,9 +15,10 @@
             </div>
             <div class="form-box__inputs">
                 <label for="reps">Reps</label>
-                <input [(ngModel)]="reps" type="number" id="reps" name="reps" required>
+                <input [(ngModel)]="reps" type="number" id="reps" name="reps" min="1" max="30" required>
             </div>
             <button type="submit" class="btn btn--primary">Calculate</button>
+            @if (errorMessage) { <p class="calculator-error" role="alert">{{ errorMessage }}</p> }
         </form>
 
         <!-- Przykładowa tabela wyników -->
@@ -34,11 +35,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let row of table">
+                @for (row of table; track row.reps) {
+                <tr>
                     <td>{{ row.percentValue }}%</td>
                     <td>{{ row.weight }}</td>
                     <td>{{ row.reps }}</td>
                 </tr>
+                }
             </tbody>
         </table>
     </div>

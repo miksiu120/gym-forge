@@ -1,62 +1,87 @@
 @use "../../../../styles/utilities/index";
 
 :host {
-  position: relative;
-  background-color: index.$black;
   display: block;
-  padding: index.$medium 0 index.$xlarge 0;
+  position: relative;
+  padding: index.$large 0 index.$xxlarge;
+  background-color: index.$black;
+
+  #instructions {
+    scroll-margin-top: 76px;
+  }
 
   .instructions {
     display: grid;
-    place-items: center;
-    position: relative;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(1fr, 4x);
+    gap: index.$small;
+    padding: 0 index.$xsmall;
+
     &__instruction {
       display: grid;
-      grid-template-columns: 1fr 5fr;
-      grid-template-rows: 1fr 3fr;
-      width: clamp(250px, 90%, 600px);
+      min-height: 230px;
+      grid-template-columns: 90px minmax(0, 1fr);
+      grid-template-rows: auto 1fr;
+      column-gap: index.$small;
+      align-items: start;
+      padding: index.$medium;
       background-color: index.$white;
       color: index.$black;
-      margin: index.$small;
       box-shadow: index.$shadow;
-      &:nth-child(n) {
-        animation: fromLeft 0.3s;
-      }
 
       &__number {
-        position: relative;
-        bottom: -14%;
-        align-self: center;
-        justify-self: center;
-        grid-row: 1/3;
-        grid-column: 1/2;
-        margin: index.$small;
-        font-size: 170px;
-        color: rgba(0, 0, 0, 0.77);
-        line-height: 1;
-        font-weight: 500;
-      }
-      &__title {
-        letter-spacing: 1px;
+        grid-row: 1 / 3;
         align-self: end;
-        justify-self: start;
-        font-size: index.$large;
+        color: index.$black-transparent;
+        font-size: clamp(88px, 11vw, 140px);
+        font-weight: 600;
+        line-height: 0.8;
       }
+
+      &__title {
+        align-self: end;
+        margin-bottom: 10px;
+        font-size: clamp(index.$medium, 3vw, index.$large);
+        letter-spacing: 0.5px;
+      }
+
       &__text {
-        font-size: index.$small;
+        max-width: 50ch;
+        color: index.$black-transparent;
+        font-size: index.$xsmall;
+        line-height: 1.55;
       }
     }
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: index.$large-width) {
+  :host .instructions {
+    grid-template-columns: 1fr 1fr;
+    padding: 0 index.$small;
+  }
+}
+
+@media (max-width: index.$small-width) {
   :host {
+    padding-top: index.$small;
 
     .instructions {
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr 1fr;
+      gap: index.$xsmall;
+
+      &__instruction {
+        min-height: 210px;
+        grid-template-columns: 64px minmax(0, 1fr);
+        column-gap: index.$xsmall;
+        padding: index.$small index.$xsmall;
+
+        &__number {
+          font-size: 82px;
+        }
+
+        &__title {
+          font-size: index.$medium;
+        }
+      }
     }
   }
 }

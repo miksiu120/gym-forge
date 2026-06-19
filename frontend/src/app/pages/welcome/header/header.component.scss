@@ -2,93 +2,128 @@
 
 :host {
   display: block;
+  width: 100%;
+  min-height: 100svh;
+  padding-top: 68px;
   background-image: url("/training-828726_1280.webp");
   background-repeat: no-repeat;
-  background-attachment: scroll;
   background-position: 80% 50%;
   background-size: cover;
-  height: 100vh;
-  width: 100%;
   color: index.$white;
-  padding-top: 100px;
+
+  .container {
+    display: flex;
+    position: relative;
+    z-index: 1;
+    min-height: calc(100svh - 68px);
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: index.$xlarge index.$small calc(index.$xlarge * 2);
+  }
+
   .title {
     position: relative;
-    font-size: index.$large;
+    max-width: 760px;
+    font-size: clamp(34px, 5vw, 64px);
+    letter-spacing: 0.5px;
+    text-wrap: balance;
   }
+
   .description {
     position: relative;
-    font-size: index.$medium;
+    width: min(100%, 650px);
+    margin-top: index.$medium;
     padding: index.$medium;
-    padding-bottom: index.$xlarge;
-    margin: index.$small;
-    background-color: index.$black;
-    color: index.$white;
     border: 2px solid index.$white;
+    background-color: rgba(15, 15, 15, 0.92);
+    color: index.$white;
+    font-size: clamp(18px, 2vw, index.$medium);
+    line-height: 1.55;
   }
+
   .start-button {
-    display: inline-block;
+    display: inline-flex;
     position: relative;
-    left: 35%;
-    top: calc(0px - index.$large);
+    z-index: 1;
+    align-items: center;
+    justify-content: center;
+    min-width: 190px;
+    min-height: 62px;
+    align-self: flex-end;
+    margin: -2px 10% 0 0;
     padding: index.$xsmall index.$xlarge;
-    font-size: index.$medium;
-    color: index.$white;
-    background-color: index.$black;
     border: 2px solid index.$white;
-    font-weight: 400;
+    background-color: index.$black;
+    color: index.$white;
+    font-size: index.$medium;
+    font-weight: 500;
+    letter-spacing: 1px;
     text-decoration: none;
-    cursor: pointer;
-    //I have no idea why it doesn't work
-    @include index.object-background(index.$white, 100%, 100%);
+    transition: background-color 0.2s ease, color 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      background-color: index.$white;
+      color: index.$black;
+    }
   }
+
   .shadow {
     position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: rgb(0, 0, 0);
+    inset: 0;
     background: linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.87) 0%,
-      rgba(51, 51, 51, 0.1) 100%
+      90deg,
+      rgba(0, 0, 0, 0.92) 0%,
+      rgba(0, 0, 0, 0.68) 52%,
+      rgba(0, 0, 0, 0.18) 100%
     );
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: index.$medium-width) {
   :host {
-    .title {
-      width: clamp(200px, 50%, 1000px);
-      margin-left: 15%;
-    }
-    .description {
-      width: clamp(150px, 40%, 800px);
-      margin-left: 15%;
-    }
-    .start-button {
-      left: 45%;
-      top: calc(0px - index.$xlarge);
-      transform: translate(0, 0);
-      //padding: index.$xsmall 80px;
+    .container {
+      padding-left: clamp(index.$large, 10vw, 150px);
+      padding-right: clamp(index.$large, 8vw, 120px);
     }
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: index.$xlarge-width) {
   :host {
     background-image: url("/training-828726_1920.webp");
+    padding-top: 61px;
+
+    .container {
+      min-height: calc(100svh - 61px);
+    }
+  }
+}
+
+@media (max-width: index.$small-width) {
+  :host {
+    background-position: 67% 50%;
+
+    .container {
+      justify-content: flex-start;
+      padding: index.$large index.$xsmall index.$xxlarge;
+    }
 
     .title {
-      font-size: index.$xlarge;
+      font-size: 32px;
     }
+
     .description {
-      padding-bottom: 100px;
+      margin-top: index.$small;
+      padding: index.$small;
+      font-size: 18px;
     }
 
     .start-button {
-      font-size: index.$large;
-      padding: index.$xsmall 100px;
+      min-height: 54px;
+      margin-right: index.$small;
+      font-size: index.$small;
     }
   }
 }

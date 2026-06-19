@@ -11,9 +11,36 @@ html {
 }
 
 body {
-  font-weight: 200;
+  color: index.$black;
+  font-weight: 300;
   font-family: "Oswald", sans-serif;
+  line-height: 1.5;
   min-height: 100vh;
+  background-color: index.$light-grey;
+}
+
+h1,
+h2,
+h3,
+p {
+  overflow-wrap: break-word;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.15;
+}
+
+a,
+button,
+input,
+select,
+textarea {
+  &:focus-visible {
+    outline: 3px solid index.$gray;
+    outline-offset: 3px;
+  }
 }
 button,
 input,
@@ -23,9 +50,9 @@ textarea {
 
 textarea {
   resize: vertical;
-  min-height: 50px;
+  min-height: 96px;
   font-size: index.$xsmall;
-  padding: calc(index.$xsmall/3);
+  padding: 10px 12px;
 }
 
 router-outlet {
@@ -63,6 +90,7 @@ router-outlet {
     text-transform: uppercase;
     letter-spacing: 1px;
     text-shadow: index.$shadow;
+    line-height: 1.1;
   }
 
   &-dark {
@@ -90,25 +118,39 @@ router-outlet {
   }
 
   &__inputs {
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(90px, auto) minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 10px;
     label {
       font-weight: 500;
-      padding-right: index.$xsmall;
+      padding-right: 0;
       font-size: index.$small;
     }
     input {
-      flex: 1;
+      width: 100%;
+      min-width: 0;
     }
     .select-weight {
       border-radius: 0;
-      border: none;
-      padding-left: 10px;
+      border: 1px solid index.$gray;
+      padding: 9px 10px;
     }
     .select-gender {
       border-radius: 0;
       border: 1px solid index.$black;
       background-color: index.$white;
       padding-left: 10px;
+    }
+  }
+}
+
+@media (max-width: index.$small-width) {
+  .form-box__inputs {
+    grid-template-columns: minmax(72px, auto) minmax(0, 1fr) auto;
+
+    label {
+      font-size: index.$xsmall;
     }
   }
 }
@@ -130,11 +172,13 @@ router-outlet {
   padding: index.$small;
   box-shadow: index.$shadow;
   margin: index.$small 0;
+  border-top: 3px solid index.$black;
   &__title {
     font-size: index.$small;
     margin-bottom: index.$small;
     font-weight: 500;
     letter-spacing: 1px;
+    line-height: 1.2;
     &--dark {
       background-color: index.$black;
       padding: calc(index.$xsmall/2);
@@ -159,16 +203,38 @@ router-outlet {
 }
 
 .btn {
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
   color: index.$white;
   background-color: index.$black;
-  border: none;
+  border: 1px solid index.$black;
   text-transform: uppercase;
   font-size: index.$xsmall;
-  padding: calc(index.$xsmall/2) index.$small;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+  padding: 10px index.$small;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+
+  &:hover:not(:disabled) {
+    color: index.$black;
+    background-color: index.$white;
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
 }
 
 .required {
@@ -183,14 +249,31 @@ router-outlet {
   flex-direction: column;
   margin-bottom: index.$xsmall;
   label {
-    font-weight: 400;
-    margin-bottom: 3px;
+    font-weight: 500;
+    margin-bottom: 6px;
     text-transform: capitalize;
     text-shadow: index.$shadow-light;
   }
-  input {
-    padding: calc(index.$xsmall/3);
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+    min-height: 44px;
+    border: 1px solid index.$gray;
+    border-radius: 0;
+    background-color: index.$white;
+    color: index.$black;
+    padding: 9px 12px;
     font-size: index.$xsmall;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+
+    &:focus {
+      border-color: index.$black;
+      box-shadow: inset 4px 0 0 index.$black;
+    }
   }
 
   .radio {
@@ -200,4 +283,28 @@ router-outlet {
 
 .value {
   font-weight: 500;
+}
+
+.error,
+.field-error {
+  display: block;
+  margin-top: 5px;
+  color: #7b1515;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+@media (max-width: index.$small-width) {
+  .section-title {
+    margin: index.$small index.$xsmall;
+
+    &__square {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  .box {
+    margin: index.$xsmall 0;
+  }
 }

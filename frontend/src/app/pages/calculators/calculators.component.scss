@@ -1,0 +1,20 @@
+@use "../../../styles/utilities/index";
+
+:host { display: block; background: index.$ligther-black; }
+.calculators-page { min-height: calc(100vh - 120px); @include index.box-display(index.$light-grey); }
+.page-heading { max-width: 740px; margin-bottom: index.$large; }
+.page-heading span { text-transform: uppercase; letter-spacing: 2px; color: index.$black-transparent; font-size: 12px; }
+.page-heading h1 { margin-top: 4px; font-size: clamp(38px, 6vw, 64px); text-transform: uppercase; }
+.page-heading p { max-width: 620px; margin-top: 12px; color: index.$black-transparent; font-size: index.$small; }
+.calculator-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: index.$small; }
+.calculator-card { position: relative; display: flex; min-height: 320px; flex-direction: column; gap: 14px; color: index.$black; text-decoration: none; transition: transform .2s ease, box-shadow .2s ease; }
+.calculator-card:hover, .calculator-card:focus-visible { transform: translateY(-4px); box-shadow: 8px 8px 0 #000; }
+.calculator-card:focus-visible { outline: 2px solid index.$black; outline-offset: 3px; }
+.calculator-card__number { color: index.$black-transparent; font-size: 12px; letter-spacing: 2px; }
+.calculator-card > i { font-size: 28px; margin-top: 22px; }
+.calculator-card h2 { font-size: 23px; text-transform: uppercase; }
+.calculator-card p { color: index.$black-transparent; line-height: 1.5; }
+.calculator-card__link { display: flex; align-items: center; gap: 8px; margin-top: auto; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.calculator-card__link i { font-size: 12px; }
+@media (max-width: index.$medium-width) { .calculator-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: index.$small-width) { .calculator-grid { grid-template-columns: 1fr; } .calculator-card { min-height: 260px; } }
