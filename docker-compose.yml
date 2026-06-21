@@ -1,0 +1,48 @@
+services:
+  database:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-WorkPlanner}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-1234}
+    ports:
+      - "${POSTGRES_PORT:-9090}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: ./backend
+    restart: unless-stopped
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: http://+:8080
+      ApplyMigrations: "true"
+      SeedData: ${SEED_DATA:-true}
+      ConnectionStrings__DBConnection: Host=database;Port=5432;Database=${POSTGRES_DB:-WorkPlanner};Username=${POSTGRES_USER:-postgres};Password=${POSTGRES_PASSWORD:-1234}
+      ConnectionStrings__WebsiteConnection: http://localhost:${APP_PORT:-4200}
+      Authentication__JwtKey: ${JWT_KEY:-CHANGE_ME_PRIVATE_KEY_AT_LEAST_32_CHARS}
+      Authentication__JwtIssuer: ${JWT_ISSUER:-http://gymforge.local}
+      Authentication__JwtExpireAccount: ${JWT_EXPIRE_HOURS:-24}
+      Authentication__JwtRefreshTokenAccount: ${JWT_REFRESH_DAYS:-30}
+    depends_on:
+      database:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-4200}:80"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
