@@ -23,11 +23,50 @@
     </section>
 
     <section class="box chart-card" aria-labelledby="weight-chart-title">
-      <div class="section-heading"><div><span>Load progression</span><h2 id="weight-chart-title">Exercise weight</h2></div><i class="fa-solid fa-chart-line" aria-hidden="true"></i></div>
-      <p class="chart-description">Highest recorded weight per completed session. Each line represents an exercise.</p>
+      <div class="section-heading chart-heading">
+        <div><span>Load progression</span><h2 id="weight-chart-title">Exercise weight</h2></div>
+        <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+      </div>
+      <p class="chart-description">Choose an exercise to see its highest recorded weight in each completed session.</p>
       @if (summary.weightProgress.length > 0) {
+        <div class="exercise-browser">
+          <div class="exercise-browser__current">
+            <span>Currently viewing</span>
+            <strong>{{ selectedExercise?.exerciseName }}</strong>
+            <small>{{ selectedExercise?.points?.length }} recorded {{ selectedExercise?.points?.length === 1 ? 'session' : 'sessions' }}</small>
+          </div>
+          @if (summary.weightProgress.length > 1) {
+            <div class="exercise-browser__controls" aria-label="Exercise navigation">
+              <button type="button" (click)="moveExercise(-1)" aria-label="Show previous exercise">
+                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+              </button>
+              <span>{{ selectedExerciseIndex + 1 }} / {{ summary.weightProgress.length }}</span>
+              <button type="button" (click)="moveExercise(1)" aria-label="Show next exercise">
+                <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+              </button>
+            </div>
+          }
+        </div>
+
+        <div class="exercise-gallery" role="group" aria-label="Select an exercise">
+          @for (series of summary.weightProgress; track series.exerciseName; let index = $index) {
+            <button
+              type="button"
+              class="exercise-option"
+              [class.exercise-option--active]="index === selectedExerciseIndex"
+              [attr.aria-pressed]="index === selectedExerciseIndex"
+              [attr.aria-label]="'Show ' + series.exerciseName + ' progress'"
+              (click)="selectExercise(index)">
+              <span class="exercise-option__number">{{ (index + 1).toString().padStart(2, '0') }}</span>
+              <strong>{{ series.exerciseName }}</strong>
+              <span class="exercise-option__metric"><b>{{ latestWeight(series) | number:'1.0-1' }}</b> kg latest</span>
+              <small>{{ maximumWeight(series) | number:'1.0-1' }} kg personal best</small>
+            </button>
+          }
+        </div>
+
         <div class="chart-wrap">
-          <canvas #weightChart role="img" aria-label="Exercise weight progression chart"></canvas>
+          <canvas #weightChart role="img" [attr.aria-label]="selectedExercise?.exerciseName + ' weight progression chart'"></canvas>
           @if (chartState === 'loading') {
             <div class="chart-feedback" aria-live="polite"><i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i><p>Preparing weight chart...</p></div>
           } @else if (chartState === 'error') {
