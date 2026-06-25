@@ -13,7 +13,7 @@
             <div class="form-box__inputs">
                 <label for="weight">Weight</label>
                 <input [(ngModel)]="weight" type="number" id="weight" name="weight" required>
-                <select class="select-weight" name="units" id="units">
+                <select class="select-weight" [(ngModel)]="weightUnit" name="weightUnit" id="weight-unit">
                     <option value="kg">kg</option>
                     <option value="lb">lb</option>
                 </select>
@@ -21,7 +21,7 @@
             <div class="form-box__inputs">
                 <label for="bodyweight">Bodyweight</label>
                 <input [(ngModel)]="bodyweight" type="number" id="bodyweight" name="bodyweight" required>
-                <select class="select-weight" name="units" id="units">
+                <select class="select-weight" [(ngModel)]="bodyweightUnit" name="bodyweightUnit" id="bodyweight-unit">
                     <option value="kg">kg</option>
                     <option value="lb">lb</option>
                 </select>
@@ -34,6 +34,7 @@
                 </select>
             </div>
             <button type="submit" class="btn btn--primary">Calculate</button>
+            @if (errorMessage) { <p class="calculator-error" role="alert">{{ errorMessage }}</p> }
         </form>
     </div>
 

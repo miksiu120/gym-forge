@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { TokenService } from './token-service.service';
 
 @Injectable({
@@ -8,13 +8,13 @@ import { TokenService } from './token-service.service';
 export class AuthGuard implements CanActivate {
   constructor(private auth: TokenService, private router: Router) {}
 
-  canActivate(): boolean {
+  canActivate(_route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     if (this.auth.isAuthenticated()) {
       return true;
     }
 
     this.router.navigate(['/login'], {
-      queryParams: { returnUrl: this.router.url },
+      queryParams: { returnUrl: state.url },
     });
     return false;
   }
@@ -26,13 +26,13 @@ export class AuthGuard implements CanActivate {
 export class GuestGuard implements CanActivate {
   constructor(private auth: TokenService, private router: Router) {}
 
-  canActivate(): boolean {
+  canActivate(_route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     if (!this.auth.isAuthenticated()) {
       return true;
     }
 
     this.router.navigate(['/dashboard/training-panel'], {
-      queryParams: { returnUrl: this.router.url },
+      queryParams: { returnUrl: state.url },
     });
     return false;
   }

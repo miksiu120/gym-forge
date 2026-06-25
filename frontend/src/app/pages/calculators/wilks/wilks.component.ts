@@ -1,6 +1,8 @@
 import { Component, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
+type WeightUnit = 'kg' | 'lb';
+
 @Component({
   selector: 'page-wilks',
   imports: [FormsModule],
@@ -8,11 +10,24 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './wilks.component.scss',
 })
 export class WilksComponent {
-  weight: number = 0;
-  bodyweight: number = 0;
-  gender: string = '';
-  wilksScore: number = 0;
-  calculateWilks() {
+  weight = 0;
+  bodyweight = 0;
+  gender: 'male' | 'female' | '' = '';
+  weightUnit: WeightUnit = 'kg';
+  bodyweightUnit: WeightUnit = 'kg';
+  wilksScore = 0;
+  errorMessage = '';
+
+  calculateWilks(): void {
+    if (this.weight <= 0 || this.bodyweight <= 0 || !this.gender) {
+      this.wilksScore = 0;
+      this.errorMessage = 'Enter valid lifting and body weights, then select a gender.';
+      return;
+    }
+
+    this.errorMessage = '';
+    const liftedWeightKg = this.toKilograms(this.weight, this.weightUnit);
+    const bodyweightKg = this.toKilograms(this.bodyweight, this.bodyweightUnit);
     const coefficients =
       this.gender === 'male'
         ? [
@@ -26,18 +41,22 @@ export class WilksComponent {
 
     let denominator =
       coefficients[0] +
-      coefficients[1] * this.bodyweight +
-      coefficients[2] * Math.pow(this.bodyweight, 2) +
-      coefficients[3] * Math.pow(this.bodyweight, 3) +
-      coefficients[4] * Math.pow(this.bodyweight, 4) +
-      coefficients[5] * Math.pow(this.bodyweight, 5);
+      coefficients[1] * bodyweightKg +
+      coefficients[2] * Math.pow(bodyweightKg, 2) +
+      coefficients[3] * Math.pow(bodyweightKg, 3) +
+      coefficients[4] * Math.pow(bodyweightKg, 4) +
+      coefficients[5] * Math.pow(bodyweightKg, 5);
 
     if (denominator > 0) {
-      this.wilksScore = (this.weight * 500) / denominator;
+      this.wilksScore = (liftedWeightKg * 500) / denominator;
     } else {
       this.wilksScore = 0;
     }
 
     this.wilksScore = Math.round(this.wilksScore * 1000) / 1000;
+  }
+
+  private toKilograms(weight: number, unit: WeightUnit): number {
+    return unit === 'lb' ? weight * 0.45359237 : weight;
   }
 }

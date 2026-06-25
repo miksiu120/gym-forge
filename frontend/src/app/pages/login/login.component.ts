@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoginUserDto } from '../../interfaces/account.interfaces';
 import { AccountService } from '../../services/account-service/account-service.service';
 import { TokenService } from '../../services/token-service/token-service.service';
@@ -27,7 +27,8 @@ export class LoginComponent {
     private fb: FormBuilder,
     private accountService: AccountService,
     private tokenService: TokenService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
   ) {
     this.loginForm = this.fb.group({
       nickname: ['', [Validators.required]],
@@ -47,7 +48,11 @@ export class LoginComponent {
     this.accountService.loginAccount(loginData).subscribe({
       next: (response) => {
         this.tokenService.saveTokensToLocalStorage(response);
-        this.router.navigate(['/dashboard/training-panel']);
+        const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+        const safeReturnUrl = returnUrl?.startsWith('/') && !returnUrl.startsWith('//')
+          ? returnUrl
+          : '/dashboard/training-panel';
+        this.router.navigateByUrl(safeReturnUrl);
       },
       error: (error) => {
         this.submitting = false;

@@ -1,6 +1,12 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
+interface OneRepMaxRow {
+  reps: number;
+  weight: number;
+  percentValue: number;
+}
+
 @Component({
   selector: 'page-one-rep-max',
   imports: [FormsModule],
@@ -8,10 +14,11 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './one-rep-max.component.scss',
 })
 export class OneRepMaxComponent {
-  weight: number = 0;
-  reps: number = 0;
+  weight = 0;
+  reps = 0;
+  unit: 'kg' | 'lb' = 'kg';
 
-  table: any[] = [];
+  table: OneRepMaxRow[] = [];
   errorMessage = '';
 
   createTable = () => {
@@ -21,12 +28,13 @@ export class OneRepMaxComponent {
       return;
     }
     this.errorMessage = '';
-    let table = [];
+    const table: OneRepMaxRow[] = [];
     for (let i = 0; i < 10; i++) {
+      const percentValue = 100 - 5 * i;
       table.push({
         reps: i + 1,
-        weight: this.calculateNRepMax(i + 1),
-        percentValue: 100 - 5 * i,
+        weight: this.calculatePercentageWeight(percentValue),
+        percentValue,
       });
     }
     this.table = table;
@@ -36,8 +44,7 @@ export class OneRepMaxComponent {
     return Math.round(this.weight / (1.0278 - 0.0278 * this.reps));
   }
 
-  calculateNRepMax(n: number): number {
-    const oneRepMax = this.calculateOneRepMax();
-    return Math.round(oneRepMax * (1.0278 - 0.0278 * n));
+  calculatePercentageWeight(percent: number): number {
+    return Math.round(this.calculateOneRepMax() * percent / 100);
   }
 }
