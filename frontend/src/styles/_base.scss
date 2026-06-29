@@ -19,6 +19,12 @@ body {
   background-color: index.$light-grey;
 }
 
+@media (max-width: 959px) {
+  body:has(component-training-panel) component-footer {
+    margin-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
 h1,
 h2,
 h3,

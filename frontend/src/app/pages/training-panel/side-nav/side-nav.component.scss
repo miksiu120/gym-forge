@@ -7,7 +7,10 @@
   background-color: index.$black;
   color: index.$white;
   width: 100vw;
-  box-sizing: index.$top-shadow;
+  height: calc(80px + env(safe-area-inset-bottom, 0px));
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  box-sizing: border-box;
+  box-shadow: index.$top-shadow;
   z-index: 123;
 
   .side-nav {
@@ -53,6 +56,8 @@
 @media (min-width: 960px) {
   :host {
     width: auto;
+    height: auto;
+    padding-bottom: 0;
     flex-direction: column;
     bottom: 50%;
     transform: translateY(50%);
