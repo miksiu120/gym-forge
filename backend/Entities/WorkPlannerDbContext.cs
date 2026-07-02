@@ -4,12 +4,12 @@ namespace WorkPlanner.Entities
 {
     public class WorkPlannerDbContext : DbContext
     {
-        public WorkPlannerDbContext(DbContextOptions<WorkPlannerDbContext> options) :base(options)
+        public WorkPlannerDbContext(DbContextOptions<WorkPlannerDbContext> options) : base(options)
         {
 
         }
 
-        public DbSet<User> Users { get; set; } 
+        public DbSet<User> Users { get; set; }
         public DbSet<TrainingPlan> TrainingPlans { get; set; }
         public DbSet<TrainingUnit> TrainingUnits { get; set; }
         public DbSet<Exercise> TimeExercises { get; set; }
@@ -80,6 +80,6 @@ namespace WorkPlanner.Entities
             });
 
         }
-        
+
     }
 }

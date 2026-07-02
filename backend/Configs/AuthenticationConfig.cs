@@ -1,42 +1,56 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using WorkPlanner.Configs;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+
+namespace WorkPlanner.Configs;
 
 public static class AuthenticationConfig
 {
-    public static IServiceCollection AddAuthenticationConfig(this IServiceCollection services,
+    public static IServiceCollection AddAuthenticationConfig(
+        this IServiceCollection services,
         IConfiguration configuration)
     {
-        var authenticationSettings = new AuthenticationSettings();
-        configuration.GetSection("Authentication").Bind(authenticationSettings);
+        var section = configuration.GetRequiredSection("Authentication");
+        var settings = section.Get<AuthenticationSettings>()
+            ?? throw new InvalidOperationException("Authentication settings are missing.");
 
-        services.Configure<AuthenticationSettings>(configuration.GetSection("Authentication"));
+        services
+            .AddOptions<AuthenticationSettings>()
+            .Bind(section)
+            .Validate(
+                options => options.JwtKey.Length >= 32,
+                "Authentication:JwtKey must contain at least 32 characters.")
+            .Validate(
+                options => !string.IsNullOrWhiteSpace(options.JwtIssuer),
+                "Authentication:JwtIssuer is required.")
+            .Validate(
+                options => options.JwtExpireAccount > 0
+                    && options.JwtRefreshTokenAccount > 0,
+                "Authentication token lifetimes must be greater than zero.")
+            .ValidateOnStart();
 
-        services.AddAuthentication(options =>
-        {
-            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        })
-            .AddJwtBearer(cfg =>
+        services
+            .AddAuthentication(options =>
             {
-                cfg.RequireHttpsMetadata = false;
-                cfg.SaveToken = true;
-                cfg.TokenValidationParameters = new TokenValidationParameters
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(
-                        Encoding.UTF8.GetBytes(authenticationSettings.JwtKey)),
-
-                    ValidateIssuer = true, 
-                    ValidIssuer = authenticationSettings.JwtIssuer,
-
-                    ValidateAudience = true, 
-                    ValidAudience = authenticationSettings.JwtIssuer,
-
-                    ValidateLifetime = true, 
-                    ClockSkew = TimeSpan.Zero 
+                        Encoding.UTF8.GetBytes(settings.JwtKey)),
+                    ValidateIssuer = true,
+                    ValidIssuer = settings.JwtIssuer,
+                    ValidateAudience = true,
+                    ValidAudience = settings.JwtIssuer,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero
                 };
             });
 

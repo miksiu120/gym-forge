@@ -1,61 +1,45 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WorkPlanner.Application.Accounts;
 using WorkPlanner.Models;
-using WorkPlanner.Services;
 
-namespace WorkPlanner.Controllers
+namespace WorkPlanner.Controllers;
+
+[ApiController]
+[Route("api/accounts")]
+public sealed class AccountController(
+    RegisterAccount registerAccount,
+    LoginAccount loginAccount,
+    GetAccountDetails getAccountDetails,
+    UpdateAccount updateAccount) : ControllerBase
 {
-    [ApiController]
-    [Route("api/accounts")]
-    public class AccountController : ControllerBase
+    [AllowAnonymous]
+    [HttpPut("login")]
+    public async Task<ActionResult<LoginResultDto>> Login(
+        [FromBody] LoginUserDto request,
+        CancellationToken cancellationToken) =>
+        Ok(await loginAccount.ExecuteAsync(request, cancellationToken));
+
+    [AllowAnonymous]
+    [HttpPost("register")]
+    public async Task<IActionResult> Register(
+        [FromBody] CreateUserDto request,
+        CancellationToken cancellationToken)
     {
-
-        private readonly ILogger<AccountController> _logger;
-        private readonly IAccountService _accountService;
-
-        public AccountController(ILogger<AccountController> logger, IAccountService service)
-        {
-            _logger = logger;
-            _accountService = service;
-        }
-
-        [HttpPut("login")]
-        public async Task<IActionResult> Login([FromBody] LoginUserDto loginUserDto)
-        {
-            LoginResultDto loginResultDto= await _accountService.Login(loginUserDto);
-            return Ok(loginResultDto);
-        }
-
-        [HttpPost("register")]
-        public IActionResult Register([FromBody] CreateUserDto createUserDto)
-        {
-            _accountService.Register(createUserDto);
-            return Ok();
-        }
-
-        [HttpGet("details")]
-  
-        public IActionResult Get()
-        {
-            var accountDetails = _accountService.GetAccountDetails();
-            return Ok(accountDetails);
-        }
-
-        [HttpPut("details")]
-        public async Task<IActionResult> Update([FromBody] UpdateAccountDto request)
-        {
-            try
-            {
-                return Ok(await _accountService.UpdateAccountAsync(request));
-            }
-            catch (KeyNotFoundException exception)
-            {
-                return NotFound(new { message = exception.Message });
-            }
-            catch (ArgumentException exception)
-            {
-                return BadRequest(new { message = exception.Message });
-            }
-        }
+        await registerAccount.ExecuteAsync(request, cancellationToken);
+        return Ok();
     }
+
+    [Authorize]
+    [HttpGet("details")]
+    public async Task<ActionResult<AccountDetailsDto>> Get(
+        CancellationToken cancellationToken) =>
+        Ok(await getAccountDetails.ExecuteAsync(cancellationToken));
+
+    [Authorize]
+    [HttpPut("details")]
+    public async Task<ActionResult<AccountDetailsDto>> Update(
+        [FromBody] UpdateAccountDto request,
+        CancellationToken cancellationToken) =>
+        Ok(await updateAccount.ExecuteAsync(request, cancellationToken));
 }

@@ -19,9 +19,9 @@ namespace WorkPlanner.Entities
         public double? Height { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? BirthDay { get; set; }
-        public string? Description { get; set; } 
-        public MeasurementSystem MeasurementSystem{ get; set; }
-         [Required]
+        public string? Description { get; set; }
+        public MeasurementSystem MeasurementSystem { get; set; }
+        [Required]
         public string Role { get; set; } = "User";
 
         public List<TrainingPlan>? CreatedTrainingPlans { get; set; }

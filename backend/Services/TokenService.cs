@@ -1,84 +1,59 @@
-﻿using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using WorkPlanner.Configs;
 using WorkPlanner.Entities;
 
-namespace WorkPlanner.Services
+namespace WorkPlanner.Services;
+
+public interface ITokenService
 {
-    public interface ITokenService
+    string GenerateToken(User user);
+    string GenerateRefreshToken(User user);
+}
+
+public sealed class TokenService(IOptions<AuthenticationSettings> options) : ITokenService
+{
+    private readonly AuthenticationSettings _settings = options.Value;
+
+    public string GenerateToken(User user)
     {
-        string GenerateToken(User user);
-        string GenerateRefreshToken(User user);
+        var claims = new List<Claim>
+        {
+            new(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new(ClaimTypes.Email, user.Email),
+            new(ClaimTypes.Role, user.Role),
+            new(ClaimTypes.Name, user.Nickname)
+        };
+
+        return CreateToken(claims, DateTime.UtcNow.AddHours(_settings.JwtExpireAccount));
     }
 
-    public class TokenService : ITokenService
+    public string GenerateRefreshToken(User user)
     {
-
-        private readonly IConfiguration _configuration;
-
-        public TokenService(IConfiguration configuration)
+        var claims = new List<Claim>
         {
-            _configuration = configuration;
-      
-        }
+            new("userId", user.Id.ToString())
+        };
 
-        public string GenerateToken(User user)
-        {
-            var secretKey = _configuration["Authentication:JwtKey"];
-            var issuer = _configuration["Authentication:JwtIssuer"];
-            var audience = _configuration["Authentication:JwtIssuer"]; 
-            var tokenExpireHours = int.Parse(_configuration["Authentication:JwtExpireAccount"]);
+        return CreateToken(
+            claims,
+            DateTime.UtcNow.AddDays(_settings.JwtRefreshTokenAccount));
+    }
 
-            var claims = new List<Claim>()
+    private string CreateToken(IEnumerable<Claim> claims, DateTime expires)
     {
-        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-        new Claim(ClaimTypes.Email, user.Email),
-        new Claim(ClaimTypes.Role, user.Role),
-        new Claim(ClaimTypes.Name, user.Nickname)
-    };
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_settings.JwtKey));
+        var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        var token = new JwtSecurityToken(
+            issuer: _settings.JwtIssuer,
+            audience: _settings.JwtIssuer,
+            claims: claims,
+            expires: expires,
+            signingCredentials: credentials);
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var expires = DateTime.UtcNow.AddHours(tokenExpireHours); 
-
-            var token = new JwtSecurityToken(
-                issuer: issuer,
-                audience: audience, 
-                claims: claims,
-                expires: expires,
-                signingCredentials: creds
-            );
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
-
-
-        public string GenerateRefreshToken(User user)
-        {
-            var secretKey = _configuration["Authentication:JwtKey"];
-            var issuer = _configuration["Authentication:JwtIssuer"];
-            var refreshTokenExpireDays = int.Parse(_configuration["Authentication:JwtRefreshTokenAccount"]);
-
-            var claims = new List<Claim>
-            {
-                new Claim("userId", user.Id.ToString()),
-            };
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
-
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var token = new JwtSecurityToken(
-                issuer: issuer,
-                audience: issuer,
-                expires: DateTime.Now.AddDays(refreshTokenExpireDays),
-                signingCredentials: creds,
-                claims: claims
-            );
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
+        return new JwtSecurityTokenHandler().WriteToken(token);
     }
 }
