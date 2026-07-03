@@ -5,6 +5,8 @@ VisualStudioVersion = 17.12.35527.113 d17.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkPlanner", "WorkPlanner.csproj", "{A0F70325-59F0-473A-ACFF-A29657965710}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkPlanner.Tests", "WorkPlanner.Tests\WorkPlanner.Tests.csproj", "{8A8F3B4B-5AC2-4FB9-BD59-1306F6F1C98E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{A0F70325-59F0-473A-ACFF-A29657965710}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0F70325-59F0-473A-ACFF-A29657965710}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0F70325-59F0-473A-ACFF-A29657965710}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A8F3B4B-5AC2-4FB9-BD59-1306F6F1C98E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A8F3B4B-5AC2-4FB9-BD59-1306F6F1C98E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A8F3B4B-5AC2-4FB9-BD59-1306F6F1C98E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A8F3B4B-5AC2-4FB9-BD59-1306F6F1C98E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
