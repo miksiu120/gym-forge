@@ -1,71 +1,138 @@
-# GymForge / WorkPlanner
+# GymForge
 
-GymForge is a workout planning application built with Angular 19, ASP.NET Core 9 and PostgreSQL. It lets users create accounts, use strength calculators, compose custom training plans and review scheduled sessions.
+[![CI](https://github.com/miksiu120/gym-forge/actions/workflows/ci.yml/badge.svg)](https://github.com/miksiu120/gym-forge/actions/workflows/ci.yml)
 
-## Features
+GymForge is a full-stack workout planning application. Users can schedule training
+plans, record results for individual sets and review exercise-specific progress.
+The project demonstrates a production-oriented Angular and ASP.NET Core stack
+without hiding the application behind framework-heavy abstractions.
 
-- registration, login and JWT-based authorization,
-- three-step custom training plan creator,
-- repetitive and timed exercises with sets, repetitions, duration and tempo,
-- reusable exercise selection for multiple training units,
-- date range and individual session scheduling,
-- saved plan library in the training dashboard,
-- Wilks and one-rep-max calculators,
-- responsive interface consistent with the existing monochrome GymForge design.
+## What the application does
+
+- account registration and JWT-based authentication,
+- multi-step training plan creation,
+- repetitive and timed exercises with tempo, set and target configuration,
+- dashboard for today's and overdue sessions,
+- workout completion with weight, repetitions, duration and RPE,
+- exercise progress charts and recent training statistics,
+- editable athlete profile with metric and imperial preferences,
+- working Wilks and one-rep-max calculators,
+- responsive desktop, tablet and mobile layouts.
+
+## Technology
+
+| Area | Stack |
+| --- | --- |
+| Frontend | Angular 19, TypeScript, RxJS, SCSS, Chart.js |
+| Backend | ASP.NET Core 9, EF Core, FluentValidation |
+| Data | PostgreSQL 17 |
+| Authentication | JWT bearer tokens, ASP.NET Core password hashing |
+| Delivery | Docker Compose, Nginx, health checks, GitHub Actions |
+| Tests | Jasmine/Karma, xUnit |
+
+## Architecture
+
+The backend uses a lightweight layered structure inside one project:
+
+```text
+HTTP request
+  -> controller
+  -> FluentValidation filter
+  -> application use case
+  -> domain-specific repository
+  -> EF Core / PostgreSQL
+  -> explicit response mapper
+```
+
+- `backend/Application` contains focused account and training use cases.
+- `backend/Infrastructure` encapsulates EF Core queries and current-user access.
+- `backend/Api` provides validation and RFC-compliant `ProblemDetails`.
+- `frontend/src/app/pages` contains standalone Angular page components.
+- `frontend/src/app/services` owns API and authentication integration.
+
+Unexpected server errors are logged with a trace identifier without exposing stack
+traces to clients. Read-only EF Core queries use `AsNoTracking`, larger graphs use
+split queries, and asynchronous operations propagate `CancellationToken`.
 
 ## Run with Docker
 
 Requirements: Docker Desktop with Docker Compose.
 
-1. Copy `.env.example` to `.env` and change the database password and JWT key.
-2. Start the complete environment:
+```bash
+cp .env.example .env
+docker compose up --build
+```
 
-   ```bash
-   docker compose up --build
-   ```
+Open [http://localhost:4200](http://localhost:4200).
 
-3. Open `http://localhost:4200`.
+The first start seeds an idempotent demo account:
 
-Docker seeds an idempotent demo account on first start:
+```text
+nickname: demo
+password: GymForge123!
+```
 
-- nickname: `demo`
-- password: `GymForge123!`
+The demo includes scheduled and completed sessions, set results and chart data.
+Set `SEED_DATA=false` to disable it.
 
-The account contains a two-week plan with a completed session, an overdue session,
-today's session and an upcoming session. Set `SEED_DATA=false` in `.env` to disable
-demo data.
+To stop the stack:
 
-The stack contains:
+```bash
+docker compose down
+```
 
-- `frontend` — Angular production build served by Nginx,
-- `backend` — ASP.NET Core API available through the frontend under `/api`,
-- `database` — PostgreSQL with a persistent `postgres_data` volume.
-
-Database migrations are applied automatically when the backend container starts. To stop the application, run `docker compose down`. Add `-v` only when you intentionally want to delete the database volume.
+Add `-v` only when you intentionally want to delete the PostgreSQL volume.
 
 ## Local development
 
-Start PostgreSQL on port `9090`, then run:
+Start PostgreSQL on port `9090`, then run the API and frontend in separate terminals:
 
 ```bash
 dotnet run --project backend/WorkPlanner.csproj
+```
+
+```bash
 cd frontend
 npm ci
 npm start
 ```
 
-The Angular development server uses `http://localhost:5163/api` and runs at `http://localhost:4200`.
+The Angular development server runs at `http://localhost:4200` and uses the API at
+`http://localhost:5163/api`.
 
-## Screenshots
+## Tests and quality checks
 
-### Login panel
+```bash
+dotnet build backend/WorkPlanner.sln --configuration Release
+dotnet test backend/WorkPlanner.sln --configuration Release
+```
 
-<img src="./login-panel.png" alt="Login panel" width="70%">
+```bash
+cd frontend
+npm ci
+npm test -- --watch=false --browsers=ChromeHeadless
+npm run build -- --configuration production
+```
 
-### Welcome panel
+The same checks run in GitHub Actions for every push and pull request.
 
-<img src="./welcome-panel.png" alt="Welcome panel" width="70%">
+## Production deployment
 
-### Exercise creator
+Production configuration intentionally requires explicit database credentials,
+public origin and JWT secrets:
 
-<img src="./create-exercise.png" alt="Exercise creator" width="70%">
+```bash
+cp .env.production.example .env.production
+docker compose --env-file .env.production -f docker-compose.production.yml up -d --build
+```
+
+See [RELEASE.md](./RELEASE.md) for TLS, health-check and backup guidance.
+
+## Deliberate trade-offs and next steps
+
+- JWTs currently use browser storage; a public multi-user deployment should prefer
+  secure HttpOnly cookies and a refresh-token revocation strategy.
+- Account uniqueness is checked in the application layer; database-level unique
+  indexes and a migration are planned as additional defence against race conditions.
+- Unit tests cover validation, statistics, business rules and error mapping.
+  PostgreSQL-backed integration tests are the next testing layer.

@@ -1,6 +1,22 @@
-@WorkPlanner_HostAddress = http://localhost:5163
+@host = http://localhost:5163
+@token = paste-access-token-here
 
-GET {{WorkPlanner_HostAddress}}/weatherforecast/
-Accept: application/json
+### Health check
+GET {{host}}/health
 
-###
+### Sign in
+PUT {{host}}/api/accounts/login
+Content-Type: application/json
+
+{
+  "nickname": "demo",
+  "password": "GymForge123!"
+}
+
+### Current account
+GET {{host}}/api/accounts/details
+Authorization: Bearer {{token}}
+
+### Training statistics
+GET {{host}}/api/training-plans/statistics
+Authorization: Bearer {{token}}

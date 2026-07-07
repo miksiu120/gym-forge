@@ -1,2 +1,23 @@
+# Local configuration and secrets
 .env
 .env.production
+
+# .NET
+**/bin/
+**/obj/
+*.user
+*.suo
+.vs/
+
+# Node and Angular
+**/node_modules/
+**/dist/
+**/.angular/
+**/coverage/
+npm-debug.log*
+
+# Editors and operating systems
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
