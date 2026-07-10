@@ -1,7 +1,7 @@
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import type { Chart as ChartInstance } from 'chart.js';
-import { TrainingStatistics, TrainingWeightProgress } from '../../../interfaces/traning.interfaces';
+import { TrainingStatistics, TrainingWeightProgress } from '../../../interfaces/training.interfaces';
 import { TrainingPlanService } from '../../../services/training-plan-service/training-plan.service';
 
 type ChartState = 'loading' | 'ready' | 'empty' | 'error';

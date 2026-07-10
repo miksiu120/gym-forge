@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "work-planner": {
+    "gym-forge": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,8 +17,8 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/work-planner",
-            "baseHref": "/gym-forge/",
+            "outputPath": "dist/gym-forge",
+            "baseHref": "/",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -70,10 +70,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "work-planner:build:production"
+              "buildTarget": "gym-forge:build:production"
             },
             "development": {
-              "buildTarget": "work-planner:build:development"
+              "buildTarget": "gym-forge:build:development"
             }
           },
           "defaultConfiguration": "development"

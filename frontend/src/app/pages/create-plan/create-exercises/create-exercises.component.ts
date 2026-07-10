@@ -2,8 +2,8 @@ import { Component, Input } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
   Exercise,
-  MeasurementSystem,
-} from '../../../interfaces/traning.interfaces';
+  ExerciseType,
+} from '../../../interfaces/training.interfaces';
 
 @Component({
   selector: 'component-create-exercises',
@@ -14,7 +14,7 @@ import {
 export class CreateExercisesComponent {
   @Input() exercises: Exercise[] = [];
 
-  readonly MeasurementSystem = MeasurementSystem;
+  readonly ExerciseType = ExerciseType;
   readonly exerciseData;
 
   constructor(private readonly formBuilder: FormBuilder) {
@@ -22,7 +22,7 @@ export class CreateExercisesComponent {
       name: ['', [Validators.required, Validators.maxLength(80)]],
       description: ['', Validators.maxLength(150)],
       sets: [3, [Validators.required, Validators.min(1), Validators.max(50)]],
-      type: [MeasurementSystem.Repetitive, Validators.required],
+      type: [ExerciseType.Repetitive, Validators.required],
       duration: [null as number | null, Validators.min(1)],
       repetitions: [10 as number | null, Validators.min(1)],
       tempo: ['', Validators.pattern(/^\d+-\d+-\d+-\d+$/)],
@@ -31,7 +31,7 @@ export class CreateExercisesComponent {
 
   addExercise(): void {
     const value = this.exerciseData.getRawValue();
-    const needsRepetitions = value.type === MeasurementSystem.Repetitive;
+    const needsRepetitions = value.type === ExerciseType.Repetitive;
     const measure = needsRepetitions ? value.repetitions : value.duration;
 
     if (this.exerciseData.invalid || !measure || measure < 1) {
@@ -52,7 +52,7 @@ export class CreateExercisesComponent {
     this.exerciseData.reset({
       sets: 3,
       repetitions: 10,
-      type: MeasurementSystem.Repetitive,
+      type: ExerciseType.Repetitive,
     });
   }
 

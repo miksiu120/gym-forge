@@ -9,7 +9,7 @@ import {
   TrainingUnit,
   TrainingPlanSummary,
   TrainingStatistics,
-} from '../../interfaces/traning.interfaces';
+} from '../../interfaces/training.interfaces';
 
 @Injectable({ providedIn: 'root' })
 export class TrainingPlanService {

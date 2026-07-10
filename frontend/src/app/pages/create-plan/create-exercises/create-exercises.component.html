@@ -32,7 +32,7 @@
       </div>
     </div>
 
-    @if (exerciseData.controls.type.value === MeasurementSystem.Repetitive) {
+    @if (exerciseData.controls.type.value === ExerciseType.Repetitive) {
       <div class="form-row">
         <div class="form-group">
           <label class="required" for="repetitions">Repetitions</label>
@@ -73,7 +73,7 @@
         @if (exercise.description) { <p>{{ exercise.description }}</p> }
         <div class="exercise-card__stats">
           <span><strong>{{ exercise.sets }}</strong> sets</span>
-          @if (exercise.type === MeasurementSystem.Repetitive) {
+          @if (exercise.type === ExerciseType.Repetitive) {
             <span><strong>{{ exercise.repetitions }}</strong> reps</span>
             @if (exercise.tempo) { <span>tempo <strong>{{ exercise.tempo }}</strong></span> }
           } @else {

@@ -25,6 +25,16 @@
     @include index.nav-hover-transition(index.$white);
   }
 
+  &__trigger {
+    width: 100%;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-transform: inherit;
+    cursor: pointer;
+  }
+
   &__dropdown {
     &--content {
       display: flex;

@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SetDatesComponent } from './set-dates.component';
-import { MeasurementSystem } from '../../../interfaces/traning.interfaces';
+import { ExerciseType } from '../../../interfaces/training.interfaces';
 
 describe('SetDatesComponent', () => {
   let component: SetDatesComponent;
@@ -21,7 +21,7 @@ describe('SetDatesComponent', () => {
         name: 'Squat',
         sets: 3,
         repetitions: 5,
-        type: MeasurementSystem.Repetitive,
+        type: ExerciseType.Repetitive,
       }],
     }]);
     fixture.detectChanges();

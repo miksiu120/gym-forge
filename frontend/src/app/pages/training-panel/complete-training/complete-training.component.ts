@@ -7,9 +7,9 @@ import {
   CompleteTrainingUnit,
   Exercise,
   ExerciseSetResult,
-  MeasurementSystem,
+  ExerciseType,
   TrainingUnit,
-} from '../../../interfaces/traning.interfaces';
+} from '../../../interfaces/training.interfaces';
 import { TrainingPlanService } from '../../../services/training-plan-service/training-plan.service';
 
 @Component({
@@ -24,7 +24,7 @@ export class CompleteTrainingComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly trainingPlans = inject(TrainingPlanService);
 
-  readonly measurementSystem = MeasurementSystem;
+  readonly exerciseType = ExerciseType;
   readonly form = this.fb.group({
     notes: ['', Validators.maxLength(1000)],
     exercises: this.fb.array<FormGroup>([]),
@@ -98,12 +98,12 @@ export class CompleteTrainingComponent implements OnInit {
         setNumber: [index + 1, [Validators.required, Validators.min(1)]],
         weight: [existing?.weight ?? null, [Validators.min(0), Validators.max(2000)]],
         repetitions: [
-          existing?.repetitions ?? (exercise.type === MeasurementSystem.Repetitive ? exercise.repetitions : null),
-          exercise.type === MeasurementSystem.Repetitive ? [Validators.required, Validators.min(0)] : [],
+          existing?.repetitions ?? (exercise.type === ExerciseType.Repetitive ? exercise.repetitions : null),
+          exercise.type === ExerciseType.Repetitive ? [Validators.required, Validators.min(0)] : [],
         ],
         duration: [
-          existing?.duration ?? (exercise.type === MeasurementSystem.Timed ? exercise.duration : null),
-          exercise.type === MeasurementSystem.Timed ? [Validators.required, Validators.min(0)] : [],
+          existing?.duration ?? (exercise.type === ExerciseType.Timed ? exercise.duration : null),
+          exercise.type === ExerciseType.Timed ? [Validators.required, Validators.min(0)] : [],
         ],
         rpe: [existing?.rpe ?? null, [Validators.min(0), Validators.max(10)]],
       }));

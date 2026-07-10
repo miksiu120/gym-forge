@@ -1,15 +1,14 @@
 <div class="container">
 
     <a class="logo" routerLink="/" routerLinkActive="active">
-        <i class="fa-solid fa-dumbbell"></i> <span class="logo__title"> WORKPLANNER</span>
+        <i class="fa-solid fa-dumbbell" aria-hidden="true"></i> <span class="logo__title">GYMFORGE</span>
     </a>
 
     <div class="menu">
         <div class="menu__element menu__dropdown">
-            <span class="menu__link unclickable">Calculators <i class="fa-solid fa-chevron-down"></i></span>
+            <button type="button" class="menu__link menu__trigger">Calculators <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
             <div class="menu__dropdown--content">
                 <a routerLink="/calculators/wilks" routerLinkActive="active">Wilks </a>
-                <a routerLink="/calculators/standards" routerLinkActive="active">standards</a>
                 <a routerLink="/calculators/one-rep-max" routerLinkActive="active">One-Rep Max</a>
             </div>
         </div>
@@ -17,11 +16,13 @@
         @if (isLoggedIn) {
 
         <div class="menu__element menu__dropdown menu__profile">
-            <span class="menu__link unclickable"> <img src="/default-profile.jpg" alt="profile photo">
-                {{userName}}</span>
+            <button type="button" class="menu__link menu__trigger">
+                <img src="/default-profile.jpg" alt="">
+                {{userName}}
+            </button>
             <div class="menu__dropdown--content">
                 <a routerLink="/profile" routerLinkActive="active">Details </a>
-                <a routerLink="/" routerLinkActive="active" (click)="logutUser()">Logout</a>
+                <a routerLink="/" routerLinkActive="active" (click)="logoutUser()">Logout</a>
             </div>
         </div>
 
@@ -32,9 +33,15 @@
         }
     </div>
 
-    <div (click)="toggleBurger()" class="burger-icon">
-        <i class="fa-solid fa-bars"></i>
-    </div>
+    <button
+        type="button"
+        (click)="toggleBurger()"
+        class="burger-icon"
+        aria-label="Toggle navigation"
+        [attr.aria-expanded]="isBurgerActive"
+    >
+        <i class="fa-solid fa-bars" aria-hidden="true"></i>
+    </button>
 </div>
 <burger-menu (toggleBurger)="toggleBurger()" [isBurgerActive]="isBurgerActive" [isLoggedIn]="isLoggedIn">
 </burger-menu>

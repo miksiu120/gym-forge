@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { TrainingPlanSummary } from '../../../interfaces/traning.interfaces';
+import { TrainingPlanSummary } from '../../../interfaces/training.interfaces';
 import { TrainingPlanService } from '../../../services/training-plan-service/training-plan.service';
 
 @Component({

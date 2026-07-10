@@ -4,7 +4,7 @@
         <h2 class="title">
             WELCOME BACK
         </h2>
-        <p class="description">Have a nice training! You're the best!</p>
+        <p class="description">Have a great workout. You've got this.</p>
     </div>
     <div class="login">
         <div class="login__text">
@@ -19,7 +19,7 @@
             <div class="error error--form" *ngIf="errorMessage" role="alert">{{ errorMessage }}</div>
             <div class="form-group">
                 <label for="nickname">Nickname</label>
-                <input type="text" id="nickname" formControlName="nickname">
+                <input type="text" id="nickname" formControlName="nickname" autocomplete="username" spellcheck="false">
                 <div class="error" *ngIf="hasError('nickname', 'required')">
                     Nickname is required.
                 </div>
@@ -27,12 +27,12 @@
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" formControlName="password">
+                <input type="password" id="password" formControlName="password" autocomplete="current-password">
                 <div class="error" *ngIf="hasError('password', 'required')">
                     Password is required.
                 </div>            
             </div>
-            <button class="btn btn-login" type="submit" [disabled]="submitting">{{ submitting ? 'Signing in...' : 'Login' }}</button>
+            <button class="btn btn-login" type="submit" [disabled]="submitting">{{ submitting ? 'Signing in...' : 'Sign in' }}</button>
             <p class="question">Don't have an account?</p>
             <a routerLink="/register" class="btn btn-login">Register</a>
         </form>

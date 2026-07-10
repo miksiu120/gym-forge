@@ -9,7 +9,6 @@
   padding: index.$medium index.$large;
   background-color: index.$black;
   color: #ffffffad;
-  //border-top: 1px solid index.$white;
   .logo {
     display: block;
     font-size: index.$large;
@@ -20,23 +19,25 @@
       color: index.$white;
     }
   }
-  .icons {
-    display: flex;
+  .source-link {
+    display: inline-flex;
     align-items: center;
-    justify-content: space-around;
-    font-size: index.$large;
-    a {
-      color: #ffffffad;
-      i {
-        padding: index.$small;
-        margin: index.$small index.$medium;
-        cursor: pointer;
-        transition: 0.3s transform ease-in-out, 0.4s color ease-in;
-        &:hover {
-          transform: rotate(45deg);
-          color: index.$white;
-        }
-      }
+    gap: index.$xsmall;
+    margin-top: index.$small;
+    padding: index.$xsmall index.$small;
+    color: #ffffffad;
+    font-size: index.$xsmall;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+
+    i {
+      font-size: index.$small;
+    }
+
+    &:hover,
+    &:focus-visible {
+      color: index.$white;
     }
   }
 }

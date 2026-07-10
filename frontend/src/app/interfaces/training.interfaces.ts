@@ -1,4 +1,4 @@
-export enum MeasurementSystem {
+export enum ExerciseType {
   Repetitive = 'repetitive',
   Timed = 'timed',
 }
@@ -8,7 +8,7 @@ export interface Exercise {
   name: string;
   description?: string;
   sets: number;
-  type: MeasurementSystem;
+  type: ExerciseType;
   repetitions?: number | null;
   duration?: number | null;
   tempo?: string | null;

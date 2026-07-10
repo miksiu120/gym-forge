@@ -28,6 +28,9 @@
     }
 
     .burger-icon {
+      border: 0;
+      background: transparent;
+      color: inherit;
       font-size: index.$large;
       display: grid;
       width: 52px;
@@ -62,11 +65,23 @@
         text-decoration: none;
         color: index.$white;
       }
+      &__trigger {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: 0;
+        background: transparent;
+        font: inherit;
+        text-transform: inherit;
+        letter-spacing: inherit;
+        cursor: pointer;
+      }
       &__dropdown {
         position: relative;
         overflow: visible;
         z-index: 10;
-        &:hover {
+        &:hover,
+        &:focus-within {
           .menu__dropdown--content {
             display: block;
           }
@@ -103,7 +118,7 @@
       &__profile {
         display: flex;
         align-items: center;
-        span {
+        .menu__trigger {
           display: flex;
           align-items: center;
           justify-content: center;
@@ -118,10 +133,6 @@
       }
     }
   }
-}
-
-.unclickable {
-  cursor: default;
 }
 
 @media (min-width: 768px) {

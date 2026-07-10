@@ -25,7 +25,7 @@
                 <h2>{{ exercise.name }}</h2>
                 <p>
                   {{ exercise.sets }} sets
-                  @if (exercise.type === measurementSystem.Repetitive) { · target {{ exercise.repetitions }} reps }
+                  @if (exercise.type === exerciseType.Repetitive) { · target {{ exercise.repetitions }} reps }
                   @else { · target {{ exercise.duration }} sec }
                   @if (exercise.tempo) { · tempo {{ exercise.tempo }} }
                 </p>
@@ -36,13 +36,13 @@
             <div class="sets-table" formArrayName="sets">
               <div class="sets-header" aria-hidden="true">
                 <span>Set</span><span>Weight (kg)</span>
-                <span>{{ exercise.type === measurementSystem.Repetitive ? 'Reps' : 'Time (sec)' }}</span><span>RPE</span>
+                <span>{{ exercise.type === exerciseType.Repetitive ? 'Reps' : 'Time (sec)' }}</span><span>RPE</span>
               </div>
               @for (set of setsFor(exerciseIndex).controls; track $index; let setIndex = $index) {
                 <div class="set-row" [formGroupName]="setIndex">
                   <strong><span class="mobile-label">Set </span>{{ setIndex + 1 }}</strong>
                   <label><span class="mobile-label">Weight (kg)</span><input type="number" min="0" max="2000" step="0.5" formControlName="weight" placeholder="—"></label>
-                  @if (exercise.type === measurementSystem.Repetitive) {
+                  @if (exercise.type === exerciseType.Repetitive) {
                     <label><span class="mobile-label">Reps</span><input type="number" min="0" formControlName="repetitions"></label>
                   } @else {
                     <label><span class="mobile-label">Time (sec)</span><input type="number" min="0" formControlName="duration"></label>

@@ -6,7 +6,7 @@ import {
   CreateTrainingPlan,
   Exercise,
   TrainingUnit,
-} from '../../interfaces/traning.interfaces';
+} from '../../interfaces/training.interfaces';
 import { TrainingPlanService } from '../../services/training-plan-service/training-plan.service';
 import { CreateExercisesComponent } from './create-exercises/create-exercises.component';
 import { CreateTrainingUnitComponent } from './create-training-unit/create-training-unit.component';

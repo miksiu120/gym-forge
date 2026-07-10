@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Exercise, TrainingUnit } from '../../../interfaces/traning.interfaces';
+import { Exercise, TrainingUnit } from '../../../interfaces/training.interfaces';
 
 @Component({
   selector: 'component-create-training-unit',

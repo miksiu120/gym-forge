@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CreateTrainingPlan, TrainingUnit } from '../../../interfaces/traning.interfaces';
+import { CreateTrainingPlan, TrainingUnit } from '../../../interfaces/training.interfaces';
 
 interface SchedulePreviewItem {
   name: string;

@@ -1,10 +1,10 @@
 <div class="small-container trainings-page">
   <header class="trainings-header">
     <div><span>Training library</span><h1>Your plans</h1></div>
-    <a class="btn" routerLink="/create-plan"><i class="fa-solid fa-plus"></i> New plan</a>
+    <a class="btn" routerLink="/create-plan"><i class="fa-solid fa-plus" aria-hidden="true"></i> New plan</a>
   </header>
 
-  @if (created) { <p class="success-message"><i class="fa-solid fa-check"></i> Your training plan has been saved.</p> }
+  @if (created) { <p class="success-message"><i class="fa-solid fa-check" aria-hidden="true"></i> Your training plan has been saved.</p> }
   @if (loading) { <div class="box state-box">Loading your plans...</div> }
   @else if (loadFailed) { <div class="box state-box">We could not load your plans. Please try again later.</div> }
   @else {
@@ -19,14 +19,14 @@
           <p>{{ plan.trainingUnits.length }} scheduled training units</p>
           <div class="plan-card__units">
             @for (unit of plan.trainingUnits.slice(0, 3); track $index) {
-              <div><i class="fa-regular fa-calendar"></i><span><strong>{{ unit.name }}</strong><small>{{ unit.startTime | date:'EEE, dd MMM · HH:mm' }}</small></span></div>
+              <div><i class="fa-regular fa-calendar" aria-hidden="true"></i><span><strong>{{ unit.name }}</strong><small>{{ unit.startTime | date:'EEE, dd MMM · HH:mm' }}</small></span></div>
             }
             @if (plan.trainingUnits.length > 3) { <small>+ {{ plan.trainingUnits.length - 3 }} more</small> }
           </div>
         </article>
       } @empty {
         <div class="box empty-state">
-          <i class="fa-solid fa-dumbbell"></i>
+          <i class="fa-solid fa-dumbbell" aria-hidden="true"></i>
           <h2>No plans yet</h2>
           <p>Create your first custom plan and schedule every workout.</p>
           <a class="btn" routerLink="/create-plan">Create first plan</a>

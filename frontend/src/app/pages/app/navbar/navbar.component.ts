@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BurgerMenuComponent } from './burger-menu/burger-menu.component';
 import { RouterLinkActive, RouterModule } from '@angular/router';
 import { TokenService } from '../../../services/token-service/token-service.service';
@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
   styleUrl: './navbar.component.scss',
   imports: [BurgerMenuComponent, RouterLinkActive, RouterModule],
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit, OnDestroy {
   isLoggedIn = false;
   isBurgerActive = false;
   userName = '';
@@ -34,7 +34,11 @@ export class NavbarComponent {
     this.isBurgerActive = !this.isBurgerActive;
   }
 
-  logutUser() {
+  logoutUser() {
     this.tokenService.clearTokensFromLocalStorage();
+  }
+
+  ngOnDestroy() {
+    this.authSubscription?.unsubscribe();
   }
 }

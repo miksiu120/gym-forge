@@ -1,6 +1,6 @@
 @if(isBurgerActive)
 {
-<div class="burger-menu">
+<nav class="burger-menu" aria-label="Mobile navigation">
 
 
     @if(isLoggedIn)
@@ -14,18 +14,23 @@
     }
 
     <div class="burger-menu__element menu__dropdown">
-        <span (click)="toggleCalculations()" class="burger-menu__link unclickable">Calculators <i
-                class="fa-solid fa-chevron-down"></i></span>
+        <button
+            type="button"
+            (click)="toggleCalculations()"
+            class="burger-menu__link burger-menu__trigger"
+            [attr.aria-expanded]="areCalculationsVisible"
+        >
+            Calculators <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+        </button>
         @if(areCalculationsVisible)
         {
         <div class="burger-menu__dropdown--content">
             <a (click)="toggle()" routerLink="/calculators/wilks" routerLinkActive="active">Wilks </a>
-            <a (click)="toggle()" routerLink="/calculators/standards" routerLinkActive="active">standards</a>
             <a (click)="toggle()" routerLink="/calculators/one-rep-max" routerLinkActive="active">One-Rep Max</a>
         </div>
         }
     </div>
 
 
-</div>
+</nav>
 }
