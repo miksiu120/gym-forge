@@ -19,11 +19,18 @@
       color: index.$white;
     }
   }
-  .source-link {
+  .profile-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: index.$xsmall;
+    margin-top: index.$small;
+  }
+
+  .profile-link {
     display: inline-flex;
     align-items: center;
     gap: index.$xsmall;
-    margin-top: index.$small;
     padding: index.$xsmall index.$small;
     color: #ffffffad;
     font-size: index.$xsmall;
