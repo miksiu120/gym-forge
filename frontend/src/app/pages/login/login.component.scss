@@ -39,6 +39,50 @@
       font-size: index.$xsmall;
     }
 
+    .demo-access {
+      display: grid;
+      gap: 12px;
+      margin-bottom: index.$medium;
+      padding: 14px 16px;
+      border-left: 4px solid index.$black;
+      background: index.$light-grey;
+
+      > div {
+        display: grid;
+        gap: 2px;
+      }
+
+      strong {
+        font-size: index.$small;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      span,
+      dt {
+        color: index.$black-transparent;
+        font-size: 14px;
+      }
+
+      dl {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px index.$medium;
+        margin: 0;
+      }
+
+      dl div {
+        display: grid;
+        gap: 1px;
+      }
+
+      dd {
+        margin: 0;
+        font-size: index.$xsmall;
+        font-weight: 600;
+      }
+    }
+
     form {
       display: grid;
       gap: index.$xsmall;

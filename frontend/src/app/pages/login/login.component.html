@@ -8,13 +8,23 @@
     </div>
     <div class="login">
         <div class="login__text">
-            <h3 class="login__title">
+            <h1 class="login__title">
                 Sign in
-            </h3>
+            </h1>
             <p class="login__description">
-                Please enter your credentials to log in.
+                Access your plans, completed sessions and training progress.
             </p>
         </div>
+        <aside class="demo-access" aria-label="Demo account credentials">
+            <div>
+                <strong>Portfolio demo</strong>
+                <span>Explore a ready-made account with training history and chart data.</span>
+            </div>
+            <dl>
+                <div><dt>Nickname</dt><dd>demo</dd></div>
+                <div><dt>Password</dt><dd>GymForge123!</dd></div>
+            </dl>
+        </aside>
         <form [formGroup]="loginForm" (ngSubmit)="login()">
             <div class="error error--form" *ngIf="errorMessage" role="alert">{{ errorMessage }}</div>
             <div class="form-group">

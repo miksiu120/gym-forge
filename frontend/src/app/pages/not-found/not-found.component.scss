@@ -20,6 +20,13 @@
     background: index.$white;
     box-shadow: index.$shadow;
     text-align: center;
+    .eyebrow {
+      margin-bottom: 6px;
+      color: index.$black-transparent;
+      font-size: index.$xsmall;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
     .title {
       font-size: index.$large;
     }
