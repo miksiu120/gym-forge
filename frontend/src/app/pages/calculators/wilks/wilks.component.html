@@ -1,55 +1,62 @@
-<div class="small-container">
+<main class="calculator-page">
+    <header class="calculator-hero">
+        <a routerLink="/calculators" class="back-link"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> All calculators</a>
+        <span>Relative strength</span>
+        <h1>Wilks score calculator</h1>
+        <p>Compare a powerlifting total across bodyweights using the Wilks coefficient.</p>
+    </header>
 
-    <div class="form-box box">
-        <h2 class="box__title">
-            Wilks Calculator
-        </h2>
-        <p class="box__description">
-            The Wilks Calculator is used to compare the strength of powerlifters against each other, regardless of the
-            different weight classes. The Wilks formula is a coefficient that can be used to compare the relative
-            strength of a lifter against another, regardless of the different weight classes.
-        </p>
-        <form (ngSubmit)="calculateWilks()" class="form-box__form">
-            <div class="form-box__inputs">
-                <label for="weight">Weight</label>
-                <input [(ngModel)]="weight" type="number" id="weight" name="weight" required>
-                <select class="select-weight" [(ngModel)]="weightUnit" name="weightUnit" id="weight-unit">
-                    <option value="kg">kg</option>
-                    <option value="lb">lb</option>
-                </select>
+    <div class="calculator-grid">
+        <section class="box form-box" aria-labelledby="wilks-input-title">
+            <div class="section-heading">
+                <span>01 · Your numbers</span>
+                <h2 id="wilks-input-title">Enter lift details</h2>
             </div>
-            <div class="form-box__inputs">
-                <label for="bodyweight">Bodyweight</label>
-                <input [(ngModel)]="bodyweight" type="number" id="bodyweight" name="bodyweight" required>
-                <select class="select-weight" [(ngModel)]="bodyweightUnit" name="bodyweightUnit" id="bodyweight-unit">
-                    <option value="kg">kg</option>
-                    <option value="lb">lb</option>
-                </select>
+            <form (ngSubmit)="calculateWilks()" class="form-box__form">
+                <div class="field">
+                    <label for="weight">Total lifted</label>
+                    <div class="field__control">
+                        <input [(ngModel)]="weight" type="number" id="weight" name="weight" min="0.1" step="0.1" required>
+                        <select [(ngModel)]="weightUnit" name="weightUnit" id="weight-unit" aria-label="Lifted weight unit">
+                            <option value="kg">kg</option><option value="lb">lb</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="bodyweight">Bodyweight</label>
+                    <div class="field__control">
+                        <input [(ngModel)]="bodyweight" type="number" id="bodyweight" name="bodyweight" min="0.1" step="0.1" required>
+                        <select [(ngModel)]="bodyweightUnit" name="bodyweightUnit" id="bodyweight-unit" aria-label="Bodyweight unit">
+                            <option value="kg">kg</option><option value="lb">lb</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="gender">Category</label>
+                    <select [(ngModel)]="gender" id="gender" name="gender" required>
+                        <option value="" disabled>Select category</option>
+                        <option value="male">Male</option><option value="female">Female</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn--primary">Calculate score</button>
+                @if (errorMessage) { <p class="calculator-error" role="alert">{{ errorMessage }}</p> }
+            </form>
+        </section>
+
+        <section class="box result-box" aria-labelledby="wilks-result-title">
+            <div class="section-heading">
+                <span>02 · Result</span>
+                <h2 id="wilks-result-title">Your Wilks score</h2>
             </div>
-            <div class="form-box__inputs">
-                <label for="gender">Gender</label>
-                <select class="select-gender" [(ngModel)]="gender" id="gender" name="gender" required>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                </select>
-            </div>
-            <button type="submit" class="btn btn--primary">Calculate</button>
-            @if (errorMessage) { <p class="calculator-error" role="alert">{{ errorMessage }}</p> }
-        </form>
+            @if (hasResult) {
+                <strong class="result-value" aria-live="polite">{{ wilksScore }}</strong>
+                <p>Use this score to compare relative strength between lifters at different bodyweights.</p>
+            } @else {
+                <div class="result-empty">
+                    <i class="fa-solid fa-chart-simple" aria-hidden="true"></i>
+                    <p>Enter your numbers to calculate a comparable strength score.</p>
+                </div>
+            }
+        </section>
     </div>
-
-    <div class="box">
-        <h2 class="box__title">
-            Wilks Score
-        </h2>
-        <p class="box__description">
-            Your Wilks score is:
-        </p>
-        <div class="box__result">
-            <p class="box__result__score">
-                {{ wilksScore }}
-            </p>
-        </div>
-    </div>
-
-</div>
+</main>

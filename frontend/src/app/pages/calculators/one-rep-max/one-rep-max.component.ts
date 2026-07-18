@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 interface OneRepMaxRow {
   reps: number;
@@ -9,7 +10,7 @@ interface OneRepMaxRow {
 
 @Component({
   selector: 'page-one-rep-max',
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink],
   templateUrl: './one-rep-max.component.html',
   styleUrl: './one-rep-max.component.scss',
 })

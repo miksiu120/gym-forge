@@ -1,50 +1,63 @@
-<div class="small-container">
+<main class="calculator-page">
+    <header class="calculator-hero">
+        <a routerLink="/calculators" class="back-link"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> All calculators</a>
+        <span>Training intensity</span>
+        <h1>One-rep max calculator</h1>
+        <p>Estimate your maximum lift and turn it into practical working weights for the next session.</p>
+    </header>
 
-    <div class="form-box box ">
-        <h2 class="box__title">One Rep Max Calculator</h2>
-        <p class="box__description">Calculate your one rep max (1RM) for any exercise. Your 1RM is the maximum
-            weight you can lift for a single repetition of a given exercise.</p>
-        <form (ngSubmit)="createTable()" class="form-box__form">
-            <div class="form-box__inputs">
-                <label for="weight">Weight</label>
-                <input [(ngModel)]="weight" type="number" id="weight" name="weight" min="0.1" max="2000" step="0.1" required>
-                <select [(ngModel)]="unit" name="units" id="units">
-                    <option value="kg">kg</option>
-                    <option value="lb">lb</option>
-                </select>
+    <div class="calculator-grid">
+        <section class="box form-box" aria-labelledby="orm-input-title">
+            <div class="section-heading">
+                <span>01 · Your set</span>
+                <h2 id="orm-input-title">Enter a recent working set</h2>
             </div>
-            <div class="form-box__inputs">
-                <label for="reps">Reps</label>
-                <input [(ngModel)]="reps" type="number" id="reps" name="reps" min="1" max="30" required>
+            <form (ngSubmit)="createTable()" class="form-box__form">
+                <div class="field">
+                    <label for="weight">Weight lifted</label>
+                    <div class="field__control">
+                        <input [(ngModel)]="weight" type="number" id="weight" name="weight" min="0.1" max="2000" step="0.1" required>
+                        <select [(ngModel)]="unit" name="units" id="units" aria-label="Weight unit">
+                            <option value="kg">kg</option><option value="lb">lb</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="reps">Completed repetitions</label>
+                    <input [(ngModel)]="reps" type="number" id="reps" name="reps" min="1" max="30" required>
+                    <small>Use a challenging set between 1 and 30 repetitions.</small>
+                </div>
+                <button type="submit" class="btn btn--primary">Estimate one-rep max</button>
+                @if (errorMessage) { <p class="calculator-error" role="alert">{{ errorMessage }}</p> }
+            </form>
+        </section>
+
+        <section class="box result-box" aria-labelledby="orm-result-title">
+            <div class="section-heading">
+                <span>02 · Training table</span>
+                <h2 id="orm-result-title">Estimated working weights</h2>
             </div>
-            <button type="submit" class="btn btn--primary">Calculate</button>
-            @if (errorMessage) { <p class="calculator-error" role="alert">{{ errorMessage }}</p> }
-        </form>
-
-        <!-- Przykładowa tabela wyników -->
-
+            @if (table.length) {
+                <div class="headline-result">
+                    <span>Estimated 1RM</span>
+                    <strong>{{ calculateOneRepMax() }} <small>{{ unit }}</small></strong>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Intensity</th><th>Weight</th><th>Target reps</th></tr></thead>
+                        <tbody>
+                            @for (row of table; track row.reps) {
+                                <tr><td>{{ row.percentValue }}%</td><td>{{ row.weight }} {{ unit }}</td><td>{{ row.reps }}</td></tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            } @else {
+                <div class="result-empty">
+                    <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+                    <p>Your estimated max and percentage table will appear here.</p>
+                </div>
+            }
+        </section>
     </div>
-    <div class="result-box box">
-        <h2 class="result-box__title">1RM Repetition Percentages</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Percent 1RM</th>
-                    <th>Weight lifted ({{ unit }})</th>
-                    <th>1RM Reps</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (row of table; track row.reps) {
-                <tr>
-                    <td>{{ row.percentValue }}%</td>
-                    <td>{{ row.weight }}</td>
-                    <td>{{ row.reps }}</td>
-                </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-
-
-</div>
+</main>

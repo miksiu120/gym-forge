@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { OneRepMaxComponent } from './one-rep-max.component';
+import { provideRouter } from '@angular/router';
 
 describe('OneRepMaxComponent', () => {
   let component: OneRepMaxComponent;
@@ -8,7 +9,8 @@ describe('OneRepMaxComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [OneRepMaxComponent]
+      imports: [OneRepMaxComponent],
+      providers: [provideRouter([])]
     })
     .compileComponents();
 

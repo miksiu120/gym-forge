@@ -1,128 +1,29 @@
 @use "../../../styles/utilities/index";
 
-:host {
-  display: block;
-
-  background-color: index.$ligther-black;
-  .large-container {
-    @include index.box-display(index.$light-grey);
-  }
-
-  .box {
-    display: grid;
-    grid-template-rows: auto;
-    grid-template-columns: 1fr 1fr;
-    column-gap: index.$small;
-    row-gap: 4px;
-
-    & > * {
-      grid-column: 1/3;
-    }
-
-    .profile-pic {
-      grid-row: 1/2;
-    }
-    .nickname {
-      grid-row: 2/3;
-    }
-    .email {
-      grid-row: 3/4;
-    }
-    .name {
-      grid-column: 1/2;
-      grid-row: 4/5;
-    }
-    .surname {
-      grid-column: 2/3;
-      grid-row: 4/5;
-    }
-    .weight {
-      grid-column: 1/2;
-      grid-row: 5/6;
-    }
-    .height {
-      grid-column: 2/3;
-      grid-row: 5/6;
-    }
-
-    .birthday {
-      grid-column: 1/3;
-      grid-row: 6/7;
-    }
-    .about-you {
-      grid-column: 1/3;
-      grid-row: 7/8;
-    }
-
-    &__profile-pic {
-      align-self: center;
-      max-width: 200px;
-      justify-self: center;
-      border: 2px solid index.$black;
-      box-shadow: index.$shadow;
-      margin-bottom: index.$small;
-    }
-    &__double {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-around;
-      gap: index.$xsmall;
-      & > * {
-        flex: 1;
-      }
-    }
-    &__label {
-      display: flex;
-      flex-direction: column;
-    }
-    &__description {
-      font-size: index.$xsmall;
-      font-weight: 500;
-      padding: 0 6px;
-      text-transform: capitalize;
-    }
-    &__value {
-      min-height: 44px;
-      border-left: 4px solid index.$black;
-      background-color: #d9d9d9aa;
-      font-size: index.$small;
-      padding: 8px 10px;
-      box-shadow: index.$shadow-light;
-      margin-bottom: index.$xsmall;
-      font-weight: 300;
-    }
-
-    .about-you .box__value {
-      min-height: 86px;
-    }
-
-    > .btn {
-      margin-top: index.$xsmall;
-    }
-  }
-}
+:host { display: block; background: index.$light-grey; }
+.profile-page { min-height: 100svh; padding: 110px index.$small index.$xxlarge; }
+.profile-header { display: flex; align-items: end; justify-content: space-between; gap: index.$medium; margin-bottom: index.$large; }
+.profile-header span, .profile-identity span, dt { color: index.$black-transparent; font-size: 14px; letter-spacing: 1.5px; text-transform: uppercase; }
+.profile-header h1 { margin: 5px 0; font-size: clamp(index.$large, 5vw, index.$xlarge); }
+.profile-header p { color: index.$black-transparent; font-size: index.$small; }
+.profile-card { margin: 0; padding: clamp(index.$small, 4vw, index.$large); border-top: 4px solid index.$black; }
+.profile-identity { display: flex; align-items: center; gap: index.$medium; padding-bottom: index.$large; border-bottom: 1px solid index.$gray; }
+.profile-identity__image { width: 112px; height: 112px; border: 3px solid index.$black; object-fit: cover; }
+.profile-identity h2 { margin-top: 4px; font-size: index.$large; }
+.profile-identity p { color: index.$black-transparent; font-size: index.$small; }
+.profile-details { display: grid; grid-template-columns: 1fr 1fr; gap: index.$small; margin: index.$large 0 0; }
+.profile-details div { min-width: 0; padding: index.$small; background: index.$light-grey; border-left: 4px solid index.$black; }
+.profile-details__wide { grid-column: 1 / -1; }
+dt { margin-bottom: 5px; }
+dd { margin: 0; overflow-wrap: anywhere; font-size: index.$small; }
+.profile-state { margin: 0; border-top: 4px solid index.$black; }
+.profile-state--error { color: #8b1e1e; }
 
 @media (max-width: index.$small-width) {
-  :host .box {
-    grid-template-columns: 1fr;
-
-    > *,
-    .name,
-    .surname,
-    .weight,
-    .height,
-    .birthday,
-    .about-you {
-      grid-column: 1;
-      grid-row: auto;
-    }
-  }
-}
-
-@media (min-width: 1020px) {
-  :host {
-    .box {
-      padding: index.$large;
-    }
-  }
+  .profile-header { align-items: stretch; flex-direction: column; }
+  .profile-header .btn { width: 100%; }
+  .profile-identity { align-items: flex-start; }
+  .profile-identity__image { width: 80px; height: 80px; }
+  .profile-details { grid-template-columns: 1fr; }
+  .profile-details__wide { grid-column: 1; }
 }

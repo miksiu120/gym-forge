@@ -1,101 +1,35 @@
 @use "../../../../styles/utilities/index";
 
-.calculator-error { grid-column: 1 / -1; color: #8b1e1e; font-size: 13px; }
+:host { display: block; min-height: 100svh; padding: 110px index.$small index.$xxlarge; background: index.$light-grey; }
+.calculator-page { width: min(1160px, 100%); margin: 0 auto; }
+.calculator-hero { max-width: 760px; margin-bottom: index.$large; }
+.calculator-hero > span, .section-heading span { display: block; color: index.$black-transparent; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; }
+.calculator-hero h1 { margin: 6px 0; font-size: clamp(index.$large, 5vw, index.$xlarge); }
+.calculator-hero p { max-width: 62ch; color: index.$black-transparent; font-size: index.$small; }
+.back-link { display: flex; width: fit-content; align-items: center; gap: 8px; margin-bottom: index.$medium; color: index.$black; font-size: index.$xsmall; font-weight: 600; text-transform: uppercase; }
+.calculator-grid { display: grid; gap: index.$medium; grid-template-columns: minmax(300px, .75fr) minmax(0, 1.25fr); align-items: start; }
+.box { margin: 0; padding: clamp(index.$small, 3vw, index.$large); border-top: 4px solid index.$black; }
+.section-heading h2 { margin-top: 4px; font-size: index.$large; }
+.form-box__form { display: grid; gap: index.$small; margin-top: index.$medium; }
+.field { display: grid; gap: 7px; }
+.field label { font-size: index.$xsmall; font-weight: 600; }
+.field small { color: index.$black-transparent; font-size: 13px; }
+.field__control { display: grid; grid-template-columns: 1fr 76px; }
+.field input, .field select { width: 100%; min-height: 48px; border: 1px solid index.$gray; background: index.$white; padding: 9px 12px; font: inherit; }
+.field__control input { border-right: 0; }
+.calculator-error { color: #8b1e1e; font-size: index.$xsmall; }
+.headline-result { display: flex; align-items: end; justify-content: space-between; gap: index.$small; margin: index.$medium 0; padding: index.$small; background: index.$black; color: index.$white; }
+.headline-result span { font-size: 14px; letter-spacing: 1px; text-transform: uppercase; }
+.headline-result strong { font-size: index.$large; }
+.headline-result small { font-size: index.$xsmall; font-weight: 400; }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; text-align: left; }
+th, td { padding: 12px 10px; border-bottom: 1px solid index.$gray; }
+th { font-size: 13px; letter-spacing: 1px; text-transform: uppercase; }
+tbody tr:nth-child(even) { background: index.$light-grey; }
+.result-empty { display: grid; min-height: 280px; place-items: center; align-content: center; gap: index.$small; color: index.$black-transparent; text-align: center; }
+.result-empty i { color: index.$black; font-size: index.$large; }
 
-:host {
-  @include index.box-display(index.$light-grey);
-
-  .box__description {
-    max-width: 70ch;
-    color: index.$black-transparent;
-    line-height: 1.55;
-  }
-
-  .form-box__form {
-    display: grid;
-    gap: index.$xsmall;
-    padding-top: index.$small;
-  }
-
-  .form-box__inputs {
-    display: grid;
-    grid-template-columns: 72px minmax(0, 1fr) auto;
-    align-items: center;
-    gap: 10px;
-
-    label {
-      font-size: index.$small;
-      font-weight: 500;
-    }
-
-    input,
-    select {
-      min-height: 44px;
-      border: 1px solid index.$gray;
-      border-radius: 0;
-      background: index.$white;
-      padding: 8px 10px;
-      font-family: inherit;
-      font-size: index.$xsmall;
-    }
-  }
-
-  .result-box {
-    display: flex;
-    overflow-x: auto;
-    flex-direction: column;
-
-    table {
-      width: 100%;
-      min-width: 430px;
-      margin-top: index.$small;
-      border-collapse: collapse;
-      text-align: center;
-
-      th,
-      td {
-        padding: 12px 10px;
-      }
-
-      th {
-        border-bottom: 2px solid index.$black;
-        font-size: index.$small;
-      }
-
-      tbody tr:nth-child(2n) {
-        background-color: index.$light-grey;
-      }
-    }
-  }
-}
-
-@media (min-width: index.$xlarge-width) {
-  :host .form-box button {
-    width: min(280px, 100%);
-  }
-}
-
-@media (max-width: index.$small-width) {
-  :host {
-    .form-box__inputs {
-      grid-template-columns: 56px minmax(0, 1fr) auto;
-
-      label {
-        font-size: index.$xsmall;
-      }
-    }
-
-    .result-box table {
-      min-width: 0;
-
-      th,
-      td {
-        padding: 10px 4px;
-      }
-
-      th {
-        font-size: 15px;
-      }
-    }
-  }
+@media (max-width: index.$medium-width) {
+  .calculator-grid { grid-template-columns: 1fr; }
 }

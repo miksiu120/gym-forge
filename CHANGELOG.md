@@ -9,12 +9,16 @@
 - removed the unfinished strength-standards screen from public navigation,
 - expanded repository documentation with architecture, tests and deployment trade-offs,
 - added continuous integration for backend and frontend checks.
+- redesigned calculator, authentication and profile screens around a consistent product hierarchy,
+- added discoverable demo credentials and portfolio profile links,
+- added social metadata and a branded application icon.
 
 ### Fixed
 
 - corrected misleading exercise-type naming and file-name typos,
 - prevented authenticated users from opening login and registration pages,
 - replaced the generated commented-out application test with a working test.
+- replaced misleading zero-value calculator results with intentional empty states.
 
 ## 1.0.0 - 2026-07-25
 

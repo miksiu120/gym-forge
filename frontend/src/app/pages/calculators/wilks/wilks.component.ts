@@ -1,11 +1,12 @@
-import { Component, NgModule } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 type WeightUnit = 'kg' | 'lb';
 
 @Component({
   selector: 'page-wilks',
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink],
   templateUrl: './wilks.component.html',
   styleUrl: './wilks.component.scss',
 })
@@ -16,11 +17,13 @@ export class WilksComponent {
   weightUnit: WeightUnit = 'kg';
   bodyweightUnit: WeightUnit = 'kg';
   wilksScore = 0;
+  hasResult = false;
   errorMessage = '';
 
   calculateWilks(): void {
     if (this.weight <= 0 || this.bodyweight <= 0 || !this.gender) {
       this.wilksScore = 0;
+      this.hasResult = false;
       this.errorMessage = 'Enter valid lifting and body weights, then select a gender.';
       return;
     }
@@ -49,8 +52,10 @@ export class WilksComponent {
 
     if (denominator > 0) {
       this.wilksScore = (liftedWeightKg * 500) / denominator;
+      this.hasResult = true;
     } else {
       this.wilksScore = 0;
+      this.hasResult = false;
     }
 
     this.wilksScore = Math.round(this.wilksScore * 1000) / 1000;

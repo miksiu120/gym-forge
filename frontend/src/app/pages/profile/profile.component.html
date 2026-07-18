@@ -1,57 +1,42 @@
-<div class="large-container">
+<main class="profile-page">
     <div class="small-container">
-        <div class="section-title section-title">
-            <div class="section-title__square"></div>
-            <h2 class="section-title__text">Your profile</h2>
-        </div>
-        <div class="box">
-
-            <img src="default-profile.jpg" alt="profile photo" class="box__profile-pic">
-            <div class="box__label nickname">
-                <p class="box__description"> nickname </p>
-                <p class="box__value"> {{accountDetails.nickname}}</p>
+        <header class="profile-header">
+            <div>
+                <span>Account overview</span>
+                <h1>Your profile</h1>
+                <p>Personal details and preferences used across your training plans.</p>
             </div>
+            <a routerLink="/profile-edit" class="btn">
+                <i class="fa-solid fa-pen-to-square" aria-hidden="true"></i> Edit profile
+            </a>
+        </header>
 
-            <div class="box__label email">
-                <p class="box__description"> email </p>
-                <p class="box__value"> {{accountDetails.email}} </p>
-            </div>
+        @if (loading) {
+            <section class="box profile-state" aria-live="polite">Loading profile details...</section>
+        } @else if (loadFailed) {
+            <section class="box profile-state profile-state--error" role="alert">
+                We could not load your profile. Please try again later.
+            </section>
+        } @else {
+            <section class="box profile-card" aria-label="Account details">
+                <div class="profile-identity">
+                    <img src="/default-profile.jpg" alt="" class="profile-identity__image">
+                    <div>
+                        <span>GymForge athlete</span>
+                        <h2>{{ accountDetails.name || accountDetails.nickname }} {{ accountDetails.surname || '' }}</h2>
+                        <p>&#64;{{ accountDetails.nickname }}</p>
+                    </div>
+                </div>
 
-            <div class="box__label name">
-                <p class="box__description"> Name </p>
-                <p class="box__value">
-                    {{ accountDetails.name || '-----' }}
-                </p>
-            </div>
-
-            <div class="box__label surname">
-                <p class="box__description"> Surname </p>
-                <p class="box__value">
-                    {{ accountDetails.surname || '-----' }}
-                </p>
-            </div>
-
-            <div class="box__label weight">
-                <p class="box__description"> Weight </p>
-                <p class="box__value"> {{accountDetails.weight || '-----'}} </p>
-            </div>
-            <div class="box__label height">
-                <p class="box__description"> Height </p>
-                <p class="box__value"> {{accountDetails.height || '-----'}} </p>
-            </div>
-
-            <div class="box__label birthday">
-                <p class="box__description"> birthday </p>
-                <p class="box__value"> {{accountDetails.birthDay ? (accountDetails.birthDay | date:'d MMM y') : '-----'}} </p>
-            </div>
-
-            <div class="box__label about-you">
-                <p class="box__description"> about you </p>
-                <p class="box__value"> {{accountDetails.description || '-----'}} </p>
-            </div>
-
-            <a routerLinkActive="active" routerLink="/profile-edit" class="btn"> <i
-                    class="fa-solid fa-pen-to-square"></i> Edit</a>
-        </div>
+                <dl class="profile-details">
+                    <div><dt>Email</dt><dd>{{ accountDetails.email }}</dd></div>
+                    <div><dt>Measurement system</dt><dd>{{ accountDetails.measurementSystem || 'Not specified' }}</dd></div>
+                    <div><dt>Weight</dt><dd>{{ accountDetails.weight ? accountDetails.weight + ' kg' : 'Not specified' }}</dd></div>
+                    <div><dt>Height</dt><dd>{{ accountDetails.height ? accountDetails.height + ' cm' : 'Not specified' }}</dd></div>
+                    <div><dt>Birthday</dt><dd>{{ accountDetails.birthDay ? (accountDetails.birthDay | date:'d MMMM y') : 'Not specified' }}</dd></div>
+                    <div class="profile-details__wide"><dt>About</dt><dd>{{ accountDetails.description || 'No athlete bio added yet.' }}</dd></div>
+                </dl>
+            </section>
+        }
     </div>
-</div>
+</main>
