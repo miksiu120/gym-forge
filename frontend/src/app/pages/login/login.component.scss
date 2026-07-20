@@ -65,15 +65,15 @@
       }
 
       dl {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px index.$medium;
+        display: grid;
+        gap: 6px;
         margin: 0;
       }
 
       dl div {
-        display: grid;
-        gap: 1px;
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
       }
 
       dd {
@@ -135,9 +135,9 @@
       align-items: center;
       justify-content: center;
       padding: index.$xlarge;
-      background-image: url("/training-828726_1280.webp");
+      background-image: url("/woman-7200534_1280.webp");
       background-size: cover;
-      background-position: center;
+      background-position: 20% 10%;
       background-repeat: no-repeat;
       color: index.$white;
 
