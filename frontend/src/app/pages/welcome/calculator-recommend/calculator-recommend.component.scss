@@ -13,12 +13,11 @@
   }
 
   .image {
-    min-height: 320px;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.3)),
-      url("/gym-2793007_1280.webp");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    object-position: center top;
     box-shadow: index.$shadow;
   }
 
@@ -126,10 +125,6 @@
 @media (max-width: index.$small-width) {
   :host {
     padding-top: index.$small;
-
-    .image {
-      min-height: 240px;
-    }
 
     .calculator {
       grid-template-columns: 38px minmax(0, 1fr) 44px;
