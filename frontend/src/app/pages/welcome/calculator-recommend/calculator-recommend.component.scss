@@ -15,9 +15,9 @@
   .image {
     display: block;
     width: 100%;
-    aspect-ratio: 1;
+    height: clamp(280px, 28vw, 340px);
     object-fit: cover;
-    object-position: center top;
+    object-position: center 12%;
     box-shadow: index.$shadow;
   }
 
@@ -125,6 +125,10 @@
 @media (max-width: index.$small-width) {
   :host {
     padding-top: index.$small;
+
+    .image {
+      height: 240px;
+    }
 
     .calculator {
       grid-template-columns: 38px minmax(0, 1fr) 44px;
