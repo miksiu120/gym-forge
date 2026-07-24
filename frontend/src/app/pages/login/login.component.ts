@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { LoginUserDto } from '../../interfaces/account.interfaces';
 import { AccountService } from '../../services/account-service/account-service.service';
 import { TokenService } from '../../services/token-service/token-service.service';
@@ -15,7 +15,7 @@ import { TokenService } from '../../services/token-service/token-service.service
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  imports: [ReactiveFormsModule, NgIf],
+  imports: [ReactiveFormsModule, NgIf, RouterLink],
   providers: [FormBuilder],
 })
 export class LoginComponent {
